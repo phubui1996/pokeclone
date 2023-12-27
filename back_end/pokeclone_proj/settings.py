@@ -45,8 +45,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'user_app',
-    'pokemon_api_app',
+    'pokemon_app',
     'team_app',
+    'map_app',
 ]
 
 MIDDLEWARE = [
