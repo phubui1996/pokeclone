@@ -1,5 +1,5 @@
 from django.db import models
-
+from user_app.models import User
 # Create your models here.
 
 class Pokemon(models.Model):
@@ -11,3 +11,7 @@ class Pokemon(models.Model):
   back_img = models.URLField()
   hp = models.IntegerField(default = 10)
   xp = models.IntegerField(default = 0)
+
+class UserPokemon(models.Model):
+  user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "captured_pokemon")
+  pokemon = models.ForeignKey(Pokemon, on_delete = models.CASCADE, related_name='captured_pokemon')
