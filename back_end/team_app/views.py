@@ -14,7 +14,6 @@ from user_app.views import UserPermissions
 class team(UserPermissions):
   def get(self, request):
     user = request.user 
-    print(user)
     try:
       team = Team.objects.filter(user = user)
       team_ser = TeamSerializer(team, many = True)
