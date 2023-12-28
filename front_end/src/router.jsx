@@ -4,6 +4,7 @@ import RegisterPage from "./pages/RegisterPage";
 import GamePlay from "./pages/GamePlayPage";
 import HomePage from "./pages/HomePage";
 import LoadGame from "./pages/LoadGamePage";
+import BattlePage from "./pages/BattlePage";
 
 
   const router = createBrowserRouter([
@@ -12,7 +13,7 @@ import LoadGame from "./pages/LoadGamePage";
       element: <App />,
       children: [
               {
-                path: "/",
+                index: true,
                 element: <HomePage />
               },
               {
@@ -22,6 +23,14 @@ import LoadGame from "./pages/LoadGamePage";
               {
                 path: "loadgame/",
                 element: <LoadGame />
+              },
+              {
+                path: "battle/",
+                element: <BattlePage />
+              },
+              {
+                path: "register/",
+                element: <RegisterPage />
               }
             ]
             
