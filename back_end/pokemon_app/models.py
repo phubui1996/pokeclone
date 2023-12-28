@@ -9,6 +9,7 @@ class Pokemon(models.Model):
   move_2 = models.CharField(max_length=15)
   front_img = models.URLField()
   back_img = models.URLField()
+  pokemon_id = models.IntegerField()
   hp = models.IntegerField(default = 10)
   xp = models.IntegerField(default = 0)
 

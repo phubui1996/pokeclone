@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'user_app',
     'pokemon_app',
-    'team_app',
     'map_app',
 ]
 
