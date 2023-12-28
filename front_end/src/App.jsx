@@ -1,33 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState} from 'react'
+import { Outlet } from 'react-router'
+import RegisterPage from './pages/RegisterPage'
+import LogIn from './components/Login'
+import SignUp from './components/SignUp'
+import pokeLogo from './assets/pokelogo.png'
+import HomePage from './pages/HomePage'
 
 function App() {
-  const [count, setCount] = useState(0)
+const [boolean, setBoolean] = useState(false)
+const [login, setLogin] = useState(false)
+const [user, setUser] = useState([])
+
+const LoggingOut = () => {
+  window.location.href = '/'
+  setBoolean(false)
+}
 
   return (
     <>
+    {boolean ? (
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <Outlet />
+      <button onClick={() => LoggingOut()}>LogOut</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+    ) : (
+      <div>
+        <img id='logo' src={pokeLogo}></img>
+          <RegisterPage />
+          {login ? (
+            <div>
+            <button onClick={() => setLogin(false)}>Sign Up</button>
+            <LogIn />
+            </div>
+          ) : (
+            <div>
+            <button onClick={() => setLogin(true)}>Log In</button>
+            <SignUp />
+            </div>
+          )}
+          <button onClick={() => setBoolean(true)}>User</button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    )}
     </>
   )
 }
