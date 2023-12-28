@@ -9,8 +9,6 @@ export default function HomePage(){
         {isHomePage ? (
             <div>
         <h1>PokeClone</h1>
-        <Link to='game/'><button>New Game</button></Link>
-        <Link to='loadgame/'><button>Load Game</button></Link>
         </div>
         ) : (
 
