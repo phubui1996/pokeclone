@@ -35,6 +35,12 @@ export default function LogInPage() {
             alert("Something Went Wrong");
         }
     }
+
+    useEffect (() => {
+        if (isLoggedIn){
+            navigate("/")
+        }
+    },[])
     return (
         <>
             <div>
