@@ -1,6 +1,6 @@
 
 
-const StarterPage = () => {
+const IntroPage = () => {
 
     return (
         <div className="full_page_div">
@@ -9,4 +9,4 @@ const StarterPage = () => {
     )
 }
 
-export default StarterPage;
+export default IntroPage;
