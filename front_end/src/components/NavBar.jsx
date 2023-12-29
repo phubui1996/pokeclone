@@ -13,22 +13,23 @@ export default function Navbar({user, setUser, isLoggedIn, setIsLoggedIn}) {
     const handleLogOut = async() => {
       let response = await userApi.post("logout/")
       console.log(response.status)
-      if (response.status === 200) {
+      if (response.status === 204) {
         setUser("")
         localStorage.removeItem("token")
         localStorage.removeItem("email")
-        delete api.defaults.headers.common["Authorization"]
+        delete userApi.defaults.headers.common["Authorization"]
         setIsLoggedIn(false)
-        navigate("/signup")
+        navigate("/landing")
       } 
     }
 
     const signUpOrLogIn = () => {
-      if (window.location.href === '/signup') {
+      console.log(window.location.href)
+      if (window.location.href === 'http://localhost:5173/signup') {
         setLinkWords('Log In')
         setLinkWordsLink('/login')
       }
-      else if (window.location.href === '/login') {
+      else if (window.location.href === 'http://localhost:5173/login') {
         setLinkWords('Sign Up')
         setLinkWordsLink('/signup')
       }

@@ -27,7 +27,7 @@ export default function SignUpPage() {
             userApi.defaults.headers.common[
                 "Authorization"
             ] = `Token ${response.data.Token}`;
-            navigate("/landing");
+            navigate("/");
         }
         else {
             alert("Something Went Wrong");
@@ -36,10 +36,9 @@ export default function SignUpPage() {
 
 
     return (
-        <>
-            <h1>SignUp Page</h1>
-            {isLoggedIn ?
-
+        <div className="full_page_div">
+            <div id='signup_div'>
+                <h1>Sign Up</h1>
                 <form onSubmit={(e) => SubmitUser(e)}>
                     <h3>Email: </h3>
                     <input
@@ -62,8 +61,7 @@ export default function SignUpPage() {
                         required></input>
                     <button type="Sumbit">Signup</button>
                 </form>
-                : navigate('/')
-            }
-        </>
+            </div>
+        </div>
     )
 }

@@ -7,17 +7,14 @@ import Navbar from './components/NavBar'
 
 
 function App() {
+
 const [isLoggedIn, setIsLoggedIn] = useState(false)
 const [user, setUser] = useState([])
 
-const LoggingOut = () => {
-  window.location.href = '/'
-  setIsLoggedIn(false)
-}
 
   return (
     <>
-      <Navbar user = {user} setUser = {setUser} />
+      <Navbar user={user} setUser={setUser} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
 
       <Outlet context={{isLoggedIn, setIsLoggedIn, user, setUser}}/>  
     </>
