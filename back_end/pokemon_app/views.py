@@ -33,8 +33,8 @@ class GetPokemon(APIView):
         type =  pokemon_data['types'][0]['type']['name'],
         move_1 = pokemon_data['moves'][0]['move']['name'],
         move_2 = pokemon_data['moves'][1]['move']['name'],
-        front_img = pokemon_data['sprites']['back_shiny'],
-        back_img = pokemon_data['sprites']['front_shiny'],
+        front_img = pokemon_data['sprites']['front_shiny'],
+        back_img = pokemon_data['sprites']['back_shiny'],
         pokemon_id = pokemon_data['id'],
         xp = 0,
         hp = 10
@@ -133,42 +133,4 @@ class Pokedex(APIView):
   def delete(self, request):
     pokemons = Pokemon.objects.all()
     pokemons.delete()
-    return Response("Pokedex reset", status = HTTP_204_NO_CONTENT)
-
-class AddToTeamView(UserPermissions):
-  def post(self, request, team_pokemon_id):
-    try: 
-      team_pokemon = TeamPokemon.objects.get(id = team_pokemon_id)
-      
-      if team_pokemon.user_pokemon.user == request.user:
-        team_pokemon.is_selected = True
-        team_pokemon.save()
-
-        team_pokemon_ser = TeamPokemon(team_pokemon)
-        return Response(team_pokemon_ser, status = HTTP_201_CREATED)
-        
-      else:
-        
-        return Response("You can only pick your own Pokemon", status = HTTP_400_BAD_REQUEST)
-      
-    except Exception as e:
-      print(e)
-      return Response("Team Pokemon not found", status = HTTP_404_NOT_FOUND)
-      
-class DeleteFromTeamView(UserPermissions):
-  def post(self, request, team_pokemon_id):
-    try:
-      team_pokemon = TeamPokemon.objects.get(id = team_pokemon_id)
-
-      if team_pokemon.user_pokemon.user == request.user:
-        team_pokemon.is_selected = False
-        team_pokemon.save()
-
-        team_pokemon_ser = TeamPokemon(team_pokemon)
-        return Response(team_pokemon_ser)
-      else:
-        return Response("you can only unpick your own Pokemon.", status = HTTP_400_BAD_REQUEST)
-      
-    except Exception as e:
-      print(e)
-      return Response("Team Pokemon not found", status = HTTP_404_NOT_FOUND)
+    return Response("Pokedex reset", status = HTTP_204_NO_CONTENT)    
