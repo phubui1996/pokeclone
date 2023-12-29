@@ -4,7 +4,7 @@ import { Outlet } from 'react-router'
 import pokeLogo from './assets/pokelogo.png'
 import HomePage from './pages/HomePage'
 import Navbar from './components/NavBar'
-import SignUp from './components/SignUp'
+
 
 function App() {
 const [isLoggedIn, setIsLoggedIn] = useState(false)

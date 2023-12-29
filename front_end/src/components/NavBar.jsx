@@ -5,13 +5,16 @@ import pokeLogo from '../assets/pokelogo.png'
 import { userApi } from "./utilities";
 
 export default function Navbar({user, setUser, isLoggedIn, setIsLoggedIn}) {
+    const [linkWords, setLinkWords] = useState('Log In')
+    const [linkWordsLink, setLinkWordsLink] = useState('/login')
     
     const navigate = useNavigate();
     
     const handleLogOut = async() => {
       let response = await userApi.post("logout/")
-      if (response.status === 204) {
-        setUser(null)
+      console.log(response.status)
+      if (response.status === 200) {
+        setUser("")
         localStorage.removeItem("token")
         localStorage.removeItem("email")
         delete api.defaults.headers.common["Authorization"]
@@ -20,15 +23,35 @@ export default function Navbar({user, setUser, isLoggedIn, setIsLoggedIn}) {
       } 
     }
 
+    const signUpOrLogIn = () => {
+      if (window.location.href === '/signup') {
+        setLinkWords('Log In')
+        setLinkWordsLink('/login')
+      }
+      else if (window.location.href === '/login') {
+        setLinkWords('Sign Up')
+        setLinkWordsLink('/signup')
+      }
+      else {
+        setLinkWords('')
+      }
+    }
+
+    console.log(isLoggedIn)
+
+    useEffect(() => {
+      signUpOrLogIn()
+    })
+
   return (
     <>
-      <nav className="Navbar">
-        <img id='logo' src={pokeLogo}></img>
+      <nav className="Navbar" id='nav_bar'>
         <div className="navLinks">
+            <img id='nav_logo' src={pokeLogo}></img>
             <Link to="/"> Home </Link>
-            <Link to="/register"> Sign Up </Link>
+            <Link to={linkWordsLink}> {linkWords} </Link>
             {/* <Link to="/login"> Log In </Link> */}
-            {user?
+            {isLoggedIn ?
             <button onClick={handleLogOut}>Log Out</button>
             :
             null

@@ -42,8 +42,8 @@ const BattlePage = () => {
                     <div id='moves_div'></div>
                     <div id='other_options_div'></div>
                 </div>
-            </div>)
-                {/* : (loading...)
+            </div>
+            {/* ) : ('loading...')
             } */}
         </div>
     )
