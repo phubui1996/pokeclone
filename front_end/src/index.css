@@ -1,17 +1,29 @@
 #root {
-    background-color: rgb(54, 54, 54);
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
+    height: 100vh;
+    width: 100%;
   }
-#logo{
-    width: 10px;
-    height: 50px;
-    align-items: center;
 
+.full_page_div {
+  height: 100%;
+  width: 100%;
 }
-#logo{
-    width: auto;
-    height: 200px;
+
+#nav_logo {
+    width: 70px;
+    height: 70px;
+}
+
+#landing_logo {
+  width: 500px;
+  height: 500px;
+}
+
+#landing_main_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("./assets/4.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
 }
