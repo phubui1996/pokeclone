@@ -5,7 +5,7 @@ from rest_framework.status import (
     HTTP_201_CREATED,
     HTTP_400_BAD_REQUEST,
     HTTP_204_NO_CONTENT,
-    HTTP_404_NOT_FOUND,
+    HTTP_404_NOT_FOUND
 )
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
@@ -107,7 +107,7 @@ class UserPokemonView(UserPermissions):
         # Serialize the updated Pokemon instance
         pokemon_ser = PokemonSerializer(pokemon)
         
-        return Response("Pokemon updated successfully")
+        return Response("Pokemon updated successfully", status = HTTP_200)
     
     except Exception as e:
         print(e)
@@ -118,9 +118,19 @@ class UserPokemonView(UserPermissions):
     try: 
       user_pokemon = UserPokemon.objects.get(pokemon_id = id)
       user_pokemon.delete()
-      return Response("Pokemon released successfully", status = HTTP_201_CREATED)
+      return Response("Pokemon released successfully", status = HTTP_204_NO_CONTENT)
     
     except Exception as e:
       print(e)
       return Response("Pokemon not found in User's pokemon list", status = HTTP_404_NOT_FOUND)
       
+class Pokedex(APIView):
+  def get(self, request):
+    pokemons = Pokemon.objects.all()
+    pokemons_ser = PokemonSerializer(pokemons,many = True)
+    return Response(pokemons_ser.data)
+
+  def delete(self, request):
+    pokemons = Pokemon.objects.all()
+    pokemons.delete()
+    return Response("Pokedex reset", status = HTTP_204_NO_CONTENT)
