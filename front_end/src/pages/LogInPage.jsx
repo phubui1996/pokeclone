@@ -21,12 +21,12 @@ export default function LogInPage() {
         if (response.status === 200) {
             console.log(response.data.User)
             setUser(response.data.User)
-            localStorage.setItem("token", response.data.token)
+            localStorage.setItem("token", response.data.Token)
             setIsLoggedIn(true)
             userApi.defaults.headers.common[
                 "Authorization"
             ] = `Token ${response.data.Token}`;
-            navigate("/landing");
+            navigate("/");
         }
         else if (response.status === 400) {
             console.log("capture error")
