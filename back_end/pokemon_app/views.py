@@ -14,7 +14,7 @@ from .models import Pokemon
 import requests
 
 from user_app.views import UserPermissions
-from .serializers import UserPokemon, UserPokemonSerializer, PokemonSerializer
+from .serializers import UserPokemon, UserPokemonSerializer, PokemonSerializer, TeamPokemon, TeamPokemonSerializer
 
 # Create your views here.
 
@@ -107,7 +107,7 @@ class UserPokemonView(UserPermissions):
         # Serialize the updated Pokemon instance
         pokemon_ser = PokemonSerializer(pokemon)
         
-        return Response("Pokemon updated successfully", status = HTTP_200)
+        return Response("Pokemon updated successfully")
     
     except Exception as e:
         print(e)
@@ -134,3 +134,41 @@ class Pokedex(APIView):
     pokemons = Pokemon.objects.all()
     pokemons.delete()
     return Response("Pokedex reset", status = HTTP_204_NO_CONTENT)
+
+class AddToTeamView(UserPermissions):
+  def post(self, request, team_pokemon_id):
+    try: 
+      team_pokemon = TeamPokemon.objects.get(id = team_pokemon_id)
+      
+      if team_pokemon.user_pokemon.user == request.user:
+        team_pokemon.is_selected = True
+        team_pokemon.save()
+
+        team_pokemon_ser = TeamPokemon(team_pokemon)
+        return Response(team_pokemon_ser, status = HTTP_201_CREATED)
+        
+      else:
+        
+        return Response("You can only pick your own Pokemon", status = HTTP_400_BAD_REQUEST)
+      
+    except Exception as e:
+      print(e)
+      return Response("Team Pokemon not found", status = HTTP_404_NOT_FOUND)
+      
+class DeleteFromTeamView(UserPermissions):
+  def post(self, request, team_pokemon_id):
+    try:
+      team_pokemon = TeamPokemon.objects.get(id = team_pokemon_id)
+
+      if team_pokemon.user_pokemon.user == request.user:
+        team_pokemon.is_selected = False
+        team_pokemon.save()
+
+        team_pokemon_ser = TeamPokemon(team_pokemon)
+        return Response(team_pokemon_ser)
+      else:
+        return Response("you can only unpick your own Pokemon.", status = HTTP_400_BAD_REQUEST)
+      
+    except Exception as e:
+      print(e)
+      return Response("Team Pokemon not found", status = HTTP_404_NOT_FOUND)

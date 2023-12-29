@@ -16,3 +16,7 @@ class Pokemon(models.Model):
 class UserPokemon(models.Model):
   user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "captured_pokemon")
   pokemon = models.ForeignKey(Pokemon, on_delete = models.CASCADE, related_name='captured_pokemon')
+
+class TeamPokemon(models.Model):
+  user_pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE, related_name="team_pokemon")
+  is_selected = models.BooleanField(default=True)
