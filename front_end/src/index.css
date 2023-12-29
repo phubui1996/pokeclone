@@ -1,7 +1,7 @@
 #root {
-    height: 100vh;
-    width: 100%;
-  }
+  height: 100vh;
+  width: 100%;
+}
 
 .full_page_div {
   height: 100%;
@@ -19,8 +19,8 @@
 }
 
 #nav_logo {
-    width: 70px;
-    height: 70px;
+  width: 70px;
+  height: 70px;
 }
 
 #landing_logo {
@@ -28,7 +28,9 @@
   height: 500px;
 }
 
-#landing_main_div {
+#landing_main_div,
+#signup_div,
+#login_div {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,5 +56,46 @@
   background-color: rgb(211, 189, 21);
   color: rgb(39, 72, 154);
   border: 4px solid rgb(39, 72, 154);
-  
+
+}
+
+.form_div {
+  background-color: rgba(245, 245, 245, 0.578);
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgb(39,72,154);
+}
+
+.the_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+input {
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  width: 100%;
+}
+
+.form_button {
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(39, 72, 154);
+  color: whitesmoke;
+  padding: 6px;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.form_button:hover {
+  background-color: rgb(211, 189, 21);
+  color: whitesmoke;
 }

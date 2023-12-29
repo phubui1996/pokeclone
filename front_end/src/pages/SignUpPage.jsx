@@ -38,29 +38,31 @@ export default function SignUpPage() {
     return (
         <div className="full_page_div">
             <div id='signup_div'>
-                <h1>Sign Up</h1>
-                <form onSubmit={(e) => SubmitUser(e)}>
-                    <h3>Email: </h3>
-                    <input
-                        type='text'
-                        placeholder="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        required></input>
-                    <h3>Password: </h3>
-                    <input type='password'
-                        placeholder="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        autoComplete="off"
-                        required></input>
-                    {/* <h3>Re-Enter Password: </h3>
+                <div className="form_div">
+                    <h1>Sign Up</h1>
+                    <form onSubmit={(e) => SubmitUser(e)} className="the_form">
+                        <h5>Email: </h5>
+                        <input
+                            type='text'
+                            placeholder="email"
+                            onChange={(e) => setEmail(e.target.value)}
+                            required></input>
+                        <h5>Password: </h5>
+                        <input type='password'
+                            placeholder="password"
+                            onChange={(e) => setPassword(e.target.value)}
+                            autoComplete="off"
+                            required></input>
+                        {/* <h5>Re-Enter Password: </h5>
                     <input type='text' placeholder="re-enter password" required></input> */}
-                    <h3>Username: </h3>
-                    <input type='text'
-                        placeholder="username"
-                        onChange={(e) => setUsername(e.target.value)}
-                        required></input>
-                    <button type="Sumbit">Signup</button>
-                </form>
+                        <h5>Username: </h5>
+                        <input type='text'
+                            placeholder="username"
+                            onChange={(e) => setUsername(e.target.value)}
+                            required></input>
+                        <button type="Sumbit" className="form_button">Sign Up</button>
+                    </form>
+                </div>
             </div>
         </div>
     )
