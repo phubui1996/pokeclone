@@ -62,7 +62,7 @@ export default function SignUpPage() {
                         required></input>
                     <button type="Sumbit">Signup</button>
                 </form>
-                : navigate('/landing')
+                : navigate('/')
             }
         </>
     )

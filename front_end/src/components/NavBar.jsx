@@ -25,12 +25,19 @@ export default function Navbar({user, setUser, isLoggedIn, setIsLoggedIn}) {
 
     const signUpOrLogIn = () => {
       if (window.location.href === '/signup') {
-        linkWords = 'Log In'
+        setLinkWords('Log In')
+        setLinkWordsLink('/login')
       }
       else if (window.location.href === '/login') {
-        linkWords = 'Sign Up'
+        setLinkWords('Sign Up')
+        setLinkWordsLink('/signup')
+      }
+      else {
+        setLinkWords('')
       }
     }
+
+    console.log(isLoggedIn)
 
     useEffect(() => {
       signUpOrLogIn()
@@ -44,7 +51,7 @@ export default function Navbar({user, setUser, isLoggedIn, setIsLoggedIn}) {
             <Link to="/"> Home </Link>
             <Link to={linkWordsLink}> {linkWords} </Link>
             {/* <Link to="/login"> Log In </Link> */}
-            {isLoggedIn?
+            {isLoggedIn ?
             <button onClick={handleLogOut}>Log Out</button>
             :
             null
