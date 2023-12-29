@@ -8,6 +8,16 @@
   width: 100%;
 }
 
+#nav_bar {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: left;
+  padding: 5px;
+  width: 100%;
+  background-color: rgba(250, 235, 215, 0.531);
+}
+
 #nav_logo {
     width: 70px;
     height: 70px;

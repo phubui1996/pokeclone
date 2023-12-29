@@ -38,7 +38,7 @@ export default function Navbar({user, setUser, isLoggedIn, setIsLoggedIn}) {
 
   return (
     <>
-      <nav className="Navbar">
+      <nav className="Navbar" id='nav_bar'>
         <div className="navLinks">
             <img id='nav_logo' src={pokeLogo}></img>
             <Link to="/"> Home </Link>
