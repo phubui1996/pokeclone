@@ -5,7 +5,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import { wildApi } from '../components/utilities';
 
 const BattlePage = () => {
-    const [randomNum, setRandomNum] = useState(1)
+    const [randomNum, setRandomNum] = useState("")
     const [currentOpponent, setCurrentOpponent] = useState([])
     const [currentPokemon, setCurrentPokemon] = useState([])
     const [currentPokemonHealth, setCurrentPokemonHealth] = useState(50)
@@ -20,6 +20,7 @@ const BattlePage = () => {
         setRandomNum(Math.floor(Math.random() * (100 - 1 + 1)) + 1)
     }
 
+    console.log(randomNum)
     const wildPoke = async () => {
         getRandomNum()
         let response = await wildApi.get(`${randomNum}`)
@@ -30,7 +31,7 @@ const BattlePage = () => {
     }
 
     const getTemp = async () => {
-        let response = await axios.get('https://pokeapi.co/api/v2/pokemon/1/')
+        let response = await axios.get('https://pokeapi.co/api/v2/pokemon/3/')
         console.log('pokeapi', response.data)
         setCurrentPokemon(response.data)
         setCurrentPokemonHealth(response.data.stats[0].base_stat)
@@ -84,9 +85,13 @@ const BattlePage = () => {
     }
 
     useEffect(() => {
+        getRandomNum()
+    }, [])
+
+    useEffect(() => {
         getTemp()
         wildPoke()
-    }, [])
+    },[randomNum])
 
     useEffect(() => {
         if (currentOpponentHealth < 1) {
