@@ -3,10 +3,17 @@ import App from "./App";
 import LogInPage from "./pages/LogInPage"
 import MainMapPage from "./pages/MainMapPage";
 import HomePage from "./pages/HomePage";
-import LoadGame from "./pages/LoadGamePage";
+import LoadGamePage from "./pages/LoadGamePage";
 import BattlePage from "./pages/BattlePage";
 import SignUpPage from "./pages/SignUpPage";
 import LandingPage from "./pages/LandingPage";
+import StarterPage from "./pages/StarterPage";
+import GymPage from "./pages/GymPage";
+import PokeCenterPage from "./pages/PokeCenterPage";
+import IntroPage from "./pages/IntroPage";
+import ErrorPage from "./pages/ErrorPage";
+import HousePage from "./pages/HousePage";
+import PokedexPage from "./pages/PokedexPage";
 
 
 const router = createBrowserRouter([
@@ -31,8 +38,16 @@ const router = createBrowserRouter([
         element: <LogInPage />
       },
       {
+        path: "starter/",
+        element: <StarterPage />
+      },
+      {
+        path: "intro/",
+        element: <IntroPage />
+      },
+      {
         path: "loadgame/",
-        element: <LoadGame />
+        element: <LoadGamePage />
       },
       {
         path: "main/",
@@ -41,9 +56,25 @@ const router = createBrowserRouter([
       {
         path: "battle/",
         element: <BattlePage />
+      },
+      {
+        path: "gym/",
+        element: <GymPage />
+      },
+      {
+        path: "pokecenter/",
+        element: <PokeCenterPage />
+      },
+      {
+        path: "house/",
+        element: <HousePage />
+      },
+      {
+        path: "pokedex/",
+        element: <PokedexPage />
       }
     ]
-
+    
   },
 ]);
 

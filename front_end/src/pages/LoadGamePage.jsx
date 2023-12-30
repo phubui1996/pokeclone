@@ -1,4 +1,4 @@
-export default function LoadGame(){
+export default function LoadGamePage(){
 
     return(
         <>

@@ -36,34 +36,36 @@ export default function LogInPage() {
         }
     }
 
-    useEffect (() => {
-        if (isLoggedIn){
+    useEffect(() => {
+        if (isLoggedIn) {
             navigate("/")
         }
-    },[])
+    }, [])
     return (
-        <>
-            <div>
-                <form onSubmit={(e) => SubmitUser(e)}>
+        <div className="full_page_div">
+            <div id='login_div'>
+                <div className="form_div">
                     <h1>Log In</h1>
-                    <h3>Email: </h3>
-                    <input 
-                        type='text' 
-                        placeholder="email" 
-                        required
-                        onChange={(e) => setEmail(e.target.value)}
-                    ></input>
-                    <h3>Password: </h3>
-                    <input 
-                        type='password' 
-                        placeholder="password" 
-                        required
-                        autoComplete="off"
-                        onChange={(e) => setPassword(e.target.value)}
-                    ></input>
-                    <button type='submit'>Log In</button>
-                </form>
+                    <form onSubmit={(e) => SubmitUser(e)} className="the_form">
+                        <h5>Email: </h5>
+                        <input
+                            type='text'
+                            placeholder="email"
+                            required
+                            onChange={(e) => setEmail(e.target.value)}
+                        ></input>
+                        <h5>Password: </h5>
+                        <input
+                            type='password'
+                            placeholder="password"
+                            required
+                            autoComplete="off"
+                            onChange={(e) => setPassword(e.target.value)}
+                        ></input>
+                        <button type='submit' className="form_button">Log In</button>
+                    </form>
+                </div>
             </div>
-        </>
+        </div>
     )
 }

@@ -1,12 +1,14 @@
 #root {
-    height: 100vh;
-    width: 100%;
-  }
+  height: 100vh;
+  width: 100%;
+}
 
 .full_page_div {
   height: 100%;
   width: 100%;
 }
+
+/* Nav Bar /////////////////////////////////////////////////////////////// */
 
 #nav_bar {
   display: flex;
@@ -19,16 +21,20 @@
 }
 
 #nav_logo {
-    width: 70px;
-    height: 70px;
+  width: 70px;
+  height: 70px;
 }
+
+/* Landing Page ////////////////////////////////////////////////////////// */
 
 #landing_logo {
   width: 500px;
   height: 500px;
 }
 
-#landing_main_div {
+#landing_main_div,
+#signup_div,
+#login_div {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,5 +60,150 @@
   background-color: rgb(211, 189, 21);
   color: rgb(39, 72, 154);
   border: 4px solid rgb(39, 72, 154);
-  
+
+}
+
+/* Sign Up / Log In Page ////////////////////////////////////////////////////////// */
+
+.form_div {
+  background-color: rgba(245, 245, 245, 0.578);
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgb(39, 72, 154);
+}
+
+.the_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+input {
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  width: 100%;
+}
+
+.form_button {
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(39, 72, 154);
+  color: whitesmoke;
+  padding: 6px;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.form_button:hover {
+  background-color: rgb(211, 189, 21);
+  color: whitesmoke;
+}
+
+/* Battle Page ////////////////////////////////////////////////////////// */
+
+#battle_div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-image: url("./assets/BattleBackgrounds/grassland2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 20px;
+}
+
+#poke_div {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  justify-content: space-evenly;
+  align-items: end;
+  padding-bottom: 30px;
+}
+
+#opponent_div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: 50%;
+  margin-bottom: 2%;
+}
+
+#your_pokemon_div {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  padding: 10px;
+  width: 50%;
+}
+
+.poke_profile_div {
+  border: 2px solid blue;
+}
+
+.pokemon_image {
+  position: relative;
+  width: 300%;
+  height: 300%;
+  border: 2px solid red;
+}
+
+.status_bar_div {
+  width: 100%;
+  border: rgb(211, 189, 21);
+}
+
+#battle_options_div {
+  margin-top: 10vh;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  border-radius: 5px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#moves_div {
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgba(245, 245, 245, 0.448);
+  margin: 10px;
+  border-radius: 10px;
+}
+
+#other_options_div {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgba(245, 245, 245, 0.448);
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.battle_buttons {
+  width: 40%;
+  height: 30px;
+  border: none;
+  background-color: rgb(39, 72, 154);
+  color: white;
+  border-radius: 5px;
+}
+
+.battle_buttons:hover {
+  background-color: rgb(211, 189, 21);
 }

@@ -3,3 +3,7 @@ import axios from "axios";
 export const userApi = axios.create({
     baseURL: "http://127.0.0.1:8000/api/v1/user/",
   });
+
+export const wildApi = axios.create({
+  baseURL: "http://127.0.0.1:8000/api/v1/pokemon/wild/",
+});
