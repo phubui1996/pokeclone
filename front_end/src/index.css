@@ -8,6 +8,8 @@
   width: 100%;
 }
 
+/* Nav Bar /////////////////////////////////////////////////////////////// */
+
 #nav_bar {
   display: flex;
   position: absolute;
@@ -22,6 +24,8 @@
   width: 70px;
   height: 70px;
 }
+
+/* Landing Page ////////////////////////////////////////////////////////// */
 
 #landing_logo {
   width: 500px;
@@ -59,6 +63,8 @@
 
 }
 
+/* Sign Up / Log In Page ////////////////////////////////////////////////////////// */
+
 .form_div {
   background-color: rgba(245, 245, 245, 0.578);
   padding: 30px;
@@ -67,7 +73,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: rgb(39,72,154);
+  color: rgb(39, 72, 154);
 }
 
 .the_form {
@@ -98,4 +104,68 @@ input {
 .form_button:hover {
   background-color: rgb(211, 189, 21);
   color: whitesmoke;
+}
+
+/* Battle Page ////////////////////////////////////////////////////////// */
+
+#battle_div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+}
+
+#opponent_div {
+  margin-top: 10vh;
+  border: 2px solid blue;
+  height: 33%;
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  align-items: end;
+  padding: 10px;
+  
+}
+
+#your_pokemon_div {
+  border: 3px solid brown;
+  height: 33%;
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  align-items: start;
+  padding: 10px;
+}
+
+.poke_profile_div {
+  border: 2px solid red;
+}
+
+.pokemon_image {
+  background-color: lightgray;
+  width: 100%;
+  height: 100%;
+}
+
+.status_bar_div {
+  width: 100%;
+  border: rgb(211, 189, 21);
+}
+
+#battle_options_div {
+  border: 2px solid orange;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  
+}
+
+#moves_div {
+  border: 2px solid yellow;
+  width: 60%;
+}
+
+#other_options_div {
+  border: 2px solid black;
+  width: 40%;
 }
