@@ -13,6 +13,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from .models import User
 from team_app.models import Team
+from pokemon_app.models import Pokemon
 
 # Create your views here.
 
@@ -20,20 +21,27 @@ class Sign_up(APIView):
   def post(self, request):
     data = request.data 
     data['username'] = request.data.get('email')
+    
+    # Create a new user
     new_user = User.objects.create_user(**data)
+
+    # Create a new team for the user
     new_team = Team.objects.create(user=new_user)
+
+    # Reset the Pokemon table (clear all records)
+    Pokemon.objects.all().delete()
 
     if new_user is not None: 
       new_token = Token.objects.create(user = new_user)
       login(request, new_user)
       return Response({
-        "User": new_user.user_name,
+        "User": new_user.username,
         "Token": new_token.key,
         "TeamID": new_team.id
       }, status = HTTP_201_CREATED)
     
     return Response("Something went wrong with sign up", status=HTTP_400_BAD_REQUEST)
-  
+
 class Log_in(APIView):
   def post(self, request):
     data = request.data.copy()
@@ -43,7 +51,7 @@ class Log_in(APIView):
       token, created = Token.objects.get_or_create(user = user)
       login(request, user)
       return Response({
-        "User": user.user_name,
+        "User": user.username,
         "Token": token.key
       })
     
@@ -55,7 +63,7 @@ class UserPermissions(APIView):
 
 class Info(UserPermissions):
   def get(self, request):
-    return Response({"user": request.user.user_name})
+    return Response({"user": request.user.username, "email":request.user.id, "TeamID":request.user.team.id})
 
 class Log_out(UserPermissions):
   def post(self, request):
