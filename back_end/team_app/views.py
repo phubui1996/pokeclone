@@ -16,44 +16,49 @@ from django.shortcuts import get_object_or_404
 from user_app.views import UserPermissions
 from .models import Team, TeamPokemon
 from pokemon_app.models import UserPokemon
-from .serializers import TeamPokemonSerializer, TeamSerializer
+from pokemon_app.serializers import UserPokemonSerializer
+from .serializers import TeamPokemonSerializer, TeamPokemon
 
 # Create your views here.
 class TeamManager(UserPermissions):
-  template_name = 'team_pokemon.html'
 
-  def get(self, request):     #get user's pokemon team(6)
+  def get(self, request):  
     user_teams = Team.objects.filter(user = request.user)
-    user_teams_ser = TeamSerializer(user_teams, many = True)
-    return Response(user_teams.data)
+    user_teams_data = []
+    
+    for team in user_teams:
+      team_data = TeamPokemonSerializer(team).data
+      team_data['pokemons'] = UserPokemonSerializer(team.pokemons.all(), many=True).data
+      user_teams_data.append(team_data)
+    return Response(user_teams_data)
 
- 
-  def post(self, request, team_id):       #add pokemon to user's team
-
+  def post(self, request, team_id):  
     team = get_object_or_404(Team, id = team_id, user = request.user)
-    team_pokemons = TeamPokemon.objects.filter(team = team)
+    action = self.request.data.get('action')
+    pokemon_ids = self.request.data.get('pokemon_ids', [])
 
-    if request.method == 'POST':
+    try:
+      if action == 'pick': 
 
-      action = request.POST.get('action')
-      pokemon_ids = request.POST.getlist('pokemon_id')
-
-      if action == 'pick':          # Add selected Pokemon to the team
-        # Clear existing team for simplicity, adjust as needed
+        # Clear existing team for simplicity.
+        team_pokemons = TeamPokemon.objects.filter(team = team)
         team_pokemons.delete()
 
         for pokemon_id in pokemon_ids:
-          user_pokemon = get_object_or_404(UserPokemon, id=pokemon_id, user = request.user)
+          user_pokemon = get_object_or_404(UserPokemon, pokemon_id=pokemon_id, user = request.user)
           position = TeamPokemon.objects.filter(team = team).count() + 1
           TeamPokemon.objects.create(team = team, user_pokemon = user_pokemon, position=position)
-        return Response("Pokemon added to user's team", status = HTTP_201_CREATED)
+        return Response("Pokemon added to user's team")
 
-      elif action == 'unpick':      # Unpick the selected Pokemon from the team
-          
+      elif action == 'unpick':   
         for pokemon_id in pokemon_ids:
-          user_pokemon = get_object_or_404(UserPokemon, id=pokemon_id, user = request.user)
+          user_pokemon = get_object_or_404(UserPokemon, pokemon_id=pokemon_id, user = request.user)
           team_pokemon = TeamPokemon.objects.get(team = team, user_pokemon = user_pokemon)
           team_pokemon.delete()
-        return Response("Pokemon removed from user's team", status = HTTP_201_CREATED)
+        return Response("Pokemon removed from user's team")
         
+    except Exception as e:
+      return Response(f"Error: {str(e)}", status=HTTP_400_BAD_REQUEST)
+    
     return Response("Invalid request", status = HTTP_400_BAD_REQUEST)
+    
