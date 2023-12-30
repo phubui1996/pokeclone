@@ -12,6 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from .models import User
+from team_app.models import Team
 
 # Create your views here.
 
@@ -20,13 +21,15 @@ class Sign_up(APIView):
     data = request.data 
     data['username'] = request.data.get('email')
     new_user = User.objects.create_user(**data)
+    new_team = Team.objects.create(user=new_user)
 
     if new_user is not None: 
       new_token = Token.objects.create(user = new_user)
       login(request, new_user)
       return Response({
         "User": new_user.user_name,
-        "Token": new_token.key
+        "Token": new_token.key,
+        "TeamID": new_team.id
       }, status = HTTP_201_CREATED)
     
     return Response("Something went wrong with sign up", status=HTTP_400_BAD_REQUEST)
