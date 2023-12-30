@@ -14,10 +14,10 @@ from pokemon_app.models import Pokemon
 import requests
 from django.shortcuts import get_object_or_404
 from user_app.views import UserPermissions
-from .models import Team, TeamPokemon
 from pokemon_app.models import UserPokemon
 from pokemon_app.serializers import UserPokemonSerializer
-from .serializers import TeamPokemonSerializer, TeamPokemon
+from .models import Team, TeamPokemon
+from .serializers import TeamSerializer, TeamPokemonSerializer
 
 # Create your views here.
 class TeamManager(UserPermissions):
@@ -27,9 +27,10 @@ class TeamManager(UserPermissions):
     user_teams_data = []
     
     for team in user_teams:
-      team_data = TeamPokemonSerializer(team).data
-      team_data['pokemons'] = UserPokemonSerializer(team.pokemons.all(), many=True).data
+      team_data = TeamSerializer(team).data
+      team_data['pokemons'] = TeamPokemonSerializer(team.team_pokemons.all(), many=True).data
       user_teams_data.append(team_data)
+
     return Response(user_teams_data)
 
   def post(self, request, team_id):  
