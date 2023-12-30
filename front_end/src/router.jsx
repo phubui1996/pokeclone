@@ -3,7 +3,6 @@ import App from "./App";
 import LogInPage from "./pages/LogInPage"
 import MainMapPage from "./pages/MainMapPage";
 import HomePage from "./pages/HomePage";
-import LoadGamePage from "./pages/LoadGamePage";
 import BattlePage from "./pages/BattlePage";
 import SignUpPage from "./pages/SignUpPage";
 import LandingPage from "./pages/LandingPage";
@@ -44,10 +43,6 @@ const router = createBrowserRouter([
       {
         path: "intro/",
         element: <IntroPage />
-      },
-      {
-        path: "loadgame/",
-        element: <LoadGamePage />
       },
       {
         path: "main/",

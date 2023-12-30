@@ -106,6 +106,34 @@ input {
   color: whitesmoke;
 }
 
+/* Home Page ////////////////////////////////////////////////////////// */
+
+#home_page_div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-image: url("./assets/treesandgrass.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.home_buttons {
+  width: 30%;
+  height: 40px;
+  border: none;
+  background-color: rgb(39, 72, 154);
+  color: white;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.home_buttons:hover {
+  background-color: rgb(211, 189, 21);
+}
+
 /* Battle Page ////////////////////////////////////////////////////////// */
 
 #battle_div {
@@ -159,8 +187,7 @@ input {
 }
 
 .status_bar_div {
-  width: 100%;
-  border: rgb(211, 189, 21);
+  width: 300%;
 }
 
 #battle_options_div {

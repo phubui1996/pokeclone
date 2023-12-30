@@ -179,8 +179,8 @@ const BattlePage = () => {
                             <div id='your_pokemon_status_div'>
                                 <h3>{currentPokemon.name}</h3>
                                 <div className='status_bar_div'>
-                                    <ProgressBar max={currentPokemonHealthTotal} now={currentPokemonHealth} label={`${currentPokemonHealth}`} />
-                                    <ProgressBar now={currentPokemonExperience} label={`${currentPokemonExperience}`} />
+                                    <ProgressBar max={currentPokemonHealthTotal} now={currentPokemonHealth} label={`${currentPokemonHealth}`} className='actual_status_bar'/>
+                                    <ProgressBar now={currentPokemonExperience} label={`${currentPokemonExperience}`} className='actual_status_bar'/>
                                 </div>
                                 <img alt='poke' src={`${currentOpponent.back_img}`} className='pokemon_image' />
                             </div>
@@ -189,7 +189,7 @@ const BattlePage = () => {
                             <div className='poke_profile'>
                                 <h3>{currentOpponent.name}</h3>
                                 <div className='status_bar_div'>
-                                    <ProgressBar max={currentOpponentHealthTotal} now={currentOpponentHealth} label={`${currentOpponentHealth}`} />
+                                    <ProgressBar max={currentOpponentHealthTotal} now={currentOpponentHealth} label={`${currentOpponentHealth}`} className='actual_status_bar' />
                                 </div>
                                 <img src={`${currentOpponent.front_img}`} className='pokemon_image' />
                             </div>
