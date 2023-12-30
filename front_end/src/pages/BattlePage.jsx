@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import { wildApi } from '../components/utilities';
+import { wildApi, pokeApi, teamApi } from '../components/utilities';
 
 const BattlePage = () => {
     const [randomNum, setRandomNum] = useState("")
@@ -22,7 +22,7 @@ const BattlePage = () => {
 
     console.log(randomNum)
     const wildPoke = async () => {
-        getRandomNum()
+        //getRandomNum()
         let response = await wildApi.get(`${randomNum}`)
         console.log('wildapi', response.data)
         setCurrentOpponent(response.data)
@@ -84,6 +84,65 @@ const BattlePage = () => {
         }
     }
 
+    /////////////////CAPTURE///////////////////////////////////////////////////////
+
+    const capturePoke = async () => {
+        let data = {
+            "id": currentOpponent.id
+        };
+
+        try {
+            let response = await pokeApi.post(`${currentOpponent.id}/`, data);
+            console.log("capture poke post", response, currentOpponent.id);
+
+            if (response.status === 201) {
+                navigate("/main");
+            } else {
+                alert("Poke not captured");
+            }
+        } catch (error) {
+            console.error("Error capturing poke:", error);
+        }
+    };
+
+    const handleCapture = () => {
+        if (currentOpponentHealth < 2) {
+            console.log("pokemon captured") //add post request
+            capturePoke()
+            //add to team if less than 6
+        }
+        else if (currentOpponentHealth / currentOpponentHealthTotal < .3){
+            let captureChance = (Math.floor(Math.random() * (5 - 1 + 1)) + 1)
+            if (captureChance < 4) {
+                console.log("pokemon captured") //add post request
+                capturePoke()
+                //add to team if less than 6
+            }
+            else {
+                console.log("pokemon capture failed")
+                console.log("opponent attack")
+                let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1)))
+                setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
+            }
+        }
+        else {
+            let captureChance = (Math.floor(Math.random() * (10 - 1 + 1)) + 1)
+            if (captureChance < 4) {
+                console.log("pokemon captured") //add post request
+                capturePoke()
+                //add to team if less than 6
+            }
+            else {
+                console.log("pokemon capture failed")
+                console.log("opponent attack")
+                let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1)))
+                setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
+            }
+        }
+    }
+
+    ////////////////TIMING////////////////////////////////////////////////////////////
+
     useEffect(() => {
         getRandomNum()
     }, [])
@@ -110,6 +169,7 @@ const BattlePage = () => {
                             <button onClick={handleMove2} className='battle_buttons'>{currentOpponent.move_2}</button>
                         </div>
                         <div id='other_options_div'>
+                            <button onClick={handleCapture} className='battle_buttons'>Capture</button>
                             <button className='battle_buttons'>Change Pokemon</button>
                             <button onClick={handleRun} className='battle_buttons'>Run</button>
                         </div>
