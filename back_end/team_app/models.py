@@ -10,7 +10,7 @@ class Team(models.Model):
   pokemons = models.ManyToManyField(UserPokemon, related_name='teams')
 
 class TeamPokemon(models.Model):
-  team = models.ForeignKey(Team, on_delete=models.CASCADE)
+  team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team_pokemons')
   user_pokemon = models.ForeignKey(UserPokemon, on_delete=models.CASCADE, related_name="team_pokemon")
   position = models.PositiveIntegerField(default=1)
   is_selected = models.BooleanField(default=True)
