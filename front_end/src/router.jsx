@@ -13,6 +13,7 @@ import PokeCenterPage from "./pages/PokeCenterPage";
 import IntroPage from "./pages/IntroPage";
 import ErrorPage from "./pages/ErrorPage";
 import HousePage from "./pages/HousePage";
+import PokedexPage from "./pages/PokedexPage";
 
 
 const router = createBrowserRouter([
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: "house/",
         element: <HousePage />
+      },
+      {
+        path: "pokedex/",
+        element: <PokedexPage />
       }
     ]
     
