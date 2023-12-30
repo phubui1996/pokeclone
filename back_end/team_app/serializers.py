@@ -1,5 +1,5 @@
-from .models import Team, TeamPokemon
 from rest_framework.serializers import ModelSerializer
+from .models import Team, TeamPokemon
 
 
 class TeamSerializer(ModelSerializer):

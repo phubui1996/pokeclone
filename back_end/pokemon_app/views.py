@@ -14,7 +14,7 @@ from .models import Pokemon
 import requests
 
 from user_app.views import UserPermissions
-from .serializers import UserPokemon, UserPokemonSerializer, PokemonSerializer, TeamPokemon, TeamPokemonSerializer
+from .serializers import UserPokemon, UserPokemonSerializer, PokemonSerializer
 
 # Create your views here.
 

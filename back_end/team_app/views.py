@@ -46,7 +46,7 @@ class TeamManager(UserPermissions):
           user_pokemon = get_object_or_404(UserPokemon, id=pokemon_id, user = request.user)
           position = TeamPokemon.objects.filter(team = team).count() + 1
           TeamPokemon.objects.create(team = team, user_pokemon = user_pokemon, position=position)
-          return Response("Pokemon added to user's team", status = HTTP_201_CREATED)
+        return Response("Pokemon added to user's team", status = HTTP_201_CREATED)
 
       elif action == 'unpick':      # Unpick the selected Pokemon from the team
           
@@ -54,6 +54,6 @@ class TeamManager(UserPermissions):
           user_pokemon = get_object_or_404(UserPokemon, id=pokemon_id, user = request.user)
           team_pokemon = TeamPokemon.objects.get(team = team, user_pokemon = user_pokemon)
           team_pokemon.delete()
-          return Response("Pokemon removed from user's team", status = HTTP_201_CREATED)
+        return Response("Pokemon removed from user's team", status = HTTP_201_CREATED)
         
     return Response("Invalid request", status = HTTP_400_BAD_REQUEST)
