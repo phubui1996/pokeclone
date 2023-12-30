@@ -8,7 +8,6 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('pokemon_app', '0001_initial'),
     ]
 
     operations = [
@@ -26,6 +25,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(default='My Pokemon Team', max_length=255)),
                 ('pokemons', models.ManyToManyField(related_name='teams', to='pokemon_app.userpokemon')),
+
             ],
         ),
     ]

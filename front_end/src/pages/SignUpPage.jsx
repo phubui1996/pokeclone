@@ -17,7 +17,7 @@ export default function SignUpPage() {
         let response = await userApi.post("signup/", {
             email: email,
             password: password,
-            user_name: username
+            username: username
         })
 
         if (response.status === 201) {
