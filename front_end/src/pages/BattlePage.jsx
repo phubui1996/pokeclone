@@ -22,7 +22,6 @@ const BattlePage = () => {
 
     console.log(randomNum)
     const wildPoke = async () => {
-        //getRandomNum()
         let response = await wildApi.get(`${randomNum}`)
         console.log('wildapi', response.data)
         setCurrentOpponent(response.data)

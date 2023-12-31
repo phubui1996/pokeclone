@@ -49,11 +49,11 @@ export default function Navbar({user, setUser, isLoggedIn, setIsLoggedIn}) {
       <nav className="Navbar" id='nav_bar'>
         <div className="navLinks">
             <img id='nav_logo' src={pokeLogo}></img>
-            <Link to="/"> Home </Link>
+            <Link to="/" className='nav_link'> Home </Link>
             <Link to={linkWordsLink}> {linkWords} </Link>
             {/* <Link to="/login"> Log In </Link> */}
             {isLoggedIn ?
-            <button onClick={handleLogOut}>Log Out</button>
+            <Link onClick={handleLogOut} className='nav_link'>Log Out</Link>
             :
             null
           }
