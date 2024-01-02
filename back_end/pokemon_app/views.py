@@ -77,11 +77,28 @@ class UserPokemonView(UserPermissions):
     user = request.user
     try:
       pokemon = Pokemon.objects.get(id = id)
-      user_pokemon_data = {'user': user.id, 'pokemon':pokemon.id}
+
+      user_pokemon_data = {'user': user.id, 'pokemon':{
+        'id': pokemon.id, 
+        'type': pokemon.type,
+        'name': pokemon.name,
+        'move_1': pokemon.move_1,
+        'move_2': pokemon.move_2,
+        'front_img': pokemon.front_img,
+        'back_img': pokemon.back_img,
+        'pokemon_id': pokemon.pokemon_id,
+        'hp': pokemon.hp,
+        'xp': pokemon.xp
+        }}
+      
       serializer = UserPokemonSerializer(data=user_pokemon_data)
-      serializer.is_valid(raise_exception=True)
-      serializer.save()
-      return Response("Pokemon captured successfully!", status=HTTP_201_CREATED)
+
+      if serializer.is_valid():
+        serializer.save()
+        return Response("Pokemon captured successfully!", status=HTTP_201_CREATED)
+      else:
+        print("Serializer errors:", serializer.errors)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
     except Exception as e:
       print(e)
@@ -98,6 +115,7 @@ class UserPokemonView(UserPermissions):
         pokemon.move_2 = request.data.get("move_2")
         pokemon.front_img = request.data.get("front_img")
         pokemon.back_img = request.data.get("back_img")
+        # pokemon.pokemon_id = request.data.get("pokemon_id")
         pokemon.hp = request.data.get("hp")
         pokemon.xp = request.data.get("xp")
         # Save the updated Pokemon instance
@@ -147,4 +165,3 @@ class Pokedex(APIView):
     pokemons = Pokemon.objects.all()
     pokemons.delete()
     return Response("Pokedex reset", status = HTTP_204_NO_CONTENT)
-  

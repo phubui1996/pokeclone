@@ -16,7 +16,6 @@ class TeamSerializer(ModelSerializer):
     return TeamPokemonSerializer(team_pokemons, many=True).data
 
 class TeamPokemonSerializer(ModelSerializer):
-  # team = TeamSerializer()
   user_pokemon = UserPokemonSerializer()
 
   class Meta:
