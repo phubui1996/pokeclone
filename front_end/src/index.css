@@ -23,6 +23,13 @@
 #nav_logo {
   width: 70px;
   height: 70px;
+  margin-right: 20px;
+}
+
+.nav_link {
+  text-decoration: none;
+  color:rgb(39, 72, 154);
+  margin: 20px;
 }
 
 /* Landing Page ////////////////////////////////////////////////////////// */
@@ -106,6 +113,100 @@ input {
   color: whitesmoke;
 }
 
+/* Home Page ////////////////////////////////////////////////////////// */
+
+#home_page_div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-image: url("./assets/treesandgrass.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.home_buttons {
+  width: 30%;
+  height: 40px;
+  border: none;
+  background-color: rgb(39, 72, 154);
+  color: white;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.home_buttons:hover {
+  background-color: rgb(211, 189, 21);
+}
+
+/* Starter Page ////////////////////////////////////////////////////////// */
+
+#starter_div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-image: url("./assets/Summer1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#starter_message_div {
+  height: 10%;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5%;
+  position: absolute;
+  background-color: rgba(245, 245, 245, 0.427);
+}
+
+#starter_message {
+  color: rgb(39, 72, 154);
+}
+
+#all_starter_poke {
+  height: 60%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: end;
+  margin-top: 25%;
+}
+
+#starter_poke1 {
+  height: 40%;
+  width: 40%;
+}
+
+#starter_poke2 {
+  height: 40%;
+  width: 40%;
+}
+
+#starter_poke3 {
+  height: 40%;
+  width: 40%;
+}
+
+.starter_imgs {
+  height: 100%;
+  width: 100%;
+}
+
+.starter_imgs:hover {
+  background-color: rgba(245, 245, 245, 0.475);
+  border-radius: 20px;
+}
+
+
 /* Battle Page ////////////////////////////////////////////////////////// */
 
 #battle_div {
@@ -159,8 +260,7 @@ input {
 }
 
 .status_bar_div {
-  width: 100%;
-  border: rgb(211, 189, 21);
+  width: 300%;
 }
 
 #battle_options_div {
