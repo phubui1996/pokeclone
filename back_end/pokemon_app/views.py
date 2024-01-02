@@ -76,7 +76,7 @@ class UserPokemonView(UserPermissions):
   def post(self, request, id): #capture a pokemon
     user = request.user
     try:
-      pokemon = Pokemon.objects.filter(pokemon_id = id).first()
+      pokemon = Pokemon.objects.filter(id = id).first()
 
       user_pokemon_data = {'user': user.id, 'pokemon':{
         'id': pokemon.id, 
@@ -106,7 +106,7 @@ class UserPokemonView(UserPermissions):
     
   def put(self, request, id):
     try:
-        pokemon = Pokemon.objects.get(pokemon_id = id)
+        pokemon = Pokemon.objects.get(id = id)
 
         # Update Pokemon attributes based on the request data
         pokemon.name = request.data.get("name")
