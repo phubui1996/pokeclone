@@ -1,7 +1,7 @@
 import { Link, useNavigate, useOutletContext } from "react-router-dom"
 import { useEffect, useState } from 'react'
 import { pokeApi, teamApi, pokedexApi } from "../components/utilities"
-import pokeLogo from '../assets/pokelogo.png'
+import pokeLogo from '../assets/PokeLogoClean.png'
 
 
 export default function HomePage() {
@@ -11,7 +11,7 @@ export default function HomePage() {
 
     const getTeam = async () => {
         try {
-            let response = await teamApi.get('');
+            let response = await teamApi.get('manager/');
             console.log("get team", response.data);
 
             if (response.status === 200) {
@@ -25,20 +25,24 @@ export default function HomePage() {
     };
 
 
-    const deleteTeam = async () => {
-        try {
-            let response = await teamApi.delete('');
-            console.log("get team", response.data);
+    // const deleteTeam = async () => {
+    //     let data = {
+    //         'action': 'unpick',
+    //         'pokemon_ids': []
+    //     }
+    //     try {
+    //         let response = await teamApi.post('1/', data);
+    //         console.log("get team", response.data);
 
-            if (response.status === 204) {
-                getTeam()
-            } else {
-                alert("Error deleting team");
-            }
-        } catch (error) {
-            console.error("Error deleting team:", error);
-        }
-    };
+    //         if (response.status === 204) {
+    //             getTeam()
+    //         } else {
+    //             alert("Error deleting team");
+    //         }
+    //     } catch (error) {
+    //         console.error("Error deleting team:", error);
+    //     }
+    // };
 
     const getPokedex = async () => {
         try {
@@ -75,6 +79,7 @@ export default function HomePage() {
         if (pokedex.length < 1) {
             deletePokedex()
             // deleteTeam()
+            console.log("current team", pokeTeam)
             navigate('/starter')
         }
         else {
@@ -88,7 +93,7 @@ export default function HomePage() {
 
     useEffect(() => {
         getPokedex()
-        // getTeam()
+        getTeam()
         if (isLoggedIn === false) {
             navigate('/landing')
         }

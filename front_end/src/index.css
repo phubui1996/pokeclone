@@ -67,7 +67,7 @@
 .landing_buttons:hover {
   background-color: rgb(211, 189, 21);
   color: rgb(39, 72, 154);
-  border: 4px solid rgb(39, 72, 154);
+  border: 3px solid rgb(39, 72, 154);
 
 }
 
@@ -218,6 +218,60 @@ input {
   background-color: rgba(245, 245, 245, 0.475);
   border-radius: 20px;
 }
+
+/* Main Map Page ////////////////////////////////////////////////////////// */
+
+#main_map_div {
+  background-color: #c2d17e;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#overall_map {
+  margin-top: 8vh;
+  height: 100%;
+  flex-direction: column;
+}
+
+#upper_div {
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 2%;
+}
+
+#main_area_div {
+  height: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#house_div {
+  border: 2px solid orange;
+  width: 20%;
+}
+
+#poke_center_div {
+  border: 2px solid yellow;
+  width: 20%;
+}
+
+#gym_div {
+  border: 2px solid green;
+  width: 20%;
+  height: 30%;
+}
+
+.tall_grass_div {
+  border: 2px solid brown;
+  width: 20%;
+  height: 80%;
+}
+
 
 
 /* Battle Page ////////////////////////////////////////////////////////// */

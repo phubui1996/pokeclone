@@ -38,7 +38,7 @@ export default function Navbar({user, setUser, isLoggedIn, setIsLoggedIn}) {
       }
     }
 
-    console.log(isLoggedIn)
+    console.log(isLoggedIn, user)
 
     useEffect(() => {
       signUpOrLogIn()
