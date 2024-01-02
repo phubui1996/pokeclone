@@ -17,7 +17,7 @@
   justify-content: left;
   padding: 5px;
   width: 100%;
-  background-color: rgba(250, 235, 215, 0.531);
+  background-color: rgba(255, 255, 255, 0.531);
 }
 
 #nav_logo {
@@ -37,6 +37,7 @@
 #landing_logo {
   width: 500px;
   height: 500px;
+  animation: floatUpDown 3s ease-in-out infinite;
 }
 
 #landing_main_div,
@@ -68,6 +69,18 @@
   color: rgb(39, 72, 154);
   border: 4px solid rgb(39, 72, 154);
 
+}
+
+@keyframes floatUpDown {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-25px);
+  }
 }
 
 /* Sign Up / Log In Page ////////////////////////////////////////////////////////// */

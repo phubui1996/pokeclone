@@ -1,7 +1,7 @@
 import { Link, useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import pokeLogo from '../assets/pokelogo.png'
+import pokeLogo from '../assets/PokeLogoClean.png'
 import { userApi } from "./utilities";
 
 export default function Navbar({user, setUser, isLoggedIn, setIsLoggedIn}) {
