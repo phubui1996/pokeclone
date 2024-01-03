@@ -34,6 +34,12 @@ const PokeCenterPage = () => {
         }
     };
     
+    
+    useEffect(() => {
+        getTeam()
+    }, [])
+
+
     console.log(currentPokemon)
     console.log(pokeTeam)
 
