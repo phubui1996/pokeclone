@@ -8,7 +8,7 @@ const StarterPage = () => {
     const [starter3, setStarter3] = useState([])
     const [choice, setChoice] = useState([])
 
-    const { isLoggedIn, setIsLoggedIn, user, pokeTeam } = useOutletContext()
+    const { isLoggedIn, setIsLoggedIn, user, pokeTeam, setPokeTeam } = useOutletContext()
 
     const navigate = useNavigate()
 
@@ -16,13 +16,13 @@ const StarterPage = () => {
         let response1 = await wildApi.get(`1`)
         let response2 = await wildApi.get(`4`)
         let response3 = await wildApi.get(`7`)
-        console.log(response1.data)
+        //console.log(response1.data)
         setStarter1(response1.data)
         setStarter2(response2.data)
         setStarter3(response3.data)
     }
 
-    console.log("The team so far",pokeTeam)
+    //console.log("The team so far",pokeTeam)
 
     const handleStarter1 = () => {
         
@@ -63,13 +63,35 @@ const StarterPage = () => {
             .then(addTeam => {
                 console.log(addTeam);
                 console.log("pokemon added to team")
-                navigate('/intro')
+                getTeam()
             })
             .catch(error => {
                 console.log("couldn't add pokemon")
                 console.error(error);
             })
     }
+
+    const getTeam = async () => {
+        console.log("getting team")
+        try {
+
+            teamApi.defaults.headers.common[
+                "Authorization"
+            ] = `Token ${user.Token}`;
+
+            let response = await teamApi.get('manager/');
+            console.log("get team", response.data);
+
+            if (response.status === 200) {
+                setPokeTeam(response.data)
+                navigate('/intro')
+            } else {
+                alert("Error retrieving team");
+            }
+        } catch (error) {
+            console.error("Error retrieving team:", error);
+        }
+    };
 
     useEffect(() => {
         getStarters()
