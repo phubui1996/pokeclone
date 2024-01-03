@@ -1,10 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
-import axios from 'axios'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { wildApi, pokeApi, teamApi } from '../components/utilities';
+import battlemusic1 from '/src/assets/BattleMusic/MeltdownTheme_Loopable.wav'
+import { Howl } from 'howler';
+import Modal from 'react-modal';
+import rejection_sound from '/src/assets/BattleMusic/489366__morjon17__rejected_feedback.wav'
 
 const BattlePage = () => {
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [selectedOption, setSelectedOption] = useState(null);
+
     const [randomNum, setRandomNum] = useState("")
     const [currentOpponent, setCurrentOpponent] = useState([])
     const [currentPokemon, setCurrentPokemon] = useState([])
@@ -13,9 +19,13 @@ const BattlePage = () => {
     const [currentPokemonExperience, setCurrentPokemonExperience] = useState(0)
     const [currentOpponentHealth, setCurrentOpponentHealth] = useState(50)
     const [currentOpponentHealthTotal, setCurrentOpponentHealthTotal] = useState(50)
-    const {pokeTeam, setPokeTeam, user} = useOutletContext()
+    const { pokeTeam, setPokeTeam, user } = useOutletContext()
 
     const navigate = useNavigate()
+
+    const rejection = new Howl({
+        src: [rejection_sound],
+    });
 
     function getRandomNum() {
         setRandomNum(Math.floor(Math.random() * (100 - 1 + 1)) + 1)
@@ -43,13 +53,52 @@ const BattlePage = () => {
 
             if (response.status === 200) {
                 setPokeTeam(response.data)
-                setCurrentPokemon(response.data)
+                console.log('the team', response.data[0].pokemons[0].user_pokemon.pokemon)
+                setCurrentPokemon(response.data[0].pokemons[0].user_pokemon.pokemon)
             } else {
                 alert("Error retrieving team");
             }
         } catch (error) {
             console.error("Error retrieving team:", error);
         }
+    };
+
+    ////////////CHANGE POKEMON///////////////////////////////////////////////////////////
+
+    const openModal = () => {
+        setModalIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
+
+    const handleOptionClick = async (poke) => {
+        //save current pokemon health/exp
+        try {
+            pokeApi.defaults.headers.common[
+                "Authorization"
+            ] = `Token ${user.Token}`;
+
+            let data = {
+                'pokemon_id': currentPokemon.id,
+                'hp': currentPokemonHealth,
+                'xp': currentPokemonExperience,
+            }
+
+            let response = await teamApi.put('manager/');
+            console.log("get team", response.data);
+
+            if (response.status === 200) {
+                setCurrentPokemon(poke) //change current pokemon to selected pokemon
+            } else {
+                alert("Error retrieving team");
+            }
+        } catch (error) {
+            console.error("Error retrieving team:", error);
+        }
+
+        closeModal();
     };
 
     /////////////////ATTACK///////////////////////////////////////////////////////////
@@ -92,9 +141,13 @@ const BattlePage = () => {
 
     const handleRun = () => {
         let runChance = (Math.floor(Math.random() * (5 - 1 + 1)) + 1)
-        if (runChance < 4){
+        if (runChance < 4) {
             //add post request to save experience and health
             navigate("/main")
+        }
+        else {
+            rejection.play()
+            console.log("You couldn't escape")
         }
     }
 
@@ -104,6 +157,10 @@ const BattlePage = () => {
         let data = {
             "id": currentOpponent.id
         };
+
+        pokeApi.defaults.headers.common[
+            "Authorization"
+        ] = `Token ${user.Token}`;
 
         try {
             let response = await pokeApi.post(`${currentOpponent.id}/`, data);
@@ -125,18 +182,45 @@ const BattlePage = () => {
             capturePoke()
             //add to team if less than 6
         }
-        else if (currentOpponentHealth / currentOpponentHealthTotal < .3){
+        else if (currentOpponentHealth / currentOpponentHealthTotal < .3) {
             let captureChance = (Math.floor(Math.random() * (5 - 1 + 1)) + 1)
             if (captureChance < 4) {
                 console.log("pokemon captured") //add post request
                 capturePoke()
                 //add to team if less than 6
+                if (pokeTeam[0].pokemons < 7) {
+                    const getTeam = async () => {
+                        let data = {
+                            'action': 'pick',
+                            'pokemon_ids': [choice.id]
+                        }
+
+                        console.log("add to team data: ", data)
+
+                        teamApi.defaults.headers.common[
+                            "Authorization"
+                        ] = `Token ${user.Token}`;
+
+                        let addTeam = await teamApi.post(`1/`, data)
+                            .then(addTeam => {
+                                console.log(addTeam);
+                                console.log("pokemon added to team")
+                                navigate('/intro')
+                            })
+                            .catch(error => {
+                                console.log("couldn't add pokemon")
+                                console.error(error);
+                            })
+                    }
+                }
             }
             else {
                 console.log("pokemon capture failed")
                 console.log("opponent attack")
                 let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1)))
+                rejection.play()
                 setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
+
             }
         }
         else {
@@ -145,10 +229,36 @@ const BattlePage = () => {
                 console.log("pokemon captured") //add post request
                 capturePoke()
                 //add to team if less than 6
+                if (pokeTeam[0].pokemons < 7) {
+                    const getTeam = async () => {
+                        let data = {
+                            'action': 'pick',
+                            'pokemon_ids': [choice.id]
+                        }
+
+                        console.log("add to team data: ", data)
+
+                        teamApi.defaults.headers.common[
+                            "Authorization"
+                        ] = `Token ${user.Token}`;
+
+                        let addTeam = await teamApi.post(`1/`, data)
+                            .then(addTeam => {
+                                console.log(addTeam);
+                                console.log("pokemon added to team")
+                                navigate('/intro')
+                            })
+                            .catch(error => {
+                                console.log("couldn't add pokemon")
+                                console.error(error);
+                            })
+                    }
+                }
             }
             else {
                 console.log("pokemon capture failed")
                 console.log("opponent attack")
+                rejection.play()
                 let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1)))
                 setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
             }
@@ -164,7 +274,7 @@ const BattlePage = () => {
     useEffect(() => {
         getTeam()
         wildPoke()
-    },[randomNum])
+    }, [randomNum])
 
     useEffect(() => {
         if (currentOpponentHealth < 1) {
@@ -177,6 +287,7 @@ const BattlePage = () => {
         <div className='full_page_div'>
             {currentPokemon && currentOpponent ?
                 (<div id='battle_div'>
+                    <audio autoPlay src={battlemusic1} loop type="audio/wav" volume='0.2'></audio>
                     <div id='battle_options_div'>
                         <div id='moves_div'>
                             <button onClick={handleMove1} className='battle_buttons'>{currentOpponent.move_1}</button>
@@ -184,19 +295,36 @@ const BattlePage = () => {
                         </div>
                         <div id='other_options_div'>
                             <button onClick={handleCapture} className='battle_buttons'>Capture</button>
-                            <button className='battle_buttons'>Change Pokemon</button>
+                            <button onClick={openModal} className='battle_buttons'>Change Pokemon</button>
                             <button onClick={handleRun} className='battle_buttons'>Run</button>
                         </div>
                     </div>
                     <div id='poke_div'>
+                        <div>
+                            <Modal
+                                isOpen={modalIsOpen}
+                                onRequestClose={closeModal}
+                                contentLabel="Your Team"
+                            >
+                                <h2>Select a Pokemon:</h2>
+                                {pokeTeam.map((poke) => (
+                                    <button key={poke.id} onClick={() => handleOptionClick(poke)}>
+                                        {poke.name}{poke.front_img}
+                                    </button>
+                                ))}
+                                <button onClick={closeModal}>Close</button>
+                            </Modal>
+
+                            {selectedOption && <p>You selected: {selectedOption}</p>}
+                        </div>
                         <div id='your_pokemon_div'>
                             <div id='your_pokemon_status_div'>
                                 <h3>{currentPokemon.name}</h3>
                                 <div className='status_bar_div'>
-                                    <ProgressBar max={currentPokemonHealthTotal} now={currentPokemonHealth} label={`${currentPokemonHealth}`} className='actual_status_bar'/>
-                                    <ProgressBar now={currentPokemonExperience} label={`${currentPokemonExperience}`} className='actual_status_bar'/>
+                                    <ProgressBar max={currentPokemonHealthTotal} now={currentPokemonHealth} label={`${currentPokemonHealth}`} className='actual_status_bar' />
+                                    <ProgressBar now={currentPokemonExperience} label={`${currentPokemonExperience}`} className='actual_status_bar' />
                                 </div>
-                                <img alt='poke' src={`${currentOpponent.back_img}`} className='pokemon_image' />
+                                <img alt='poke' src={`${currentPokemon.back_img}`} className='pokemon_image' />
                             </div>
                         </div>
                         <div id='opponent_div'>
@@ -214,4 +342,4 @@ const BattlePage = () => {
         </div>
     )
 }
-export default BattlePage;
+export default BattlePage
