@@ -37,7 +37,8 @@ class GetPokemon(APIView):
         back_img = pokemon_data['sprites']['back_shiny'],
         pokemon_id = pokemon_data['id'],
         xp = 0,
-        hp = 10
+        hp = 10,
+        lvl = 1
       )
 
       formatted_data = {
@@ -50,7 +51,8 @@ class GetPokemon(APIView):
         "back_img": pokemon.back_img,
         "pokemon_id": pokemon.pokemon_id,
         "xp": pokemon.xp,
-        "hp": pokemon.hp
+        "hp": pokemon.hp,
+        "lvl": pokemon.lvl
       }
 
       return Response(formatted_data)
@@ -88,7 +90,8 @@ class UserPokemonView(UserPermissions):
         'back_img': pokemon.back_img,
         'pokemon_id': pokemon.pokemon_id,
         'hp': pokemon.hp,
-        'xp': pokemon.xp
+        'xp': pokemon.xp,
+        'lvl': pokemon.lvl
         }}
       
       serializer = UserPokemonSerializer(data=user_pokemon_data)
@@ -118,6 +121,7 @@ class UserPokemonView(UserPermissions):
         pokemon.pokemon_id = request.data.get("pokemon_id")
         pokemon.hp = request.data.get("hp")
         pokemon.xp = request.data.get("xp")
+        pokemon.lvl = request.data.get("lvl")
         # Save the updated Pokemon instance
         pokemon.save()
         
