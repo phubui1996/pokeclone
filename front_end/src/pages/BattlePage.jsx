@@ -50,10 +50,10 @@ const BattlePage = () => {
             ] = `Token ${user.Token}`;
 
             let response = await teamApi.get('manager/');
-            console.log("get team", response.data);
+            console.log("get team", response.data[0].pokemons);
 
             if (response.status === 200) {
-                setPokeTeam(response.data)
+                setPokeTeam(response.data[0].pokemons)
                 console.log('the team', response.data[0].pokemons[0])
                 setCurrentPokemon(response.data[0].pokemons[0].user_pokemon.pokemon)
                 setCurrentPokemonHealth(response.data[0].pokemons[0].user_pokemon.pokemon.hp)

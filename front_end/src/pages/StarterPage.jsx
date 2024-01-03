@@ -81,10 +81,10 @@ const StarterPage = () => {
             ] = `Token ${user.Token}`;
 
             let response = await teamApi.get('manager/');
-            console.log("get team", response.data);
+            console.log("get team", response.data[0].pokemons);
 
             if (response.status === 200) {
-                setPokeTeam(response.data)
+                setPokeTeam(response.data[0].pokemons)
                 navigate('/intro')
             } else {
                 alert("Error retrieving team");
