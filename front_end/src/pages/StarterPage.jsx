@@ -69,6 +69,7 @@ const StarterPage = () => {
                 console.log("couldn't add pokemon")
                 console.error(error);
             })
+        console.log(addTeam.status)
     }
 
     const getTeam = async () => {
