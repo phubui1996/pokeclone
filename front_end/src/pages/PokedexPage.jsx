@@ -5,7 +5,7 @@ import PokemonCard from "../components/PokemonCard";
 const PokedexPage = () => {
   const [pokemons, setPokemons] = useState();
 
-  const GetPokedex = async () => {
+  const getPokedex = async () => {
     try {
       const response = await pokedexApi.get("");
       setPokemons(response.data);
@@ -15,7 +15,7 @@ const PokedexPage = () => {
   };
 
   useEffect(() => {
-    GetPokedex();
+    getPokedex();
   }, []);
 
   useEffect(() => {
