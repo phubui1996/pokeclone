@@ -63,7 +63,8 @@ const PokeCenterPage = () => {
             "back_img": currentPokemon.back_img,
         }
         let response = await pokeApi.put(`${pokeID}/`, data)
-        console.log(response.data, ", your pokemon are at full health!")   
+        console.log(response.data, ", your pokemon are at full health!") 
+        // getTeam()  
     }
 
 
