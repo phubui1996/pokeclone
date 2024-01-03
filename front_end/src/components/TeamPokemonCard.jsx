@@ -1,4 +1,4 @@
-const PokemonCard = ({
+const TeamPokemonCard = ({
   id,
   name,
   type,
@@ -24,4 +24,4 @@ const PokemonCard = ({
   );
 };
 
-export default PokemonCard;
+export default TeamPokemonCard;
