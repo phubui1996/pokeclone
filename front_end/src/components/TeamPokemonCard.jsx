@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 const TeamPokemonCard = ({
   id,
   name,
@@ -9,6 +11,9 @@ const TeamPokemonCard = ({
   hp,
   xp,
   lvl,
+  setSelectedIds,
+  selectedIds,
+  handleToggle,
 }) => {
   return (
     <div>
@@ -20,6 +25,10 @@ const TeamPokemonCard = ({
       <div>hp: {hp}</div>
       <div>xp: {xp}</div>
       <div>level: {lvl}</div>
+
+      <button onClick={() => handleToggle(id)}>
+        {selectedIds.includes(id) ? "Unpick" : "Pick"}
+      </button>
     </div>
   );
 };
