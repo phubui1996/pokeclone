@@ -8,7 +8,7 @@ const StarterPage = () => {
     const [starter3, setStarter3] = useState([])
     const [choice, setChoice] = useState([])
 
-    const { isLoggedIn, setIsLoggedIn, user } = useOutletContext()
+    const { isLoggedIn, setIsLoggedIn, user, pokeTeam } = useOutletContext()
 
     const navigate = useNavigate()
 
@@ -22,7 +22,10 @@ const StarterPage = () => {
         setStarter3(response3.data)
     }
 
+    console.log("The team so far",pokeTeam)
+
     const handleStarter1 = () => {
+        
         setChoice(starter1)
     }
 
@@ -35,22 +38,28 @@ const StarterPage = () => {
     }
 
     const addToTeam = async () => {
-        console.log("we did get this far")
+        //console.log("we did get this far")
         let data = {
             'action': 'pick',
             'pokemon_ids': [choice.id]
         }
-        let capture = await pokeApi.post(`${choice.id}/`, {
-            headers: {
-                Authorization: `Bearer ${user.Token}`
-            },
-        })
+
+        console.log("add to team data: ",data)
+
+        pokeApi.defaults.headers.common[
+            "Authorization"
+        ] = `Token ${user.Token}`;
+
+        teamApi.defaults.headers.common[
+            "Authorization"
+        ] = `Token ${user.Token}`;
+
+
+        let capture = await pokeApi.post(`${choice.id}/`)
         console.log(capture.data, capture.status)
-        let addTeam = await teamApi.post(`1/`, data, {
-            headers: {
-                Authorization: `Bearer ${user.Token}`,
-            },
-        })
+
+
+        let addTeam = await teamApi.post(`1/`, data)
             .then(addTeam => {
                 console.log(addTeam);
                 console.log("pokemon added to team")

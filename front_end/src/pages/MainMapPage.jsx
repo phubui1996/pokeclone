@@ -1,6 +1,8 @@
-
+import { useNavigate } from "react-router-dom"
 
 export default function MainMapPage() {
+
+    const navigate = useNavigate()
 
     const handleHouse = () => {
         console.log("We didn't build this yet")

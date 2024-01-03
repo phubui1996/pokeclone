@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useOutletContext } from 'react-router-dom'
 import axios from 'axios'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { wildApi, pokeApi, teamApi } from '../components/utilities';
@@ -13,6 +13,7 @@ const BattlePage = () => {
     const [currentPokemonExperience, setCurrentPokemonExperience] = useState(0)
     const [currentOpponentHealth, setCurrentOpponentHealth] = useState(50)
     const [currentOpponentHealthTotal, setCurrentOpponentHealthTotal] = useState(50)
+    const {pokeTeam, setPokeTeam, user} = useOutletContext()
 
     const navigate = useNavigate()
 
@@ -29,13 +30,27 @@ const BattlePage = () => {
         setCurrentOpponentHealthTotal(response.data.hp)
     }
 
-    const getTemp = async () => {
-        let response = await axios.get('https://pokeapi.co/api/v2/pokemon/3/')
-        console.log('pokeapi', response.data)
-        setCurrentPokemon(response.data)
-        setCurrentPokemonHealth(response.data.stats[0].base_stat)
-        setCurrentPokemonHealthTotal(response.data.stats[0].base_stat)
-    }
+    const getTeam = async () => {
+        console.log("getting team")
+        try {
+
+            teamApi.defaults.headers.common[
+                "Authorization"
+            ] = `Token ${user.Token}`;
+
+            let response = await teamApi.get('manager/');
+            console.log("get team", response.data);
+
+            if (response.status === 200) {
+                setPokeTeam(response.data)
+                setCurrentPokemon(response.data)
+            } else {
+                alert("Error retrieving team");
+            }
+        } catch (error) {
+            console.error("Error retrieving team:", error);
+        }
+    };
 
     /////////////////ATTACK///////////////////////////////////////////////////////////
 
@@ -147,7 +162,7 @@ const BattlePage = () => {
     }, [])
 
     useEffect(() => {
-        getTemp()
+        getTeam()
         wildPoke()
     },[randomNum])
 

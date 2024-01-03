@@ -4,13 +4,20 @@ import { pokeApi, teamApi, pokedexApi } from "../components/utilities"
 import pokeLogo from '../assets/PokeLogoClean.png'
 
 
+
 export default function HomePage() {
-    const { isLoggedIn, setIsLoggedIn, pokeTeam, setPokeTeam, pokedex, setPokedex } = useOutletContext()
+    const { isLoggedIn, pokeTeam, setPokeTeam, pokedex, setPokedex, user } = useOutletContext()
 
     const navigate = useNavigate()
 
     const getTeam = async () => {
+        console.log("getting team")
         try {
+
+            teamApi.defaults.headers.common[
+                "Authorization"
+              ] = `Token ${user.Token}`;
+
             let response = await teamApi.get('manager/');
             console.log("get team", response.data);
 
@@ -23,26 +30,6 @@ export default function HomePage() {
             console.error("Error retrieving team:", error);
         }
     };
-
-
-    // const deleteTeam = async () => {
-    //     let data = {
-    //         'action': 'unpick',
-    //         'pokemon_ids': []
-    //     }
-    //     try {
-    //         let response = await teamApi.post('1/', data);
-    //         console.log("get team", response.data);
-
-    //         if (response.status === 204) {
-    //             getTeam()
-    //         } else {
-    //             alert("Error deleting team");
-    //         }
-    //     } catch (error) {
-    //         console.error("Error deleting team:", error);
-    //     }
-    // };
 
     const getPokedex = async () => {
         try {
@@ -75,8 +62,10 @@ export default function HomePage() {
         }
     };
 
+    console.log("pokedex", pokedex)
+
     const handleNewGame = () => {
-        if (pokedex.length < 1) {
+        if (pokedex.length > 0) {
             deletePokedex()
             // deleteTeam()
             console.log("current team", pokeTeam)
