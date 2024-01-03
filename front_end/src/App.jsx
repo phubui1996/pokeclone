@@ -1,8 +1,5 @@
 import { useState} from 'react'
 import { Outlet } from 'react-router'
-
-import pokeLogo from './assets/pokelogo.png'
-import HomePage from './pages/HomePage'
 import Navbar from './components/NavBar'
 
 

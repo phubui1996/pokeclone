@@ -13,7 +13,7 @@ export const pokeApi = axios.create({
 });
 
 export const teamApi = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/v1/pokemon/team/",
+  baseURL: "http://127.0.0.1:8000/api/v1/team/",
 });
 
 export const pokedexApi = axios.create({
