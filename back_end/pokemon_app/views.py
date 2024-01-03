@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import (
@@ -76,12 +76,29 @@ class UserPokemonView(UserPermissions):
   def post(self, request, id): #capture a pokemon
     user = request.user
     try:
-      pokemon = Pokemon.objects.get(id = id)
-      user_pokemon_data = {'user': user.id, 'pokemon':pokemon.id}
+      pokemon = Pokemon.objects.filter(id = id).first()
+
+      user_pokemon_data = {'user': user.id, 'pokemon':{
+        'id': pokemon.id, 
+        'type': pokemon.type,
+        'name': pokemon.name,
+        'move_1': pokemon.move_1,
+        'move_2': pokemon.move_2,
+        'front_img': pokemon.front_img,
+        'back_img': pokemon.back_img,
+        'pokemon_id': pokemon.pokemon_id,
+        'hp': pokemon.hp,
+        'xp': pokemon.xp
+        }}
+      
       serializer = UserPokemonSerializer(data=user_pokemon_data)
-      serializer.is_valid(raise_exception=True)
-      serializer.save()
-      return Response("Pokemon captured successfully!", status=HTTP_201_CREATED)
+
+      if serializer.is_valid():
+        serializer.save()
+        return Response("Pokemon captured successfully!", status=HTTP_201_CREATED)
+      else:
+        print("Serializer errors:", serializer.errors)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
     except Exception as e:
       print(e)
@@ -98,6 +115,7 @@ class UserPokemonView(UserPermissions):
         pokemon.move_2 = request.data.get("move_2")
         pokemon.front_img = request.data.get("front_img")
         pokemon.back_img = request.data.get("back_img")
+        pokemon.pokemon_id = request.data.get("pokemon_id")
         pokemon.hp = request.data.get("hp")
         pokemon.xp = request.data.get("xp")
         # Save the updated Pokemon instance
@@ -115,7 +133,7 @@ class UserPokemonView(UserPermissions):
   def delete(self, request, id):
     user = request.user 
     try: 
-      user_pokemon = UserPokemon.objects.get(pokemon_id = id)
+      user_pokemon = UserPokemon.objects.filter(pokemon_id = id, user = user)
       user_pokemon.delete()
       return Response("Pokemon released successfully", status = HTTP_204_NO_CONTENT)
     
@@ -129,22 +147,7 @@ class Pokedex(APIView):
     pokemons_ser = PokemonSerializer(pokemons,many = True)
     return Response(pokemons_ser.data)
 
-  # def post(self, request):
-  #   user = request.user
-  #   try:
-  #     pokemon = Pokemon.objects.get(id = id)
-  #     user_pokemon_data = {'user': user.id, 'pokemon':pokemon.id}
-  #     serializer = UserPokemonSerializer(data=user_pokemon_data)
-  #     serializer.is_valid(raise_exception=True)
-  #     serializer.save()
-  #     return Response("Pokemon added to pokedex successfully!", status=HTTP_201_CREATED)
-    
-  #   except Exception as e:
-  #     print(e)
-  #     return Response("couldn't add pokemon to pokedex", status=HTTP_400_BAD_REQUEST)
-
   def delete(self, request):
     pokemons = Pokemon.objects.all()
     pokemons.delete()
     return Response("Pokedex reset", status = HTTP_204_NO_CONTENT)
-  
