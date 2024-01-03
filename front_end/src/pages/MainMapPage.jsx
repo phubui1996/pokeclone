@@ -10,7 +10,8 @@ export default function MainMapPage() {
     }
 
     const handlePokeCenter = () => {
-        console.log("We didn't build this yet")
+        // console.log("We didn't build this yet")
+        navigate('/pokecenter')
     }
 
     const handleGym = () => {
