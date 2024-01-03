@@ -446,8 +446,9 @@ input {
 /* PokeCenter //////////////////////////////////////////////////////////////////////// */
 
 .pokecenter_team {
-  margin-top: 200px;
+  margin-top: 0px;
   padding: 10rem;
+  border-radius: 2rem;
 }
 
 .pokecenter {
@@ -457,12 +458,12 @@ input {
 }
 
 .pokecenter_buttons {
-  width: 40%;
-  height: 30px;
+  margin: 10rem;
+  display: flex;
+  flex-direction: row;
+  height: 3rem;
   border: none;
-  background-color: rgb(39, 72, 154);
   color: white;
-  border-radius: 5px;
 }
 
 .pokecenter_buttons:hover {
