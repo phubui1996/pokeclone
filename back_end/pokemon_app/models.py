@@ -12,6 +12,7 @@ class Pokemon(models.Model):
   pokemon_id = models.IntegerField()
   hp = models.IntegerField(default = 10)
   xp = models.IntegerField(default = 0)
+  lvl = models.IntegerField(default = 1)
 
 class UserPokemon(models.Model):
   user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "captured_pokemon")
