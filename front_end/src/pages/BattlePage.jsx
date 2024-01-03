@@ -54,7 +54,7 @@ const BattlePage = () => {
 
             if (response.status === 200) {
                 setPokeTeam(response.data)
-                console.log('the team', response.data[0].pokemons[0].user_pokemon.pokemon)
+                console.log('the team', response.data[0].pokemons[0])
                 setCurrentPokemon(response.data[0].pokemons[0].user_pokemon.pokemon)
                 setCurrentPokemonHealth(response.data[0].pokemons[0].user_pokemon.pokemon.hp)
                 setCurrentPokemonHealthTotal(response.data[0].pokemons[0].user_pokemon.pokemon.hp)
@@ -93,7 +93,7 @@ const BattlePage = () => {
             }
 
             let response = await pokeApi.put(`${currentPokemon.id}/`, data);
-            console.log("get team", response.data);
+            //console.log("get team", response.data);
 
             if (response.status === 200) {
                 console.log("poke info saved") //change current pokemon to selected pokemon
@@ -126,13 +126,15 @@ const BattlePage = () => {
 
     const handleMove1 = () => {
         let attack = (Math.floor(Math.random() * (10 - 0 + 1)))
-        let exp = (Math.floor(Math.random() * (10 - 5 + 1)) + 5)
+        let exp = (Math.floor(Math.random() * (10 - 3 + 1)) + 5)
         setCurrentOpponentHealth(currentOpponentHealth - attack)
+        setCurrentPokemonExperience(currentPokemonExperience + exp)
+        console.log("Move 1 xp: ",exp)
         if (currentOpponentHealth <= 0) {
             console.log("player wins battle")
-            setCurrentPokemonExperience(currentPokemonExperience + exp)
+            console.log("Current exp ",currentPokemonExperience)
             saveHealthXP()
-            navigate("/main")
+            navigate('/main')
         }
         else {
             console.log("opponent attack")
@@ -143,13 +145,15 @@ const BattlePage = () => {
 
     const handleMove2 = () => {
         let attack = (Math.floor(Math.random() * (10 - 0 + 1)))
-        let exp = (Math.floor(Math.random() * (10 - 5 + 1)) + 5)
+        let exp = (Math.floor(Math.random() * (30 - 5 + 1)) + 5)
         setCurrentOpponentHealth(currentOpponentHealth - attack)
+        setCurrentPokemonExperience(currentPokemonExperience + exp)
+        console.log("Move 2 xp: ", exp)
         if (currentOpponentHealth <= 0) {
             console.log("player wins battle")
-            setCurrentPokemonExperience(currentPokemonExperience + exp)
+            console.log("Current exp ", currentPokemonExperience)
             saveHealthXP()
-            navigate("/main")
+            navigate('/main')
         }
         else {
             console.log("opponent attack")
@@ -205,8 +209,9 @@ const BattlePage = () => {
             console.log("pokemon captured") //add post request
             capturePoke()
             //add to team if less than 6
-            if (pokeTeam[0].pokemons < 7) {
+            if (true) {
                 addToTeam()
+                getTeam()
                 navigate("/main");
             }
             else {
@@ -219,8 +224,9 @@ const BattlePage = () => {
                 console.log("pokemon captured") //add post request
                 capturePoke()
                 //add to team if less than 6
-                if (pokeTeam[0].pokemons < 7) {
+                if (true) {
                     addToTeam()
+                    getTeam()
                     navigate("/main");
                 }
                 else {
@@ -242,8 +248,9 @@ const BattlePage = () => {
                 console.log("pokemon captured") //add post request
                 capturePoke()
                 //add to team if less than 6
-                if (pokeTeam[0].pokemons < 7) {
+                if (true) {
                     addToTeam()
+                    getTeam()
                     navigate("/main");
                 }
                 else {
@@ -263,7 +270,7 @@ const BattlePage = () => {
     const addToTeam = async () => {
         let data = {
             'action': 'pick',
-            'pokemon_ids': [choice.id]
+            'pokemon_ids': [currentOpponent.id]
         }
 
         console.log("add to team data: ", data)
@@ -273,15 +280,12 @@ const BattlePage = () => {
         ] = `Token ${user.Token}`;
 
         let addTeam = await teamApi.post(`1/`, data)
-            .then(addTeam => {
-                console.log(addTeam);
-                console.log("pokemon added to team")
-                navigate('/intro')
-            })
             .catch(error => {
                 console.log("couldn't add pokemon")
                 console.error(error);
             })
+
+            console.log("add to team?",addTeam.status)
     }
 
     ////////////////TIMING////////////////////////////////////////////////////////////
@@ -298,8 +302,9 @@ const BattlePage = () => {
 
     useEffect(() => {
         if (currentOpponentHealth < 1) {
-            //post request to update pokemon experience and health
-            navigate("/main")
+            saveHealthXP()
+            getTeam()
+            navigate('/main')
         }
     }, [currentOpponentHealth])
 
