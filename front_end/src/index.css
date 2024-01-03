@@ -439,3 +439,32 @@ input {
 .battle_buttons:hover {
   background-color: rgb(211, 189, 21);
 }
+
+
+
+
+/* PokeCenter //////////////////////////////////////////////////////////////////////// */
+
+.pokecenter_team {
+  margin-top: 200px;
+  padding: 10rem;
+}
+
+.pokecenter {
+  width: 100%;
+  height: 100%;
+  background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/fs/28e13297263939.5ec14858dcc0a.jpg);
+}
+
+.pokecenter_buttons {
+  width: 40%;
+  height: 30px;
+  border: none;
+  background-color: rgb(39, 72, 154);
+  color: white;
+  border-radius: 5px;
+}
+
+.pokecenter_buttons:hover {
+  background-color: rgb(211, 189, 21);
+}
