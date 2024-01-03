@@ -1,17 +1,24 @@
 import { Link, useNavigate, useOutletContext } from "react-router-dom"
 import { useEffect, useState } from 'react'
 import { pokeApi, teamApi, pokedexApi } from "../components/utilities"
-import pokeLogo from '../assets/pokelogo.png'
+import pokeLogo from '../assets/PokeLogoClean.png'
+
 
 
 export default function HomePage() {
-    const { isLoggedIn, setIsLoggedIn, pokeTeam, setPokeTeam, pokedex, setPokedex } = useOutletContext()
+    const { isLoggedIn, pokeTeam, setPokeTeam, pokedex, setPokedex, user } = useOutletContext()
 
     const navigate = useNavigate()
 
     const getTeam = async () => {
+        console.log("getting team")
         try {
-            let response = await teamApi.get('');
+
+            teamApi.defaults.headers.common[
+                "Authorization"
+              ] = `Token ${user.Token}`;
+
+            let response = await teamApi.get('manager/');
             console.log("get team", response.data);
 
             if (response.status === 200) {
@@ -21,22 +28,6 @@ export default function HomePage() {
             }
         } catch (error) {
             console.error("Error retrieving team:", error);
-        }
-    };
-
-
-    const deleteTeam = async () => {
-        try {
-            let response = await teamApi.delete('');
-            console.log("get team", response.data);
-
-            if (response.status === 204) {
-                getTeam()
-            } else {
-                alert("Error deleting team");
-            }
-        } catch (error) {
-            console.error("Error deleting team:", error);
         }
     };
 
@@ -71,10 +62,13 @@ export default function HomePage() {
         }
     };
 
+    console.log("pokedex", pokedex)
+
     const handleNewGame = () => {
-        if (pokedex.length < 1) {
+        if (pokedex.length > 0) {
             deletePokedex()
             // deleteTeam()
+            console.log("current team", pokeTeam)
             navigate('/starter')
         }
         else {
@@ -88,7 +82,7 @@ export default function HomePage() {
 
     useEffect(() => {
         getPokedex()
-        // getTeam()
+        getTeam()
         if (isLoggedIn === false) {
             navigate('/landing')
         }

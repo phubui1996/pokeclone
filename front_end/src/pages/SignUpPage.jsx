@@ -21,7 +21,7 @@ export default function SignUpPage() {
         })
 
         if (response.status === 201) {
-            setUser(response.data.User)
+            setUser(response.data)
             localStorage.setItem("token", response.data.Token) //Had to change to capital T and U for token and user
             setIsLoggedIn(true)
             userApi.defaults.headers.common[
