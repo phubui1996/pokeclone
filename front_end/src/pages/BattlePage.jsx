@@ -9,7 +9,6 @@ import rejection_sound from '/src/assets/BattleMusic/489366__morjon17__rejected_
 
 const BattlePage = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(null);
 
     const [randomNum, setRandomNum] = useState("")
     const [currentOpponent, setCurrentOpponent] = useState([])
@@ -17,8 +16,10 @@ const BattlePage = () => {
     const [currentPokemonHealth, setCurrentPokemonHealth] = useState(50)
     const [currentPokemonHealthTotal, setCurrentPokemonHealthTotal] = useState(50)
     const [currentPokemonExperience, setCurrentPokemonExperience] = useState(0)
+    const [currentPokemonLevel, setCurrentPokemonLevel] = useState()
     const [currentOpponentHealth, setCurrentOpponentHealth] = useState(50)
     const [currentOpponentHealthTotal, setCurrentOpponentHealthTotal] = useState(50)
+
     const { pokeTeam, setPokeTeam, user } = useOutletContext()
 
     const navigate = useNavigate()
@@ -31,7 +32,7 @@ const BattlePage = () => {
         setRandomNum(Math.floor(Math.random() * (100 - 1 + 1)) + 1)
     }
 
-    console.log(randomNum)
+    //console.log(randomNum)
     const wildPoke = async () => {
         let response = await wildApi.get(`${randomNum}`)
         console.log('wildapi', response.data)
@@ -55,6 +56,14 @@ const BattlePage = () => {
                 setPokeTeam(response.data)
                 console.log('the team', response.data[0].pokemons[0].user_pokemon.pokemon)
                 setCurrentPokemon(response.data[0].pokemons[0].user_pokemon.pokemon)
+                setCurrentPokemonHealth(response.data[0].pokemons[0].user_pokemon.pokemon.hp)
+                setCurrentPokemonHealthTotal(response.data[0].pokemons[0].user_pokemon.pokemon.hp)
+                setCurrentPokemonLevel(response.data[0].pokemons[0].user_pokemon.pokemon.lvl)
+                setCurrentPokemonExperience(response.data[0].pokemons[0].user_pokemon.pokemon.xp)
+                if (currentPokemonExperience >= 100) {
+                    setCurrentPokemonExperience(currentPokemonExperience - 100)
+                    setCurrentPokemonLevel(currentPokemonLevel + 1)
+                }
             } else {
                 alert("Error retrieving team");
             }
@@ -62,6 +71,39 @@ const BattlePage = () => {
             console.error("Error retrieving team:", error);
         }
     };
+
+    const saveHealthXP = async () => {
+        console.log("saving health and xp...")
+        try {
+            pokeApi.defaults.headers.common[
+                "Authorization"
+            ] = `Token ${user.Token}`;
+
+            let data = {
+                'pokemon_id': currentPokemon.id,
+                'hp': currentPokemonHealth,
+                'xp': currentPokemonExperience,
+                'lvl': currentPokemonLevel,
+                "name": currentPokemon.name,
+                "type": currentPokemon.type,
+                "move_1": currentPokemon.move_1,
+                "move_2": currentPokemon.move_2,
+                "front_img": currentPokemon.front_img,
+                "back_img": currentPokemon.back_img,
+            }
+
+            let response = await pokeApi.put(`${currentPokemon.id}/`, data);
+            console.log("get team", response.data);
+
+            if (response.status === 200) {
+                console.log("poke info saved") //change current pokemon to selected pokemon
+            } else {
+                alert("Error retrieving team");
+            }
+        } catch (error) {
+            console.error("Error retrieving team:", error);
+        }
+    }
 
     ////////////CHANGE POKEMON///////////////////////////////////////////////////////////
 
@@ -75,29 +117,8 @@ const BattlePage = () => {
 
     const handleOptionClick = async (poke) => {
         //save current pokemon health/exp
-        try {
-            pokeApi.defaults.headers.common[
-                "Authorization"
-            ] = `Token ${user.Token}`;
-
-            let data = {
-                'pokemon_id': currentPokemon.id,
-                'hp': currentPokemonHealth,
-                'xp': currentPokemonExperience,
-            }
-
-            let response = await teamApi.put('manager/');
-            console.log("get team", response.data);
-
-            if (response.status === 200) {
-                setCurrentPokemon(poke) //change current pokemon to selected pokemon
-            } else {
-                alert("Error retrieving team");
-            }
-        } catch (error) {
-            console.error("Error retrieving team:", error);
-        }
-
+        saveHealthXP();
+        setCurrentPokemon(poke)
         closeModal();
     };
 
@@ -110,6 +131,7 @@ const BattlePage = () => {
         if (currentOpponentHealth <= 0) {
             console.log("player wins battle")
             setCurrentPokemonExperience(currentPokemonExperience + exp)
+            saveHealthXP()
             navigate("/main")
         }
         else {
@@ -126,6 +148,7 @@ const BattlePage = () => {
         if (currentOpponentHealth <= 0) {
             console.log("player wins battle")
             setCurrentPokemonExperience(currentPokemonExperience + exp)
+            saveHealthXP()
             navigate("/main")
         }
         else {
@@ -142,7 +165,7 @@ const BattlePage = () => {
     const handleRun = () => {
         let runChance = (Math.floor(Math.random() * (5 - 1 + 1)) + 1)
         if (runChance < 4) {
-            //add post request to save experience and health
+            saveHealthXP() //add post request to save experience and health
             navigate("/main")
         }
         else {
@@ -167,7 +190,8 @@ const BattlePage = () => {
             console.log("capture poke post", response, currentOpponent.id);
 
             if (response.status === 201) {
-                navigate("/main");
+                saveHealthXP() //add post request to save experience and health
+                //change to navigate to victory screen
             } else {
                 alert("Poke not captured");
             }
@@ -181,6 +205,13 @@ const BattlePage = () => {
             console.log("pokemon captured") //add post request
             capturePoke()
             //add to team if less than 6
+            if (pokeTeam[0].pokemons < 7) {
+                addToTeam()
+                navigate("/main");
+            }
+            else {
+                navigate("/main");
+            }
         }
         else if (currentOpponentHealth / currentOpponentHealthTotal < .3) {
             let captureChance = (Math.floor(Math.random() * (5 - 1 + 1)) + 1)
@@ -189,29 +220,11 @@ const BattlePage = () => {
                 capturePoke()
                 //add to team if less than 6
                 if (pokeTeam[0].pokemons < 7) {
-                    const getTeam = async () => {
-                        let data = {
-                            'action': 'pick',
-                            'pokemon_ids': [choice.id]
-                        }
-
-                        console.log("add to team data: ", data)
-
-                        teamApi.defaults.headers.common[
-                            "Authorization"
-                        ] = `Token ${user.Token}`;
-
-                        let addTeam = await teamApi.post(`1/`, data)
-                            .then(addTeam => {
-                                console.log(addTeam);
-                                console.log("pokemon added to team")
-                                navigate('/intro')
-                            })
-                            .catch(error => {
-                                console.log("couldn't add pokemon")
-                                console.error(error);
-                            })
-                    }
+                    addToTeam()
+                    navigate("/main");
+                }
+                else {
+                    navigate("/main");
                 }
             }
             else {
@@ -230,29 +243,11 @@ const BattlePage = () => {
                 capturePoke()
                 //add to team if less than 6
                 if (pokeTeam[0].pokemons < 7) {
-                    const getTeam = async () => {
-                        let data = {
-                            'action': 'pick',
-                            'pokemon_ids': [choice.id]
-                        }
-
-                        console.log("add to team data: ", data)
-
-                        teamApi.defaults.headers.common[
-                            "Authorization"
-                        ] = `Token ${user.Token}`;
-
-                        let addTeam = await teamApi.post(`1/`, data)
-                            .then(addTeam => {
-                                console.log(addTeam);
-                                console.log("pokemon added to team")
-                                navigate('/intro')
-                            })
-                            .catch(error => {
-                                console.log("couldn't add pokemon")
-                                console.error(error);
-                            })
-                    }
+                    addToTeam()
+                    navigate("/main");
+                }
+                else {
+                    navigate("/main");
                 }
             }
             else {
@@ -265,10 +260,35 @@ const BattlePage = () => {
         }
     }
 
+    const addToTeam = async () => {
+        let data = {
+            'action': 'pick',
+            'pokemon_ids': [choice.id]
+        }
+
+        console.log("add to team data: ", data)
+
+        teamApi.defaults.headers.common[
+            "Authorization"
+        ] = `Token ${user.Token}`;
+
+        let addTeam = await teamApi.post(`1/`, data)
+            .then(addTeam => {
+                console.log(addTeam);
+                console.log("pokemon added to team")
+                navigate('/intro')
+            })
+            .catch(error => {
+                console.log("couldn't add pokemon")
+                console.error(error);
+            })
+    }
+
     ////////////////TIMING////////////////////////////////////////////////////////////
 
     useEffect(() => {
         getRandomNum()
+        console.log("the current team: ", pokeTeam)
     }, [])
 
     useEffect(() => {
@@ -290,8 +310,8 @@ const BattlePage = () => {
                     <audio autoPlay src={battlemusic1} loop type="audio/wav" volume='0.2'></audio>
                     <div id='battle_options_div'>
                         <div id='moves_div'>
-                            <button onClick={handleMove1} className='battle_buttons'>{currentOpponent.move_1}</button>
-                            <button onClick={handleMove2} className='battle_buttons'>{currentOpponent.move_2}</button>
+                            <button onClick={handleMove1} className='battle_buttons'>{currentPokemon.move_1}</button>
+                            <button onClick={handleMove2} className='battle_buttons'>{currentPokemon.move_2}</button>
                         </div>
                         <div id='other_options_div'>
                             <button onClick={handleCapture} className='battle_buttons'>Capture</button>
@@ -314,12 +334,11 @@ const BattlePage = () => {
                                 ))}
                                 <button onClick={closeModal}>Close</button>
                             </Modal>
-
-                            {selectedOption && <p>You selected: {selectedOption}</p>}
                         </div>
                         <div id='your_pokemon_div'>
                             <div id='your_pokemon_status_div'>
                                 <h3>{currentPokemon.name}</h3>
+                                <h4>Level: {currentPokemonLevel}</h4>
                                 <div className='status_bar_div'>
                                     <ProgressBar max={currentPokemonHealthTotal} now={currentPokemonHealth} label={`${currentPokemonHealth}`} className='actual_status_bar' />
                                     <ProgressBar now={currentPokemonExperience} label={`${currentPokemonExperience}`} className='actual_status_bar' />

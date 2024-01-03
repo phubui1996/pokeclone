@@ -6,12 +6,11 @@ export default function MainMapPage() {
     const navigate = useNavigate()
 
     const handleHouse = () => {
-        console.log("We didn't build this yet")
+        navigate("/house")
     }
 
     const handlePokeCenter = () => {
-        // console.log("We didn't build this yet")
-        navigate('/pokecenter')
+        navigate("/pokecenter")
     }
 
     const handleGym = () => {
@@ -30,7 +29,7 @@ export default function MainMapPage() {
     }
 
     const handlePokedex = () => {
-        console.log("Come back later")
+        navigate("/pokedex")
     }
 
     return (
