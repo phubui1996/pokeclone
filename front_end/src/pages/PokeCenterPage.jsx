@@ -107,8 +107,8 @@ console.log(selectedIds)
                     <div className='pokecenter_team'>
                         {pokeTeam.map((pokemon) => (
                             <>
-                            <ListGroup.Item variant='danger' className='more_buttons'>{pokemon.user_pokemon.pokemon.name}</ListGroup.Item>
-                            <ProgressBar max={pokemon.user_pokemon.pokemon.base_hp} now={pokemon.user_pokemon.pokemon.hp} label={`${pokemon.user_pokemon.pokemon.hp}`} className='actual_status_bar' />
+                                <ListGroup.Item variant='danger' className='more_buttons'>{pokemon.user_pokemon.pokemon.name}</ListGroup.Item>
+                                <ProgressBar max={pokemon.user_pokemon.pokemon.base_hp} now={pokemon.user_pokemon.pokemon.hp} label={`${pokemon.user_pokemon.pokemon.hp}`} className='actual_status_bar' />
                             </> 
                         ))}
                     </div>
