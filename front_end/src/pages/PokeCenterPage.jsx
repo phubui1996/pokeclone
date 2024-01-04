@@ -14,29 +14,6 @@ const PokeCenterPage = () => {
 
     const navigate = useNavigate()
     
-    // const getTeam = async () => {
-    //     console.log("getting team")
-    //     try {
-            
-    //         teamApi.defaults.headers.common[
-    //             "Authorization"
-    //         ] = `Token ${user.Token}`;
-            
-    //         let response = await teamApi.get('manager/');
-    //         console.log("get team", response.data);
-            
-    //         if (response.status === 200) {
-    //             console.log(response.data)
-    //             setPokeTeam(response.data)
-    //             console.log('the team', response.data[0].pokemons[0].user_pokemon.pokemon)
-    //             setCurrentPokemon(response.data[0].pokemons[0].user_pokemon.pokemon)
-    //         } else {
-    //             alert("Error retrieving team");
-    //         }
-    //     } catch (error) {
-    //         console.error("Error retrieving team:", error);
-    //     }
-    // };
 
     const getPokeTeam = async () => {
         try {
@@ -48,36 +25,6 @@ const PokeCenterPage = () => {
         }
       };
     
-    //   const getCapturedPokemons = async () => {
-    //     try {
-    //       const response = await pokeApi.get("");
-    //       setCapturePokemons(response.data);
-    //     } catch (error) {
-    //       console.error("Error fetching data from capture pokemon", error);
-    //     }
-    //   };
-    
-      const fetchData = async () => {
-        try {
-          const storedToken = localStorage.getItem("token");
-    
-          if (storedToken) {
-            // Set Authorization header for teamApi
-            teamApi.defaults.headers.common[
-              "Authorization"
-            ] = `Token ${storedToken}`;
-            pokeApi.defaults.headers.common[
-              "Authorization"
-            ] = `Token ${storedToken}`;
-    
-            await Promise.all([getPokeTeam(), getCapturedPokemons()]);
-          } else {
-            console.log("Token not found in local storage");
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      };
 
 
     const getPokemonId = () => {
@@ -100,26 +47,29 @@ console.log(selectedIds)
         async function updatePokemonTeam(pokeTeam) {
             try {
                 const promises = pokeTeam.map(async (pokemon) => {
+                    console.log("pokemon", pokemon)
+                    console.log("before", pokemon.user_pokemon.pokemon)
                     let data = {
-                        'pokemon_id': pokemon.id,
-                        // 'hp': pokemonHealthTotal,
-                        'base_hp': pokemon.base_hp,
-                        'hp': pokemon.base_hp,
-                        'xp': pokemon.xp,
-                        'lvl': pokemon.lvl,
-                        "name": pokemon.name,
-                        "type": pokemon.type,
-                        "move_1": pokemon.move_1,
-                        "move_2": pokemon.move_2,
-                        "front_img": pokemon.front_img,
-                        "back_img": pokemon.back_img,
+                        "name": pokemon.user_pokemon.pokemon.name,
+                        "type": pokemon.user_pokemon.pokemon.type,
+                        "move_1": pokemon.user_pokemon.pokemon.move_1,
+                        "move_2": pokemon.user_pokemon.pokemon.move_2,
+                        "front_img": pokemon.user_pokemon.pokemon.front_img,
+                        "back_img": pokemon.user_pokemon.pokemon.back_img,
+                        "pokemon_id": pokemon.user_pokemon.pokemon.pokemon_id,
+                        'base_hp': pokemon.user_pokemon.pokemon.base_hp,
+                        'hp': pokemon.user_pokemon.pokemon.base_hp,
+                        'xp': pokemon.user_pokemon.pokemon.xp,
+                        'lvl': pokemon.user_pokemon.pokemon.lvl,
                     }
                     
                     const storedToken = localStorage.getItem("token");
                     console.log("token", storedToken)
                     
                     pokeApi.defaults.headers.common["Authorization"] = `Token ${storedToken}`;
-                    const response = await pokeApi.put(`${pokemon.id}/`, data);
+                    const response = await pokeApi.put(`${pokemon.user_pokemon.pokemon.id}/`, data);
+                    
+                    console.log("After", pokemon.user_pokemon.pokemon)
                     console.log(response.data, "Your Pokémon is at full health!");
                 });
         
@@ -127,45 +77,25 @@ console.log(selectedIds)
                 await Promise.all(promises);
         
                 // Once all requests are completed, call getTeam
-                getTeam();
+                // getTeam();
             } catch (error) {
                 console.error("Error updating Pokémon team:", error);
             }
         }
-        
-        // Example usage
-        // const myPokeTeam = [1, 2, 3]; // Replace with actual Pokémon IDs
-        // const myUser = { Token: "your_token_here" }; // Replace with actual user token
-        // const myData = { /* Your update data */ };
-        
         updatePokemonTeam(pokeTeam);
         
-    //     pokeTeam.map(async(pokemon)=> {
-            
-    //         pokeApi.defaults.headers.common[
-    //             "Authorization"
-    //         ] = `Token ${user.Token}`;
-
-    //         let response = await pokeApi.put(`${currentPokemon}/`, data)
-    //         console.log(response.data, ", your pokemon are at full health!") 
-    //     })
-    //     getTeam()  
+        getPokeTeam()  
     }
     
 
     useEffect(() => {
         getPokeTeam()
-        // getPokemonId()
     }, [])
     
     // console.log(user)
     console.log(currentPokemonHealthTotal)
     console.log(pokeTeam)
-    // // console.log(pokeTeam[0].user_pokemon.pokemon)
-    // console.log(pokeTeam[0].user_pokemon.pokemon.name)
-    // console.log(pokeTeam[1].user_pokemon.pokemon.name)
-
-
+    
     return (
         <div className="full_page_div">
             <div className='pokecenter'>
@@ -178,19 +108,9 @@ console.log(selectedIds)
                         {pokeTeam.map((pokemon) => (
                             <>
                             <ListGroup.Item variant='danger' className='more_buttons'>{pokemon.user_pokemon.pokemon.name}</ListGroup.Item>
-                            <ProgressBar max={currentPokemonHealthTotal} now={pokemon.user_pokemon.pokemon.hp} label={`${pokemon.user_pokemon.pokemon.hp}`} className='actual_status_bar' />
-                            </>
-                            // <ListGroup.Item variant="danger">{pokemon.name}</ListGroup.Item>    
+                            <ProgressBar max={pokemon.user_pokemon.pokemon.base_hp} now={pokemon.user_pokemon.pokemon.hp} label={`${pokemon.user_pokemon.pokemon.hp}`} className='actual_status_bar' />
+                            </> 
                         ))}
-                        {/* <ListGroup.Item variant="danger">{pokeTeam[0].user_pokemon.pokemon.name}</ListGroup.Item> */}
-                        {/* <ProgressBar max={currentPokemonHealthTotal} now={pokeTeam[0].pokemons[0].user_pokemon.pokemon.hp} label={`${pokeTeam[0].pokemons[0].user_pokemon.pokemon.hp}`} className='actual_status_bar' /> */}
-                        {/* <ListGroup.Item variant="secondary"></ListGroup.Item>
-                        <ListGroup.Item variant="success"></ListGroup.Item>
-                        <ListGroup.Item variant="danger"></ListGroup.Item>
-                        <ListGroup.Item variant="warning"></ListGroup.Item>
-                        <ListGroup.Item variant="info"></ListGroup.Item>
-                        <ListGroup.Item variant="light"></ListGroup.Item>
-                        <ListGroup.Item variant="dark"></ListGroup.Item> */}
                     </div>
                 </ListGroup>
             </div>
