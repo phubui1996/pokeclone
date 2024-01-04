@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
-
+import { useOutletContext, useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 import { teamApi, pokeApi } from "../components/utilities";
 import TeamPokemonCard from "../components/TeamPokemonCard";
 
