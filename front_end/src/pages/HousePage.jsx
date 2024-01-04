@@ -10,7 +10,7 @@ const HousePage = () => {
   const [capturedPokemons, setCapturePokemons] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
 
-  const {pokeTeam, setPokeTeam} = useOutletContext()
+  const { pokeTeam, setPokeTeam } = useOutletContext()
 
   const getPokeTeam = async () => {
     try {
@@ -115,28 +115,28 @@ const HousePage = () => {
   return (
     <div className='full_page_div'>
       <div id='house_div'>
-      <div className="team_pokemons_div">
-        <h2>Team Pokemon</h2>
-        {pokeTeam &&
-          pokeTeam.map((pokemon) => (
-            <TeamPokemonCard
-              key={pokemon.user_pokemon.pokemon.id}
-              id={pokemon.user_pokemon.pokemon.id}
-              name={pokemon.user_pokemon.pokemon.name}
-              type={pokemon.user_pokemon.pokemon.type}
-              back_img={pokemon.user_pokemon.pokemon.back_img}
-              front_img={pokemon.user_pokemon.pokemon.front_img}
-              move_1={pokemon.user_pokemon.pokemon.move_1}
-              move_2={pokemon.user_pokemon.pokemon.move_2}
-              hp={pokemon.user_pokemon.pokemon.hp}
-              xp={pokemon.user_pokemon.pokemon.xp}
-              lvl={pokemon.user_pokemon.pokemon.lvl}
-              setSelectedIds={setSelectedIds}
-              selectedIds={selectedIds}
-              handleToggle={handleToggle}
-            />
-          ))}
-      </div>
+        <div className="team_pokemons_div">
+          {/* <h2>Team Pokemon</h2> */}
+          {pokeTeam &&
+            pokeTeam.map((pokemon) => (
+              <TeamPokemonCard
+                key={pokemon.user_pokemon.pokemon.id}
+                id={pokemon.user_pokemon.pokemon.id}
+                name={pokemon.user_pokemon.pokemon.name}
+                type={pokemon.user_pokemon.pokemon.type}
+                back_img={pokemon.user_pokemon.pokemon.back_img}
+                front_img={pokemon.user_pokemon.pokemon.front_img}
+                move_1={pokemon.user_pokemon.pokemon.move_1}
+                move_2={pokemon.user_pokemon.pokemon.move_2}
+                hp={pokemon.user_pokemon.pokemon.hp}
+                xp={pokemon.user_pokemon.pokemon.xp}
+                lvl={pokemon.user_pokemon.pokemon.lvl}
+                setSelectedIds={setSelectedIds}
+                selectedIds={selectedIds}
+                handleToggle={handleToggle}
+              />
+            ))}
+        </div>
 
         <div className="captured_pokemons_div">
           {/* <h2>Captured Pokemon</h2> */}
