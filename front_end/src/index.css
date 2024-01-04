@@ -590,3 +590,53 @@ input {
 .house_buttons:hover {
   background-color: rgb(211, 189, 21);
 }
+/* GAME OVER ///////////////////////////////////////////////////////////////////////// */
+.gameover {
+  padding-top: 5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gameover h1 {
+  animation: strobe 1s infinite alternate;
+  font-family: 'Lobster', cursive;
+}
+
+.gameover img {
+  width: 55rem;
+  height: 25rem;
+  border-radius: 1rem;
+}
+
+@keyframes strobe {
+  0% {
+    color: white;
+  }
+  50% {
+    color: red;  /* Adjust the color as needed */
+  }
+  100% {
+    color: white;
+  }
+}
+
+.gameover_buttons {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  width: 15rem;
+
+}
+
+.victory {
+  padding-top: 5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* .victory h1 {
+  animation: strobe 1s infinite alternate;
+  font-family: 'Lobster', cursive;
+} */
