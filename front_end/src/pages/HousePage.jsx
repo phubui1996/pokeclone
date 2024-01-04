@@ -7,14 +7,15 @@ import TeamPokemonCard from "../components/TeamPokemonCard";
 // path: "house/",
 
 const HousePage = () => {
-  const [teamPokemons, setTeamPokemons] = useState([]);
   const [capturedPokemons, setCapturePokemons] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
 
-  const getTeamPokemons = async () => {
+  const {pokeTeam, setPokeTeam} = useOutletContext()
+
+  const getPokeTeam = async () => {
     try {
       const response = await teamApi.get("manager/");
-      setTeamPokemons(response.data[0].pokemons);
+      setPokeTeam(response.data[0].pokemons);
     } catch (error) {
       console.error("Error fetching data from team pokemon", error);
     }
@@ -42,7 +43,7 @@ const HousePage = () => {
           "Authorization"
         ] = `Token ${storedToken}`;
 
-        await Promise.all([getTeamPokemons(), getCapturedPokemons()]);
+        await Promise.all([getPokeTeam(), getCapturedPokemons()]);
       } else {
         console.log("Token not found in local storage");
       }
@@ -53,7 +54,7 @@ const HousePage = () => {
 
   const getPokemonId = () => {
     setSelectedIds(
-      teamPokemons.map((pokemon) => {
+      pokeTeam.map((pokemon) => {
         return pokemon.user_pokemon.pokemon.id;
       })
     );
@@ -87,7 +88,7 @@ const HousePage = () => {
       setSelectedIds(updatedIds);
 
       // After the API call, refresh the team data
-      await getTeamPokemons();
+      await getPokeTeam();
 
       // Check if the user has no Pokémon in the team
       if (updatedIds.length === 0) {
@@ -103,40 +104,39 @@ const HousePage = () => {
   }, []);
 
   useEffect(() => {
-    console.log("Team", teamPokemons);
+    console.log("Team", pokeTeam);
     console.log("Id", selectedIds);
-  }, [teamPokemons, selectedIds]);
+  }, [pokeTeam, selectedIds]);
 
   useEffect(() => {
     getPokemonId();
-  }, [teamPokemons]);
+  }, [pokeTeam]);
 
   return (
     <div className='full_page_div'>
       <div id='house_div'>
-        <div className="team_pokemons_div">
-          {/* <h2>Team Pokemon</h2> */}
-          {teamPokemons &&
-            teamPokemons.map((pokemon) => (
-              <TeamPokemonCard
-                key={pokemon.user_pokemon.pokemon.id}
-                id={pokemon.user_pokemon.pokemon.id}
-                name={pokemon.user_pokemon.pokemon.name}
-                type={pokemon.user_pokemon.pokemon.type}
-                back_img={pokemon.user_pokemon.pokemon.back_img}
-                front_img={pokemon.user_pokemon.pokemon.front_img}
-                move_1={pokemon.user_pokemon.pokemon.move_1}
-                move_2={pokemon.user_pokemon.pokemon.move_2}
-                hp={pokemon.user_pokemon.pokemon.hp}
-                xp={pokemon.user_pokemon.pokemon.xp}
-                lvl={pokemon.user_pokemon.pokemon.lvl}
-                setSelectedIds={setSelectedIds}
-                selectedIds={selectedIds}
-                handleToggle={handleToggle}
-              />
-            ))}
-        </div>
-
+      <div className="team_pokemons_div">
+        <h2>Team Pokemon</h2>
+        {pokeTeam &&
+          pokeTeam.map((pokemon) => (
+            <TeamPokemonCard
+              key={pokemon.user_pokemon.pokemon.id}
+              id={pokemon.user_pokemon.pokemon.id}
+              name={pokemon.user_pokemon.pokemon.name}
+              type={pokemon.user_pokemon.pokemon.type}
+              back_img={pokemon.user_pokemon.pokemon.back_img}
+              front_img={pokemon.user_pokemon.pokemon.front_img}
+              move_1={pokemon.user_pokemon.pokemon.move_1}
+              move_2={pokemon.user_pokemon.pokemon.move_2}
+              hp={pokemon.user_pokemon.pokemon.hp}
+              xp={pokemon.user_pokemon.pokemon.xp}
+              lvl={pokemon.user_pokemon.pokemon.lvl}
+              setSelectedIds={setSelectedIds}
+              selectedIds={selectedIds}
+              handleToggle={handleToggle}
+            />
+          ))}
+      </div>
 
         <div className="captured_pokemons_div">
           {/* <h2>Captured Pokemon</h2> */}
