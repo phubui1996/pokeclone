@@ -288,7 +288,7 @@ input {
   align-items: center;
 }
 
-#house_div {
+#map_house_div {
   width: 20%;
   background-image: url("./assets/TemporaryPics/pexels-scott-webb-1029599.jpg");
   background-size: cover;
@@ -448,7 +448,7 @@ input {
   flex-direction: column;
   background-color: rgb(173, 7, 7);
   padding: 20px;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   overflow: scroll;
 }
@@ -509,5 +509,74 @@ input {
 }
 
 .pokecenter_buttons:hover {
+  background-color: rgb(211, 189, 21);
+}
+
+
+/* House Page //////////////////////////////////////////////////////////////////////// */
+
+#house_div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-image: url(https://cdn.class101.net/images/eee625e4-5548-4446-94ed-a7b487212523);
+}
+
+.team_pokemons_div {
+  margin-top: 8vh;
+  background-color: rgba(245, 245, 245, 0.686);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 50%;
+  margin-bottom: 2%;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.captured_pokemons_div {
+  background-color: rgba(245,
+      245,
+      245,
+      0.686);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-radius: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  justify-content: center;
+  align-items: center;
+}
+
+.team_poke_div {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  background-color: whitesmoke;
+  padding: 20px;
+  border-radius: 20px;
+  width: 250px;
+  border: 2px solid lightgray;
+}
+
+.house_buttons {
+  margin-top: 7px;
+  border: none;
+  border-radius: 10px;
+  color: whitesmoke;
+  background-color: rgb(39, 72, 154);
+  padding: 8px;
+  width: 100px;
+}
+
+.house_buttons:hover {
   background-color: rgb(211, 189, 21);
 }

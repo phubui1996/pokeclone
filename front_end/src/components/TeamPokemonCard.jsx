@@ -16,7 +16,7 @@ const TeamPokemonCard = ({
   handleToggle,
 }) => {
   return (
-    <div>
+    <div className='team_poke_div'>
       <h3>{name}</h3>
       <div>type: {type}</div>
       <img src={front_img}></img>
@@ -26,7 +26,7 @@ const TeamPokemonCard = ({
       <div>xp: {xp}</div>
       <div>level: {lvl}</div>
 
-      <button onClick={() => handleToggle(id)}>
+      <button className='house_buttons' onClick={() => handleToggle(id)}>
         {selectedIds.includes(id) ? "Unpick" : "Pick"}
       </button>
     </div>
