@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
-
+import { useOutletContext, useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 import { teamApi, pokeApi } from "../components/utilities";
 import TeamPokemonCard from "../components/TeamPokemonCard";
 
@@ -11,7 +11,7 @@ const HousePage = () => {
   const [selectedIds, setSelectedIds] = useState([]);
 
   const {pokeTeam, setPokeTeam} = useOutletContext()
-
+  const navigate = useNavigate()
   const getPokeTeam = async () => {
     try {
       const response = await teamApi.get("manager/");
@@ -119,22 +119,23 @@ const HousePage = () => {
         {pokeTeam &&
           pokeTeam.map((pokemon) => (
             <TeamPokemonCard
-              key={pokemon.user_pokemon.pokemon.id}
-              id={pokemon.user_pokemon.pokemon.id}
-              name={pokemon.user_pokemon.pokemon.name}
-              type={pokemon.user_pokemon.pokemon.type}
-              back_img={pokemon.user_pokemon.pokemon.back_img}
-              front_img={pokemon.user_pokemon.pokemon.front_img}
-              move_1={pokemon.user_pokemon.pokemon.move_1}
-              move_2={pokemon.user_pokemon.pokemon.move_2}
-              hp={pokemon.user_pokemon.pokemon.hp}
-              xp={pokemon.user_pokemon.pokemon.xp}
-              lvl={pokemon.user_pokemon.pokemon.lvl}
-              setSelectedIds={setSelectedIds}
-              selectedIds={selectedIds}
-              handleToggle={handleToggle}
+            key={pokemon.user_pokemon.pokemon.id}
+            id={pokemon.user_pokemon.pokemon.id}
+            name={pokemon.user_pokemon.pokemon.name}
+            type={pokemon.user_pokemon.pokemon.type}
+            back_img={pokemon.user_pokemon.pokemon.back_img}
+            front_img={pokemon.user_pokemon.pokemon.front_img}
+            move_1={pokemon.user_pokemon.pokemon.move_1}
+            move_2={pokemon.user_pokemon.pokemon.move_2}
+            hp={pokemon.user_pokemon.pokemon.hp}
+            xp={pokemon.user_pokemon.pokemon.xp}
+            lvl={pokemon.user_pokemon.pokemon.lvl}
+            setSelectedIds={setSelectedIds}
+            selectedIds={selectedIds}
+            handleToggle={handleToggle}
             />
-          ))}
+            ))}
+            <Button onClick={() => navigate("/main")}>Exit</Button>
       </div>
 
       <div className="captured_pokemons_div">

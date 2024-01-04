@@ -469,3 +469,13 @@ input {
 .pokecenter_buttons:hover {
   background-color: rgb(211, 189, 21);
 }
+
+/* .more_buttons {
+  margin: 1rem;
+  display: flex;
+  flex-direction: row;
+  height: 5rem;
+  width: 13rem;
+  border: none;
+  color: white;
+} */
