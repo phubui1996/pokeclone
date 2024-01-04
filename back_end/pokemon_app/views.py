@@ -37,7 +37,7 @@ class GetPokemon(APIView):
         back_img = pokemon_data['sprites']['back_shiny'],
         pokemon_id = pokemon_data['id'],
         xp = 0,
-        hp = 10,
+        hp = pokemon_data["stats"][0]['base_stat'],
         lvl = 1
       )
 
