@@ -12,7 +12,7 @@ export default function Navbar({ user, setUser, isLoggedIn, setIsLoggedIn }) {
 
   const handleLogOut = async () => {
     let response = await userApi.post("logout/")
-    console.log(response.status)
+    // console.log(response.status)
     if (response.status === 204) {
       setUser("")
       localStorage.removeItem("token")
@@ -24,7 +24,7 @@ export default function Navbar({ user, setUser, isLoggedIn, setIsLoggedIn }) {
   }
 
   const setLink = () => {
-    console.log(window.location.href)
+    // console.log(window.location.href)
     if (window.location.href === 'http://localhost:5173/signup') {
       setLinkWords('Log In')
       setLinkWordsLink('/login')
@@ -42,10 +42,10 @@ export default function Navbar({ user, setUser, isLoggedIn, setIsLoggedIn }) {
     }
   }
 
-  console.log(isLoggedIn, user)
+  // console.log(isLoggedIn, user)
 
   useEffect(() => {
-    setLink()
+    // setLink()
   })
 
   return (

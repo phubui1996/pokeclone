@@ -13,7 +13,8 @@ import IntroPage from "./pages/IntroPage";
 import ErrorPage from "./pages/ErrorPage";
 import HousePage from "./pages/HousePage";
 import PokedexPage from "./pages/PokedexPage";
-
+import GameOverPage from "./pages/GameOverPage";
+import VictoryPage from "./pages/VictoryPage";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,14 @@ const router = createBrowserRouter([
       {
         path: "pokedex/",
         element: <PokedexPage />
+      },
+      {
+        path: "gameover/",
+        element: <GameOverPage />
+      },
+      {
+        path: "victory/",
+        element: <VictoryPage />
       }
     ]
     
