@@ -112,9 +112,9 @@ console.log(selectedIds)
                         "move_1": pokemon.move_1,
                         "move_2": pokemon.move_2,
                         "front_img": pokemon.front_img,
-                        
                         "back_img": pokemon.back_img,
                     }
+                    
                     const storedToken = localStorage.getItem("token");
                     console.log("token", storedToken)
                     
