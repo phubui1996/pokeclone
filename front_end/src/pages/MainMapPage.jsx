@@ -38,7 +38,7 @@ export default function MainMapPage() {
                 <audio autoPlay src={main_map_music} loop type="audio/wav" volume='0.2'></audio>
                 <div id='overall_map'>
                     <div id='upper_div'>
-                        <div id='house_div' onClick={handleHouse}>
+                        <div id='map_house_div' onClick={handleHouse}>
                             <img src='' />
                         </div>
                         <div id='poke_center_div' onClick={handlePokeCenter}>

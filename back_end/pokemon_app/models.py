@@ -10,6 +10,7 @@ class Pokemon(models.Model):
   front_img = models.URLField()
   back_img = models.URLField()
   pokemon_id = models.IntegerField()
+  base_hp = models.IntegerField(default = 10)
   hp = models.IntegerField(default = 10)
   xp = models.IntegerField(default = 0)
   lvl = models.IntegerField(default = 1)

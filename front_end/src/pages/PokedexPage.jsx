@@ -26,10 +26,11 @@ const PokedexPage = () => {
   return (
     <div>
       <h2>Pokedex</h2>
+
       {pokemons && pokemons.length > 0 ? (
         pokemons.map((pokemon) => (
           <PokemonCard
-          key={pokemon.id}
+            key={pokemon.id}
             id={pokemon.id}
             name={pokemon.name}
             type={pokemon.type}
@@ -40,11 +41,11 @@ const PokedexPage = () => {
             hp={pokemon.hp}
             xp={pokemon.xp}
             lvl={pokemon.lvl}
-            />
-            ))
-            ) : (
-              <h3>No Pokemon in Pokedex</h3>
-              )}
+          />
+        ))
+      ) : (
+        <h3>No Pokemon in Pokedex</h3>
+      )}
     </div>
   );
 };

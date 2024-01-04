@@ -10,8 +10,8 @@ const HousePage = () => {
   const [capturedPokemons, setCapturePokemons] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
 
-  const {pokeTeam, setPokeTeam} = useOutletContext()
-  const navigate = useNavigate()
+  const { pokeTeam, setPokeTeam } = useOutletContext()
+
   const getPokeTeam = async () => {
     try {
       const response = await teamApi.get("manager/");
@@ -113,54 +113,55 @@ const HousePage = () => {
   }, [pokeTeam]);
 
   return (
-    <>
-      <div className="team_pokemons_div">
-        <h2>Team Pokemon</h2>
-        {pokeTeam &&
-          pokeTeam.map((pokemon) => (
-            <TeamPokemonCard
-            key={pokemon.user_pokemon.pokemon.id}
-            id={pokemon.user_pokemon.pokemon.id}
-            name={pokemon.user_pokemon.pokemon.name}
-            type={pokemon.user_pokemon.pokemon.type}
-            back_img={pokemon.user_pokemon.pokemon.back_img}
-            front_img={pokemon.user_pokemon.pokemon.front_img}
-            move_1={pokemon.user_pokemon.pokemon.move_1}
-            move_2={pokemon.user_pokemon.pokemon.move_2}
-            hp={pokemon.user_pokemon.pokemon.hp}
-            xp={pokemon.user_pokemon.pokemon.xp}
-            lvl={pokemon.user_pokemon.pokemon.lvl}
-            setSelectedIds={setSelectedIds}
-            selectedIds={selectedIds}
-            handleToggle={handleToggle}
-            />
+    <div className='full_page_div'>
+      <div id='house_div'>
+        <div className="team_pokemons_div">
+          {/* <h2>Team Pokemon</h2> */}
+          {pokeTeam &&
+            pokeTeam.map((pokemon) => (
+              <TeamPokemonCard
+                key={pokemon.user_pokemon.pokemon.id}
+                id={pokemon.user_pokemon.pokemon.id}
+                name={pokemon.user_pokemon.pokemon.name}
+                type={pokemon.user_pokemon.pokemon.type}
+                back_img={pokemon.user_pokemon.pokemon.back_img}
+                front_img={pokemon.user_pokemon.pokemon.front_img}
+                move_1={pokemon.user_pokemon.pokemon.move_1}
+                move_2={pokemon.user_pokemon.pokemon.move_2}
+                hp={pokemon.user_pokemon.pokemon.hp}
+                xp={pokemon.user_pokemon.pokemon.xp}
+                lvl={pokemon.user_pokemon.pokemon.lvl}
+                setSelectedIds={setSelectedIds}
+                selectedIds={selectedIds}
+                handleToggle={handleToggle}
+              />
             ))}
-            <Button onClick={() => navigate("/main")}>Exit</Button>
-      </div>
+        </div>
 
-      <div className="captured_pokemons_div">
-        <h2>Captured Pokemon</h2>
-        {capturedPokemons &&
-          capturedPokemons.map((pokemon) => (
-            <TeamPokemonCard
-              key={pokemon.id}
-              id={pokemon.id}
-              name={pokemon.name}
-              type={pokemon.type}
-              back_img={pokemon.back_img}
-              front_img={pokemon.front_img}
-              move_1={pokemon.move_1}
-              move_2={pokemon.move_2}
-              hp={pokemon.hp}
-              xp={pokemon.xp}
-              lvl={pokemon.lvl}
-              setSelectedIds={setSelectedIds}
-              selectedIds={selectedIds}
-              handleToggle={handleToggle}
-            />
-          ))}
+        <div className="captured_pokemons_div">
+          {/* <h2>Captured Pokemon</h2> */}
+          {capturedPokemons &&
+            capturedPokemons.map((pokemon) => (
+              <TeamPokemonCard
+                key={pokemon.id}
+                id={pokemon.id}
+                name={pokemon.name}
+                type={pokemon.type}
+                back_img={pokemon.back_img}
+                front_img={pokemon.front_img}
+                move_1={pokemon.move_1}
+                move_2={pokemon.move_2}
+                hp={pokemon.hp}
+                xp={pokemon.xp}
+                lvl={pokemon.lvl}
+                setSelectedIds={setSelectedIds}
+                selectedIds={selectedIds}
+                handleToggle={handleToggle}
+              />
+            ))}
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

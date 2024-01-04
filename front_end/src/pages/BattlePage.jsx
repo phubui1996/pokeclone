@@ -54,7 +54,7 @@ const BattlePage = () => {
 
             if (response.status === 200) {
                 setPokeTeam(response.data[0].pokemons)
-                console.log('the team', response.data[0].pokemons[0])
+                console.log('the team down here', response.data[0].pokemons[0])
                 setCurrentPokemon(response.data[0].pokemons[0].user_pokemon.pokemon)
                 setCurrentPokemonHealth(response.data[0].pokemons[0].user_pokemon.pokemon.hp)
                 setCurrentPokemonHealthTotal(response.data[0].pokemons[0].user_pokemon.pokemon.hp)
