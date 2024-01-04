@@ -103,6 +103,7 @@ console.log(selectedIds)
                     let data = {
                         'pokemon_id': pokemon.id,
                         // 'hp': pokemonHealthTotal,
+                        'base_hp': pokemon.base_hp,
                         'hp': pokemon.base_hp,
                         'xp': pokemon.xp,
                         'lvl': pokemon.lvl,
