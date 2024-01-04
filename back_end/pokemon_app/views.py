@@ -37,6 +37,7 @@ class GetPokemon(APIView):
         back_img = pokemon_data['sprites']['back_shiny'],
         pokemon_id = pokemon_data['id'],
         xp = 0,
+        base_hp = pokemon_data["stats"][0]['base_stat'],
         hp = pokemon_data["stats"][0]['base_stat'],
         lvl = 1
       )
@@ -51,6 +52,7 @@ class GetPokemon(APIView):
         "back_img": pokemon.back_img,
         "pokemon_id": pokemon.pokemon_id,
         "xp": pokemon.xp,
+        "base_hp": pokemon.base_hp,
         "hp": pokemon.hp,
         "lvl": pokemon.lvl
       }
@@ -89,6 +91,7 @@ class UserPokemonView(UserPermissions):
         'front_img': pokemon.front_img,
         'back_img': pokemon.back_img,
         'pokemon_id': pokemon.pokemon_id,
+        'base_hp' : pokemon.base_hp,
         'hp': pokemon.hp,
         'xp': pokemon.xp,
         'lvl': pokemon.lvl
@@ -119,9 +122,11 @@ class UserPokemonView(UserPermissions):
         pokemon.front_img = request.data.get("front_img")
         pokemon.back_img = request.data.get("back_img")
         pokemon.pokemon_id = request.data.get("pokemon_id")
+        pokemon.base_hp = request.data.get("base_hp")
         pokemon.hp = request.data.get("hp")
         pokemon.xp = request.data.get("xp")
         pokemon.lvl = request.data.get("lvl")
+
         # Save the updated Pokemon instance
         pokemon.save()
         
