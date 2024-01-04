@@ -64,14 +64,9 @@ const PokeCenterPage = () => {
         }
         let response = await pokeApi.put(`${pokeID}/`, data)
         console.log(response.data, ", your pokemon are at full health!") 
-        // getTeam()  
+        getTeam()  
     }
 
-
-    useEffect(() => {
-        // getTeam()
-        healPokemon()
-    }, [currentPokemonHealthTotal])
 
     console.log(user)
     console.log(currentPokemonHealthTotal)
@@ -87,6 +82,7 @@ const PokeCenterPage = () => {
                         <Button onClick={() => navigate("/main")}>Exit</Button>
                     </div>
                     <div className='pokecenter_team'>
+                        {/* {pokeTeam[0].pokemons.map()} */}
                         <ListGroup.Item variant="danger">{pokeTeam[0].pokemons[0].user_pokemon.pokemon.name}</ListGroup.Item>
                         <ProgressBar max={currentPokemonHealthTotal} now={pokeTeam[0].pokemons[0].user_pokemon.pokemon.hp} label={`${pokeTeam[0].pokemons[0].user_pokemon.pokemon.hp}`} className='actual_status_bar' />
                         {/* <ListGroup.Item variant="secondary"></ListGroup.Item>

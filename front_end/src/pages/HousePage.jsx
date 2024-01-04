@@ -7,9 +7,11 @@ import TeamPokemonCard from "../components/TeamPokemonCard";
 // path: "house/",
 
 const HousePage = () => {
-  const [teamPokemons, setTeamPokemons] = useState([]);
+  // const [teamPokemons, setTeamPokemons] = useState([]);
   const [capturedPokemons, setCapturePokemons] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
+
+  const {pokeTeam, setPokeTeam} = useOutletContext()
 
   const getTeamPokemons = async () => {
     try {
