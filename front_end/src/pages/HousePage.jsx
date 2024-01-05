@@ -3,6 +3,8 @@ import { useOutletContext, useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import { teamApi, pokeApi } from "../components/utilities";
 import TeamPokemonCard from "../components/TeamPokemonCard";
+import Sound from 'react-audio-player';
+import housePageMusic from '/src/assets/BackgroundMusic/housepage-Music.wav'
 
 // path: "house/",
 
@@ -114,6 +116,7 @@ const HousePage = () => {
 
   return (
     <div className='full_page_div'>
+      <audio autoPlay src={housePageMusic} loop type="audio/wav" volume='0.2'></audio>
       <div id='house_div'>
         <div className="team_pokemons_div">
           {/* <h2>Team Pokemon</h2> */}
@@ -166,3 +169,4 @@ const HousePage = () => {
 };
 
 export default HousePage;
+
