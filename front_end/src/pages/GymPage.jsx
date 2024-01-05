@@ -24,6 +24,8 @@ const GymPage = () => {
   const [pokeDeath, setPokeDeath] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [allPokemonDefeated, setAllPokemonDefeated] = useState(false);
+  const [victoryNavigated, setVictoryNavigated] = useState(false);
+  const [currentUserPokemonIndex, setCurrentUserPokemonIndex] = useState(0);
 
   const [trigger, setTrigger] = useState(false);
 
@@ -102,8 +104,15 @@ const GymPage = () => {
   };
 
   /////////////////ATTACK///////////////////////////////////////////////////////////
-  const handleHealthUpdate = (newHealth) => {
-    setCurrentOpponentHealth(newHealth);
+  const updateHealthAsync = async (pokemon, isUserPokemon) => {
+    if (isUserPokemon) {
+      let damage = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
+      const updatedHealth = Math.max(0, pokemon.hp - damage);
+      return updatedHealth;
+    } else {
+      const updatedHealth = pokemon.hp - 10; // Decrease opponent health by 10
+      return updatedHealth;
+    }
   };
 
   const handleMove = async (moveNumber) => {
@@ -120,30 +129,80 @@ const GymPage = () => {
       return;
     }
 
-    const newHealth = Math.max(
+    console.log(currentOpponentList[currentOpponentIndex].hp);
+    const newOpponentHealth = Math.max(
       0,
       currentOpponentList[currentOpponentIndex].hp - attack
     );
 
+    // Update opponent's health
     setCurrentOpponentList((prevList) => [
       ...prevList.slice(0, currentOpponentIndex),
-      { ...prevList[currentOpponentIndex], hp: newHealth },
+      { ...prevList[currentOpponentIndex], hp: newOpponentHealth },
       ...prevList.slice(currentOpponentIndex + 1),
     ]);
 
+    const anyUserPokemonAlive = pokeTeam.some(
+      (pokemon) => pokemon.user_pokemon.pokemon.hp > 0
+    );
+
+    if (!anyUserPokemonAlive) {
+      console.log("You win! All opponent Pokémon are defeated.");
+
+      // Check if already navigated to victory
+      if (!victoryNavigated) {
+        setVictoryNavigated(true); // Update state to indicate navigation
+        navigate("/victory/");
+      }
+
+      return;
+    }
+
+    // User Pokemon
     if (currentOpponentHealth <= 0) {
       saveHealthXP();
     } else {
-      let counterAttack = Math.floor(Math.random() * (10 - 0 + 1));
-      setCurrentPokemonHealth(currentPokemonHealth - counterAttack);
+      const updatedUserHealth = await updateHealthAsync(
+        pokeTeam[currentUserPokemonIndex].user_pokemon.pokemon,
+        true
+      );
+
+      // Ensure that the updated health is within valid bounds
+      const newUserHealth = Math.max(0, updatedUserHealth);
+      // Update the state with the new health
+      setCurrentPokemonHealth(newUserHealth);
+
+      console.log("Pokemon Health", currentPokemonHealth);
+
+      // Save XP or any other relevant action
       saveHealthXP();
 
-      if (currentPokemonHealth <= 0) {
-        await saveHealthXP();
+      // Check if the user Pokemon has fainted
+      if (newUserHealth <= 0) {
+        // Handle the user Pokemon fainting (e.g., setPokeDeath(true), openModal(), etc.)
         setPokeDeath(true);
-        openModal();
+
+        // Check if all user Pokémon are defeated
+        const allUserPokemonDefeated = await Promise.all(
+          pokeTeam.map(async (pokemon) => {
+            const updatedHealth = await updateHealthAsync(
+              pokemon.user_pokemon.pokemon,
+              true
+            );
+            return updatedHealth <= 0;
+          })
+        );
+
+        const isDefeated = allUserPokemonDefeated.every((defeated) => defeated);
+
+        if (!isDefeated) {
+          console.log("You lose! All your Pokémon are defeated.");
+          // Replace the next line with your actual navigation logic
+          navigate("/gameover/");
+        }
       } else {
         setPokeDeath(false); // Set to false if the Pokemon is still alive
+        openModal(); // Open modal only if the Pokemon is still alive
       }
     }
   };
@@ -278,27 +337,34 @@ const GymPage = () => {
   //     console.log("Current Pokemon", currentPokemon);
   //   }, [pokeTeam]);
 
-  useEffect(() => {
-    const checkPokemonAlive = async () => {
-      // Check if all Pokemon in the team are defeated
-      const anyPokemonAlive = await pokeTeam.some(
-        (pokemon) => pokemon.user_pokemon.pokemon.hp > 0
-      );
+  // useEffect(() => {
+  //   const checkPokemonAlive = async () => {
+  //     const allOpponentsDefeated = currentOpponentList.every(
+  //       (opponent) => opponent.hp <= 0
+  //     );
 
-      // Set the state based on the defeat condition
-      setAllPokemonDefeated(!anyPokemonAlive);
-      console.log(allPokemonDefeated);
+  //     console.log("All Opponents Defeated:", allOpponentsDefeated);
 
-      //   If all Pokemon are defeated, navigate to the "loser" page
-      // if (!anyPokemonAlive) {
-      //   console.log("You lose! All Pokémon are defeated.");
-      //   navigate("/victory/");
-      // }
-    };
+  //     const anyUserPokemonAlive = await pokeTeam.some(
+  //       (pokemon) => pokemon.user_pokemon.pokemon.hp > 0
+  //     );
+  //     console.log("Any User Pokémon Alive:", anyUserPokemonAlive);
 
-    // Trigger the asynchronous check after state updates
-    checkPokemonAlive();
-  }, [pokeTeam, navigate]);
+  //     if (!allOpponentsDefeated) {
+  //       // Navigate to victory page if all opponent Pokémon are defeated
+  //       console.log("You win! All opponent Pokémon are defeated.");
+  //       navigate("/victory/");
+  //     }
+
+  //     if (!anyUserPokemonAlive) {
+  //       // Navigate to loser page if all user Pokémon are defeated
+  //       console.log("You lose! All your Pokémon are defeated.");
+  //       navigate("/gameover/");
+  //     }
+  //   };
+
+  //   checkPokemonAlive();
+  // }, [currentOpponentList, pokeTeam]);
 
   return (
     // <h1> Gym</h1>
