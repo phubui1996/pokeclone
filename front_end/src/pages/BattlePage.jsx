@@ -134,7 +134,7 @@ const BattlePage = () => {
 
     const handleMove1 = async () => {
         console.log('starting attack')
-        let attack = (Math.floor(Math.random() * (10 - 0 + 1) * currentPokemon.lvl))
+        let attack = (Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl))
         setExp(Math.floor(Math.random() * (10 - 1 + 1)) + 1);
         //console.log("current exp: ", exp)
         setCurrentOpponentHealth(currentOpponentHealth - attack)
@@ -143,7 +143,7 @@ const BattlePage = () => {
             //console.log("attacking")
             setTimeout(async () => {
                 console.log("opponent attack")
-                let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1) * currentPokemon.lvl))
+                let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl))
                 setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
                 if (currentPokemonHealth <= 0) {
                     handleDeath()
@@ -165,7 +165,7 @@ const BattlePage = () => {
 
     const handleMove2 = async () => {
         console.log('starting attack')
-        let attack = (Math.floor(Math.random() * (10 - 0 + 1) * currentPokemon.lvl))
+        let attack = (Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl))
         setExp(Math.floor(Math.random() * (5 - 1 + 1)) + 1);
         //console.log("current exp: ", exp)
         setCurrentOpponentHealth(currentOpponentHealth - attack)
@@ -174,7 +174,7 @@ const BattlePage = () => {
             //console.log("attacking")
             setTimeout(async () => {
                 console.log("opponent attack")
-                let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1) * currentPokemon.lvl))
+                let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl))
                 setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
                 if (currentPokemonHealth <= 0) {
                     handleDeath()
@@ -350,7 +350,22 @@ const BattlePage = () => {
     const handleDeath = async () => {
         setCurrentPokemonHealth(0)
         await saveHealthXP()
-        openModal()
+        await getTeam()
+        for (let i = 0; i < pokeTeam.length; i++) {
+            let pokemon = pokeTeam[i].user_pokemon.pokemon;
+            if (pokemon.hp > 0) {
+                await saveHealthXP()
+                setCurrentPokemon(pokemon)
+                setCurrentPokemonHealth(pokemon.hp)
+                //console.log('still saving?')
+                setCurrentPokemonExperience(pokemon.xp)
+                setCurrentPokemonHealthTotal(pokemon.base_hp)
+                setCurrentPokemonLevel(pokemon.lvl)
+                break; // Stop the loop once a Pokémon with health greater than 0 is found
+            }
+            console.log("ending game")
+            //navigate('/gameover')
+        }
         //save health + exp
         // disable the option to use pokemon
         //ask user to pick or default pick the next
@@ -367,32 +382,25 @@ const BattlePage = () => {
         wildPoke()
     }, [randomNum])
 
-    useEffect(() => {
-        saveHealthXP()
-    }, [currentPokemonHealth])
+    // useEffect(() => {
+    //     saveHealthXP()
+    // }, [currentPokemonHealth])
 
     useEffect(() => {
         if (currentOpponentHealth <= 0) {
             handleWin()
         }
         else if (currentPokemonHealth < 1) {
-            let allPokeDead = pokeTeam.every((poke) => poke.user_pokemon.pokemon.hp === 0);
-            if (allPokeDead) {
-                navigate('/gameover')
-            }
-            else {
-                console.log('handling death')
-                handleDeath()
-            }
+            handleDeath()
         }
     }, [currentOpponentHealth, currentPokemonHealth, modalIsOpen])
 
-    useEffect(() => {
-        if (currentPokemonExperience >= 100) {
-            setCurrentPokemonExperience(currentPokemonExperience - 100)
-            setCurrentPokemonLevel(currentPokemonLevel + 1)
-        }
-    }, [exp])
+    // useEffect(() => {
+    //     if (currentPokemonExperience >= 100) {
+    //         setCurrentPokemonExperience(currentPokemonExperience - 100)
+    //         setCurrentPokemonLevel(currentPokemonLevel + 1)
+    //     }
+    // }, [exp])
 
     useEffect(() => {
         if (isLoggedIn === false) {

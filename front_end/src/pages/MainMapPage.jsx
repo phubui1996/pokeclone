@@ -16,7 +16,7 @@ export default function MainMapPage() {
     }
 
     const handleGym = () => {
-        console.log("We didn't build this yet")
+        navigate("/gym")
     }
 
     const handleTallGrass = () => {
