@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
-import Button from 'react-bootstrap/Button';
+import Button from "react-bootstrap/Button";
 import { teamApi, pokeApi } from "../components/utilities";
 import TeamPokemonCard from "../components/TeamPokemonCard";
-import Sound from 'react-audio-player';
-import housePageMusic from '/src/assets/BackgroundMusic/housepage-Music.wav'
+import Sound from "react-audio-player";
+import housePageMusic from "/src/assets/BackgroundMusic/housepage-Music.wav";
 
 // path: "house/",
 
@@ -12,7 +12,7 @@ const HousePage = () => {
   const [capturedPokemons, setCapturePokemons] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
 
-  const { pokeTeam, setPokeTeam } = useOutletContext()
+  const { pokeTeam, setPokeTeam } = useOutletContext();
 
   const getPokeTeam = async () => {
     try {
@@ -115,9 +115,15 @@ const HousePage = () => {
   }, [pokeTeam]);
 
   return (
-    <div className='full_page_div'>
-      <audio autoPlay src={housePageMusic} loop type="audio/wav" volume='0.2'></audio>
-      <div id='house_div'>
+    <div className="full_page_div">
+      <audio
+        autoPlay
+        src={housePageMusic}
+        loop
+        type="audio/wav"
+        volume="0.2"
+      ></audio>
+      <div id="house_div">
         <div className="team_pokemons_div">
           {/* <h2>Team Pokemon</h2> */}
           {pokeTeam &&
@@ -169,4 +175,3 @@ const HousePage = () => {
 };
 
 export default HousePage;
-

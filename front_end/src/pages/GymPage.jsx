@@ -179,9 +179,6 @@ const GymPage = () => {
 
       // Check if the user Pokemon has fainted
       if (newUserHealth <= 0) {
-        // Handle the user Pokemon fainting (e.g., setPokeDeath(true), openModal(), etc.)
-        setPokeDeath(true);
-
         // Check if all user Pokémon are defeated
         const allUserPokemonDefeated = await Promise.all(
           pokeTeam.map(async (pokemon) => {
@@ -200,7 +197,11 @@ const GymPage = () => {
           // Replace the next line with your actual navigation logic
           navigate("/gameover/");
         }
+
+        // Handle the user Pokemon fainting (e.g., setPokeDeath(true), openModal(), etc.)
+        setPokeDeath(true);
       } else {
+        saveHealthXP();
         setPokeDeath(false); // Set to false if the Pokemon is still alive
         openModal(); // Open modal only if the Pokemon is still alive
       }
@@ -255,6 +256,7 @@ const GymPage = () => {
   ////////////CHANGE POKEMON///////////////////////////////////////////////////////////
 
   const openModal = () => {
+    console.log("Opening modal...");
     setModalIsOpen(true);
   };
 
@@ -275,6 +277,7 @@ const GymPage = () => {
 
   const handleOptionClick = async (poke) => {
     //save current pokemon health/exp
+    console.log("Handling option click...");
     await saveHealthXP();
     await getTeam();
 
@@ -337,35 +340,6 @@ const GymPage = () => {
   //     console.log("Current Pokemon", currentPokemon);
   //   }, [pokeTeam]);
 
-  // useEffect(() => {
-  //   const checkPokemonAlive = async () => {
-  //     const allOpponentsDefeated = currentOpponentList.every(
-  //       (opponent) => opponent.hp <= 0
-  //     );
-
-  //     console.log("All Opponents Defeated:", allOpponentsDefeated);
-
-  //     const anyUserPokemonAlive = await pokeTeam.some(
-  //       (pokemon) => pokemon.user_pokemon.pokemon.hp > 0
-  //     );
-  //     console.log("Any User Pokémon Alive:", anyUserPokemonAlive);
-
-  //     if (!allOpponentsDefeated) {
-  //       // Navigate to victory page if all opponent Pokémon are defeated
-  //       console.log("You win! All opponent Pokémon are defeated.");
-  //       navigate("/victory/");
-  //     }
-
-  //     if (!anyUserPokemonAlive) {
-  //       // Navigate to loser page if all user Pokémon are defeated
-  //       console.log("You lose! All your Pokémon are defeated.");
-  //       navigate("/gameover/");
-  //     }
-  //   };
-
-  //   checkPokemonAlive();
-  // }, [currentOpponentList, pokeTeam]);
-
   return (
     // <h1> Gym</h1>
     <div className="full_page_div">
@@ -391,9 +365,11 @@ const GymPage = () => {
 
             <div id="other_options_div">
               <button className="battle_buttons">NO Capture Function</button>
+
               <button onClick={openModal} className="battle_buttons">
                 Change Pokemon
               </button>
+
               <button onClick={handleRun} className="battle_buttons">
                 Run
               </button>
