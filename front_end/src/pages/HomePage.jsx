@@ -2,6 +2,8 @@ import { Link, useNavigate, useOutletContext } from "react-router-dom"
 import { useEffect, useState } from 'react'
 import { pokeApi, teamApi, pokedexApi } from "../components/utilities"
 import pokeLogo from '../assets/PokeLogoClean.png'
+import Sound from 'react-audio-player';
+import starterPageMusic from '/src/assets/BackgroundMusic/birds-from-bohemian-switzerland.wav'
 
 
 
@@ -90,6 +92,8 @@ export default function HomePage() {
 
     return (
         <div className="full_page_div">
+<audio autoPlay src={starterPageMusic} loop type="audio/wav" volume='0.2'></audio>
+     
             <div id="home_page_div">
                 <img src={pokeLogo} id='landing_logo' />
                 <button onClick={handleNewGame} className='home_buttons'>New Game</button>

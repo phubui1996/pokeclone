@@ -4,6 +4,9 @@ import { wildApi, pokeApi, teamApi } from '../components/utilities';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import Sound from 'react-audio-player';
+import pokeCenterPageMusic from '/src/assets/BackgroundMusic/low-bass-loop.wav'
+
 
 const PokeCenterPage = () => {
     const { pokeTeam, setPokeTeam, user } = useOutletContext()
@@ -72,10 +75,10 @@ console.log(selectedIds)
                     console.log("After", pokemon.user_pokemon.pokemon)
                     console.log(response.data, "Your Pokémon is at full health!");
                 });
-        
+                
                 // Wait for all promises to resolve before moving on
                 await Promise.all(promises);
-        
+                
                 // Once all requests are completed, call getTeam
                 // getTeam();
             } catch (error) {
@@ -87,7 +90,7 @@ console.log(selectedIds)
         getPokeTeam()  
     }
     
-
+    
     useEffect(() => {
         getPokeTeam()
     }, [])
@@ -98,6 +101,7 @@ console.log(selectedIds)
     
     return (
         <div className="full_page_div">
+            <audio autoPlay src={pokeCenterPageMusic} loop type="audio/wav" volume='0.2'></audio>
             <div className='pokecenter'>
                 <ListGroup >
                     <div className='pokecenter_buttons'>

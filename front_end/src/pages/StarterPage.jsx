@@ -1,6 +1,8 @@
 import { wildApi, teamApi, pokeApi } from '../components/utilities';
 import { useState, useEffect } from 'react';
 import { useOutletContext, useNavigate } from 'react-router-dom';
+import Sound from 'react-audio-player';
+import starterPageMusic from '/src/assets/BackgroundMusic/soft-intro.wav'
 
 const StarterPage = () => {
     const [starter1, setStarter1] = useState([])
@@ -110,6 +112,7 @@ const StarterPage = () => {
 
     return (
         <div className="full_page_div">
+            <audio autoPlay src={starterPageMusic} loop type="audio/wav" volume='0.2'></audio>
             <div id='starter_div'>
                 <div id='starter_message_div'>
                     <h1 id='starter_message'>Choose your first pokemon:</h1>

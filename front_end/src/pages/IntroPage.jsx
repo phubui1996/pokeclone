@@ -1,4 +1,6 @@
 import { useOutletContext, useNavigate } from "react-router-dom";
+import Sound from 'react-audio-player';
+import starterPageMusic from '/src/assets/BackgroundMusic/nature-sounds-quiet-environment.mp3'
 
 const IntroPage = () => {
     const { pokeTeam, user } = useOutletContext()
@@ -13,6 +15,8 @@ const IntroPage = () => {
     
     return (
         <div className="full_page_div" onClick={handleClick}>
+<audio autoPlay src={starterPageMusic} loop type="audio/wav" volume='0.2'></audio>
+     
             <div id="intro_div">
                 <div id="intro_block1">
                     <h2>Your journey begins, {user.User}</h2>
