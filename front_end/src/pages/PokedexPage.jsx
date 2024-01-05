@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { pokedexApi } from "../components/utilities";
 import PokemonCard from "../components/PokemonCard";
 import Button from "react-bootstrap/Button";
+import Sound from 'react-audio-player';
+import starterPageMusic from '/src/assets/BackgroundMusic/soft-intro.wav'
+
 
 const PokedexPage = () => {
   const [pokemons, setPokemons] = useState();
@@ -25,6 +28,7 @@ const PokedexPage = () => {
 
   return (
     <div className='full_page_div'>
+      <audio autoPlay src={starterPageMusic} loop type="audio/wav" volume='0.2'></audio>
       <div id='pokedex_under_div'>
         <div id='pokedex_div'>
           {/* <h2>Pokedex</h2> */}

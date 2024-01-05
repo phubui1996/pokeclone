@@ -1,6 +1,8 @@
 import { useOutletContext, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react";
 import { userApi } from "../components/utilities";
+import Sound from 'react-audio-player';
+import starterPageMusic from '/src/assets/BackgroundMusic/UntitledTrack01_Loopable.wav'
 
 export default function LogInPage() {
     const [email, setEmail] = useState("")
@@ -43,6 +45,7 @@ export default function LogInPage() {
     }, [])
     return (
         <div className="full_page_div">
+            <audio autoPlay src={starterPageMusic} loop type="audio/wav" volume='0.2'></audio>
             <div id='login_div'>
                 <div className="form_div">
                     <h1>Log In</h1>
