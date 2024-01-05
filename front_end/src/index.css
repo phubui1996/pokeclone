@@ -590,6 +590,7 @@ input {
 .house_buttons:hover {
   background-color: rgb(211, 189, 21);
 }
+
 /* GAME OVER ///////////////////////////////////////////////////////////////////////// */
 .gameover {
   padding-top: 5em;
