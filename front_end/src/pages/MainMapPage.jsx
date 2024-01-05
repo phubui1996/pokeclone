@@ -1,7 +1,9 @@
-import { useNavigate } from "react-router-dom"
-import main_map_music from '/src/assets/BackgroundMusic/PitcherPerfectTheme_Loopable.wav'
+import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import main_map_music from '/src/assets/BackgroundMusic/PitcherPerfectTheme_Loopable.wav';
 
 export default function MainMapPage() {
+    const { isLoggedIn } = useOutletContext()
 
     const navigate = useNavigate()
 
@@ -31,6 +33,12 @@ export default function MainMapPage() {
     const handlePokedex = () => {
         navigate("/pokedex")
     }
+
+    useEffect (() => {
+        if (isLoggedIn === false){
+            navigate('/landing')
+        }
+    }, [])
 
     return (
         <div className='full_page_div'>

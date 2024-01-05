@@ -15,14 +15,15 @@ const BattlePage = () => {
     const [currentPokemon, setCurrentPokemon] = useState()
     const [currentPokemonHealth, setCurrentPokemonHealth] = useState()
     const [currentPokemonHealthTotal, setCurrentPokemonHealthTotal] = useState()
-    const [currentPokemonExperience, setCurrentPokemonExperience] = useState()
+    const [currentPokemonExperience, setCurrentPokemonExperience] = useState(0)
+    const [exp, setExp] = useState(0)
     const [currentPokemonLevel, setCurrentPokemonLevel] = useState()
     const [currentOpponentHealth, setCurrentOpponentHealth] = useState()
     const [currentOpponentHealthTotal, setCurrentOpponentHealthTotal] = useState()
 
-    const [trigger, setTrigger] = useState(false)
+    //const [trigger, setTrigger] = useState(false)
 
-    const [pokeDeath, setPokeDeath] = useState(false)
+    // const [pokeDeath, setPokeDeath] = useState(false)
 
     const { pokeTeam, setPokeTeam, user, isLoggedIn } = useOutletContext()
 
@@ -64,10 +65,6 @@ const BattlePage = () => {
                 setCurrentPokemonHealthTotal(response.data[0].pokemons[0].user_pokemon.pokemon.base_hp)
                 setCurrentPokemonLevel(response.data[0].pokemons[0].user_pokemon.pokemon.lvl)
                 setCurrentPokemonExperience(response.data[0].pokemons[0].user_pokemon.pokemon.xp)
-                if (currentPokemonExperience >= 100) {
-                    setCurrentPokemonExperience(currentPokemonExperience - 100)
-                    setCurrentPokemonLevel(currentPokemonLevel + 1)
-                }
             } else {
                 alert("Error retrieving team");
             }
@@ -112,7 +109,7 @@ const BattlePage = () => {
 
     ////////////CHANGE POKEMON///////////////////////////////////////////////////////////
 
-    const openModal = () => {
+    const openModal = async () => {
         setModalIsOpen(true);
     };
 
@@ -126,7 +123,7 @@ const BattlePage = () => {
         await getTeam()
         setCurrentPokemon(poke)
         setCurrentPokemonHealth(poke.hp)
-        console.log('still saving?')
+        //console.log('still saving?')
         setCurrentPokemonExperience(poke.xp)
         setCurrentPokemonHealthTotal(poke.base_hp)
         setCurrentPokemonLevel(poke.lvl)
@@ -135,64 +132,86 @@ const BattlePage = () => {
 
     /////////////////ATTACK///////////////////////////////////////////////////////////
 
-    const handleMove1 = () => {
-        let attack = (Math.floor(Math.random() * (10 - 0 + 1)))
-        let exp = (Math.floor(Math.random() * (10 - 3 + 1)) + 5)
+    const handleMove1 = async () => {
+        console.log('starting attack')
+        let attack = (Math.floor(Math.random() * (10 - 0 + 1) * currentPokemon.lvl))
+        setExp(Math.floor(Math.random() * (10 - 1 + 1)) + 1);
+        //console.log("current exp: ", exp)
         setCurrentOpponentHealth(currentOpponentHealth - attack)
         setCurrentPokemonExperience(currentPokemonExperience + exp)
-        //console.log("Move 1 xp: ", exp)
-        if (currentOpponentHealth <= 0) {
-            console.log("player wins battle")
-            //console.log("Current exp ", currentPokemonExperience)
-            saveHealthXP()
-            navigate('/main')
-            setPokeDeath(false)
+        if (currentOpponentHealth > 0) {
+            //console.log("attacking")
+            setTimeout(async () => {
+                console.log("opponent attack")
+                let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1) * currentPokemon.lvl))
+                setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
+                if (currentPokemonHealth <= 0) {
+                    handleDeath()
+                }
+                //console.log("health set")
+                //console.log("attacked")
+                await saveHealthXP()
+            }, 500);
+            if (currentOpponentHealth < 1) {
+                console.log('player win')
+                handleWin()
+            }
         }
         else {
-            console.log("opponent attack")
-            let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1)))
-            saveHealthXP()
-            setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
-            setPokeDeath(false)
-            if (currentPokemonHealth < 1) {
-                handleDeath()
-            }
+            console.log('player win 2')
+            handleWin()
         }
     }
 
-    const handleMove2 = () => {
-        let attack = (Math.floor(Math.random() * (10 - 0 + 1)))
-        let exp = (Math.floor(Math.random() * (30 - 5 + 1)) + 5)
+    const handleMove2 = async () => {
+        console.log('starting attack')
+        let attack = (Math.floor(Math.random() * (10 - 0 + 1) * currentPokemon.lvl))
+        setExp(Math.floor(Math.random() * (5 - 1 + 1)) + 1);
+        //console.log("current exp: ", exp)
         setCurrentOpponentHealth(currentOpponentHealth - attack)
         setCurrentPokemonExperience(currentPokemonExperience + exp)
-        //console.log("Move 2 xp: ", exp)
-        if (currentOpponentHealth <= 0) {
-            console.log("player wins battle")
-            console.log("Current exp ", currentPokemonExperience)
-            saveHealthXP()
-            navigate('/main')
-            setPokeDeath(false)
+        if (currentOpponentHealth > 0) {
+            //console.log("attacking")
+            setTimeout(async () => {
+                console.log("opponent attack")
+                let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1) * currentPokemon.lvl))
+                setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
+                if (currentPokemonHealth <= 0) {
+                    handleDeath()
+                }
+                //console.log("health set")
+                //console.log("attacked")
+                await saveHealthXP()
+            }, 500);
+            if (currentOpponentHealth < 1) {
+                console.log('player win')
+                handleWin()
+            }
         }
         else {
-            console.log("opponent attack")
-            let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1)))
-            setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
-            saveHealthXP()
-            setPokeDeath(false)
-            if (currentPokemonHealth < 1){
-                handleDeath()
-            }
+            console.log('player win 2')
+            handleWin()
         }
     }
 
     //console.log(currentOpponent)
 
+    /////////////////WIN///////////////////////////////////////////////////////////
+
+    const handleWin = async () => {
+        saveHealthXP()
+        //console.log("player wins battle")
+        //console.log('poke experience', exp)
+        console.log("battle complete")
+        navigate('/main')
+    }
+
     /////////////////RUN///////////////////////////////////////////////////////////
 
-    const handleRun = () => {
+    const handleRun = async () => {
         let runChance = (Math.floor(Math.random() * (5 - 1 + 1)) + 1)
         if (runChance < 4) {
-            saveHealthXP() //add post request to save experience and health
+            await saveHealthXP() //add post request to save experience and health
             navigate("/main")
         }
         else {
@@ -289,7 +308,6 @@ const BattlePage = () => {
             }
         }
     }
-    console.log("opponent check: ",currentOpponent)
 
     const [selectedIds, setSelectedIds] = useState([]);
 
@@ -299,7 +317,7 @@ const BattlePage = () => {
             currentOpponent.id
         ]);
     };
-    
+
     useEffect(() => {
         getPokemonId();
     }, [currentOpponent]);
@@ -332,7 +350,6 @@ const BattlePage = () => {
     const handleDeath = async () => {
         setCurrentPokemonHealth(0)
         await saveHealthXP()
-        setPokeDeath(true)
         openModal()
         //save health + exp
         // disable the option to use pokemon
@@ -343,7 +360,6 @@ const BattlePage = () => {
 
     useEffect(() => {
         getRandomNum()
-        console.log("the current team: ", pokeTeam)
     }, [])
 
     useEffect(() => {
@@ -352,20 +368,38 @@ const BattlePage = () => {
     }, [randomNum])
 
     useEffect(() => {
-        getTeam()
-    }, [!trigger])
+        saveHealthXP()
+    }, [currentPokemonHealth])
 
     useEffect(() => {
-        if (currentOpponentHealth < 1) {
-            saveHealthXP()
-            getTeam()
-            navigate('/main')
+        if (currentOpponentHealth <= 0) {
+            handleWin()
         }
-    }, [currentOpponentHealth])
+        else if (currentPokemonHealth < 1) {
+            let allPokeDead = pokeTeam.every((poke) => poke.user_pokemon.pokemon.hp === 0);
+            if (allPokeDead) {
+                navigate('/gameover')
+            }
+            else {
+                console.log('handling death')
+                handleDeath()
+            }
+        }
+    }, [currentOpponentHealth, currentPokemonHealth, modalIsOpen])
 
     useEffect(() => {
-        if (isLoggedIn === false){
+        if (currentPokemonExperience >= 100) {
+            setCurrentPokemonExperience(currentPokemonExperience - 100)
+            setCurrentPokemonLevel(currentPokemonLevel + 1)
+        }
+    }, [exp])
+
+    useEffect(() => {
+        if (isLoggedIn === false) {
             navigate('/landing')
+        }
+        else if (pokeTeam.length <= 0) {
+            navigate('/house')
         }
     }, [])
 
@@ -394,8 +428,8 @@ const BattlePage = () => {
                             >
                                 <h2>Select a Pokemon:</h2>
                                 {pokeTeam.map((poke) => (
-                                    <button key={poke.user_pokemon.pokemon.id} onClick={() => handleOptionClick(poke.user_pokemon.pokemon)} disabled = {pokeDeath}>
-                                        {poke.user_pokemon.pokemon.name}<img src={poke.user_pokemon.pokemon.front_img} />
+                                    <button key={poke.user_pokemon.pokemon.id} className='battle_modal_buttons' onClick={() => handleOptionClick(poke.user_pokemon.pokemon)} disabled={poke.user_pokemon.pokemon.hp <= 0}>
+                                        {poke.user_pokemon.pokemon.name} hp: {poke.user_pokemon.pokemon.hp} <img src={poke.user_pokemon.pokemon.front_img} />
                                     </button>
                                 ))}
                                 <button onClick={closeModal}>Close</button>
@@ -406,7 +440,7 @@ const BattlePage = () => {
                                 <h3>{currentPokemon.name}</h3>
                                 <h4>Level: {currentPokemonLevel}</h4>
                                 <div className='status_bar_div'>
-                                    <ProgressBar max={currentPokemonHealthTotal} now={currentPokemonHealth} label={`${currentPokemonHealth}`} className='actual_status_bar' />
+                                    <ProgressBar max={currentPokemonHealthTotal} min={0} now={currentPokemonHealth} label={`${currentPokemonHealth}`} className='actual_status_bar' />
                                     <ProgressBar now={currentPokemonExperience} label={`${currentPokemonExperience}`} className='actual_status_bar' />
                                 </div>
                                 <img alt='poke' src={`${currentPokemon.back_img}`} className='pokemon_image' />
@@ -416,7 +450,7 @@ const BattlePage = () => {
                             <div className='poke_profile'>
                                 <h3>{currentOpponent.name}</h3>
                                 <div className='status_bar_div'>
-                                    <ProgressBar max={currentOpponentHealthTotal} now={currentOpponentHealth} label={`${currentOpponentHealth}`} className='actual_status_bar' />
+                                    <ProgressBar max={currentOpponentHealthTotal} min={0} now={currentOpponentHealth} label={`${currentOpponentHealth}`} className='actual_status_bar' />
                                 </div>
                                 <img src={`${currentOpponent.front_img}`} className='pokemon_image' />
                             </div>

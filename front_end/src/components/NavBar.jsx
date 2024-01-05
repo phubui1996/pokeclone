@@ -45,7 +45,7 @@ export default function Navbar({ user, setUser, isLoggedIn, setIsLoggedIn }) {
   // console.log(isLoggedIn, user)
 
   useEffect(() => {
-    // setLink()
+    setLink()
   })
 
   return (
