@@ -34,6 +34,12 @@ export default function SignUpPage() {
         }
     }
 
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate('/')
+        }
+    }, [])
+
 
     return (
         <div className="full_page_div">

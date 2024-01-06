@@ -195,18 +195,24 @@ input {
 }
 
 #starter_poke1 {
-  height: 40%;
-  width: 40%;
+  min-width: 250px;
+  min-height: 250px;
+  max-height: 300px;
+  max-width: 300px;
 }
 
 #starter_poke2 {
-  height: 40%;
-  width: 40%;
+  min-width: 250px;
+  min-height: 250px;
+  max-height: 300px;
+  max-width: 300px;
 }
 
 #starter_poke3 {
-  height: 40%;
-  width: 40%;
+  min-width: 250px;
+  min-height: 250px;
+  max-height: 300px;
+  max-width: 300px;
 }
 
 .starter_imgs {
@@ -231,6 +237,7 @@ input {
   background-size: cover;
   background-repeat: no-repeat;
   padding: 20px;
+  flex-wrap: wrap;
 }
 
 #intro_block1 {
@@ -255,6 +262,8 @@ input {
   color: rgb(39, 72, 154);
   background-color: rgba(245, 245, 245, 0.564);
   border-radius: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
 }
 
 /* Main Map Page ////////////////////////////////////////////////////////// */
@@ -614,16 +623,19 @@ input {
   0% {
     color: white;
   }
+
   50% {
-    color: red;  /* Adjust the color as needed */
+    color: red;
+    /* Adjust the color as needed */
   }
+
   100% {
     color: white;
   }
 }
 
 .gameover_buttons {
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   width: 15rem;

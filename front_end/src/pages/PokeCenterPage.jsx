@@ -9,7 +9,7 @@ import pokeCenterPageMusic from '/src/assets/BackgroundMusic/low-bass-loop.wav'
 
 
 const PokeCenterPage = () => {
-    const { pokeTeam, setPokeTeam, user } = useOutletContext()
+    const { pokeTeam, setPokeTeam, user, isLoggedIn } = useOutletContext()
     // const [currentPokemon, setCurrentPokemon] = useState([])
     const [currentPokemonHealth, setCurrentPokemonHealth] = useState(50)
     const [currentPokemonHealthTotal, setCurrentPokemonHealthTotal] = useState(50)
@@ -93,6 +93,12 @@ console.log(selectedIds)
     
     useEffect(() => {
         getPokeTeam()
+    }, [])
+
+    useEffect(() => {
+        if (isLoggedIn === false) {
+            navigate('/landing')
+        }
     }, [])
     
     // console.log(user)

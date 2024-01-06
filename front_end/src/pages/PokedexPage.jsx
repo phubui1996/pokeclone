@@ -4,10 +4,14 @@ import PokemonCard from "../components/PokemonCard";
 import Button from "react-bootstrap/Button";
 import Sound from 'react-audio-player';
 import starterPageMusic from '/src/assets/BackgroundMusic/soft-intro.wav'
+import { useOutletContext, useNavigate } from "react-router-dom";
 
 
 const PokedexPage = () => {
   const [pokemons, setPokemons] = useState();
+  const { isLoggedIn } = useOutletContext()
+
+  const navigate = useNavigate()
 
   const getPokedex = async () => {
     try {
@@ -25,6 +29,12 @@ const PokedexPage = () => {
   useEffect(() => {
     console.log(pokemons);
   }, [pokemons]); // Log pokemons whenever it changes
+
+  useEffect(() => {
+    if (isLoggedIn === false) {
+      navigate('/landing')
+    }
+  }, [])
 
   return (
     <div className='full_page_div'>

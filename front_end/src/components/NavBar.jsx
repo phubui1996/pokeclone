@@ -24,7 +24,7 @@ export default function Navbar({ user, setUser, isLoggedIn, setIsLoggedIn }) {
   }
 
   const setLink = () => {
-    // console.log(window.location.href)
+    console.log(window.location.href)
     if (window.location.href === 'http://localhost:5173/signup') {
       setLinkWords('Log In')
       setLinkWordsLink('/login')
@@ -42,7 +42,7 @@ export default function Navbar({ user, setUser, isLoggedIn, setIsLoggedIn }) {
     }
   }
 
-  // console.log(isLoggedIn, user)
+  console.log(isLoggedIn, user.User)
 
   useEffect(() => {
     setLink()
