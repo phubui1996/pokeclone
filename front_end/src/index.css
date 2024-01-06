@@ -269,16 +269,32 @@ input {
 /* Main Map Page ////////////////////////////////////////////////////////// */
 
 #main_map_div {
-  background-color: #c2d17e;
   height: 100%;
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0px;
+  justify-content: center;
+}
+
+.tile_map_div {
+ height: 12.8%;
+ width: 16.66666667%;
+ background-size: cover;
+ position: relative;
+ z-index: -1;
 }
 
 #overall_map {
   margin-top: 8vh;
   height: 100%;
   flex-direction: column;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
 }
 
 #upper_div {
@@ -287,6 +303,7 @@ input {
   flex-direction: row;
   justify-content: space-evenly;
   padding: 2%;
+  position: relative;
 }
 
 #main_area_div {
@@ -295,52 +312,60 @@ input {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  position: relative;
 }
 
 #map_house_div {
-  width: 20%;
-  background-image: url("./assets/TemporaryPics/pexels-scott-webb-1029599.jpg");
+  width: 111px;
+  height: 170px;
+  background-image: url("./assets/MapTiles/house.png");
   background-size: cover;
   background-repeat: no-repeat;
   padding: 20px;
 }
 
 #poke_center_div {
-  width: 20%;
-  background-image: url("./assets/TemporaryPics/pexels-pixabay-236380.jpg");
+  width: 280px;
+  height: 250px;
+  background-image: url("./assets/MapTiles/pokecenter.png");
   background-size: cover;
   background-repeat: no-repeat;
   padding: 20px;
 }
 
 #gym_div {
-  width: 20%;
-  height: 20%;
-  background-image: url("./assets/TemporaryPics/pexels-william-choquette-1954524.jpg");
+  width: 305px;
+  height: 200px;
+  background-image: url("./assets/MapTiles/gym.png");
   background-size: cover;
   background-repeat: no-repeat;
   padding: 20px;
 }
 
 .tall_grass_div {
-  width: 30%;
-  height: 80%;
-  background-image: url("./assets/TemporaryPics/pexels-cottonbro-studio-6055969.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
+  width: 20%;
+  height: 50%;
+  background-image: url('/src/assets/MapTiles/smallGrassTile.png');
+  background-size: 50px;
+  gap: 0px;
+  background-repeat: repeat;
   padding: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 #bottom_div {
   display: flex;
   align-items: end;
   justify-content: end;
-  padding: 3vw
+  padding: 3vw;
+  height: 14%;
 }
 
 #main_pokedex_div {
   width: 10%;
-  height: 10%;
+  height: 100%;
 }
 
 #main_pokedex_img {
@@ -463,7 +488,7 @@ input {
 }
 
 #pokedex_inner_div {
-  margin-top: 8vh;
+  margin-top: 10vh;
   display: flex;
   flex-direction: row;
   background-color: gray;
