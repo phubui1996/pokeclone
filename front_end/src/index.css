@@ -279,11 +279,11 @@ input {
 }
 
 .tile_map_div {
- height: 12.8%;
- width: 16.66666667%;
- background-size: cover;
- position: relative;
- z-index: -1;
+  height: 12.8%;
+  width: 16.66666667%;
+  background-size: cover;
+  position: relative;
+  z-index: -1;
 }
 
 #overall_map {
@@ -322,6 +322,9 @@ input {
   background-size: cover;
   background-repeat: no-repeat;
   padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #poke_center_div {
@@ -331,6 +334,9 @@ input {
   background-size: cover;
   background-repeat: no-repeat;
   padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #gym_div {
@@ -340,6 +346,9 @@ input {
   background-size: cover;
   background-repeat: no-repeat;
   padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tall_grass_div {
@@ -371,6 +380,16 @@ input {
 #main_pokedex_img {
   width: 100%;
   height: 100%;
+}
+
+.hover_text_map {
+  visibility: hidden;
+  color: whitesmoke;
+  text-shadow: 1px 1px gray;
+}
+
+.hover_div_map:hover .hover_text_map {
+  visibility: visible;
 }
 
 
@@ -474,14 +493,6 @@ input {
   background-color: rgb(211, 189, 21);
 }
 
-.hover_text_map {
-  visibility: hidden;
-}
-
-.hover_div_map:hover .hover_text_map {
-  visibility: visible;
-}
-
 /* Pokedex Page ///////////////////////////////////////////////////////////////////// */
 
 #pokedex_div {
@@ -536,7 +547,7 @@ input {
   margin-top: 20px;
 }
 
-#pokedex_button:hover{
+#pokedex_button:hover {
   background-color: rgb(211, 189, 21);
 }
 
@@ -569,7 +580,7 @@ input {
   align-items: center;
 }
 
-.pokecenter_buttons{
+.pokecenter_buttons {
   background-color: rgb(39, 72, 154);
   border: none;
   margin: 20px;

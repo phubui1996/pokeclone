@@ -65,22 +65,28 @@ export default function MainMapPage() {
                 <audio autoPlay src={main_map_music} loop type="audio/wav" volume='0.2'></audio>
                 <div id='overall_map'>
                     <div id='upper_div'>
-                        <div id='map_house_div' onClick={handleHouse}>
+                        <div id='map_house_div' className='hover_div_map' onClick={handleHouse}>
+                            <span class="hover_text_map">Change Pokemon</span>
                         </div>
                         <div id='poke_center_div' onClick={handlePokeCenter}>
+                            <span class="hover_text_map">Heal Pokemon</span>
                         </div>
                     </div>
                     <div id='main_area_div'>
                         <div className='tall_grass_div' onClick={handleTallGrass}>
+                            <span class="hover_text_map">Battle Pokemon</span>
                         </div>
-                        <div id='gym_div' onClick={handleGym}>
+                        <div id='gym_div' className='hover_div_map' onClick={handleGym}>
+                            <span class="hover_text_map">Battle Gym Leader</span>
                         </div>
                         <div className='tall_grass_div' onClick={handleTallGrass}>
+                            <span class="hover_text_map">Battle Pokemon</span>
                         </div>
                     </div>
                     <div id='bottom_div'>
                         <div id='main_pokedex_div'>
-                            <img id='main_pokedex_img' onClick={handlePokedex} src={pokedex} />
+                            <img id='main_pokedex_img' className='hover_div_map' onClick={handlePokedex} src={pokedex} />
+                            <span class="hover_text_map">Pokedex</span>
                         </div>
                     </div>
                 </div>
