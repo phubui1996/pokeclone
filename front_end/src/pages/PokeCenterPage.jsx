@@ -110,15 +110,15 @@ console.log(selectedIds)
             <audio autoPlay src={pokeCenterPageMusic} loop type="audio/wav" volume='0.2'></audio>
             <div className='pokecenter'>
                 <ListGroup >
-                    <div className='pokecenter_buttons'>
-                        <Button onClick={healPokemon}>Heal Pokemon</Button>
-                        <Button onClick={() => navigate("/main")}>Exit</Button>
+                    <div className='pokecenter_buttons_div'>
+                        <Button className='pokecenter_buttons' onClick={healPokemon}>Heal Pokemon</Button>
+                        <Button className='pokecenter_buttons' onClick={() => navigate("/main")}>Exit</Button>
                     </div>
                     <div className='pokecenter_team'>
                         {pokeTeam.map((pokemon) => (
                             <>
                                 <ListGroup.Item variant='danger' className='more_buttons'>{pokemon.user_pokemon.pokemon.name}</ListGroup.Item>
-                                <ProgressBar max={pokemon.user_pokemon.pokemon.base_hp} now={pokemon.user_pokemon.pokemon.hp} label={`${pokemon.user_pokemon.pokemon.hp}`} className='actual_status_bar' />
+                                <ProgressBar className='pokecenter_progress' max={pokemon.user_pokemon.pokemon.base_hp} now={pokemon.user_pokemon.pokemon.hp} label={`${pokemon.user_pokemon.pokemon.hp}`} />
                             </> 
                         ))}
                     </div>
