@@ -519,6 +519,19 @@ input {
   border-radius: 30px;
 }
 
+#pokedex_button {
+  border: none;
+  border-radius: 10px;
+  width: 200px;
+  color: whitesmoke;
+  background-color: rgb(39, 72, 154);
+  margin-top: 20px;
+}
+
+#pokedex_button:hover{
+  background-color: rgb(211, 189, 21);
+}
+
 
 /* PokeCenter //////////////////////////////////////////////////////////////////////// */
 

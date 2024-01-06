@@ -4,7 +4,7 @@ import PokemonCard from "../components/PokemonCard";
 import Button from "react-bootstrap/Button";
 import Sound from 'react-audio-player';
 import starterPageMusic from '/src/assets/BackgroundMusic/soft-intro.wav'
-import { useOutletContext, useNavigate } from "react-router-dom";
+import { useOutletContext, useNavigate, Link } from "react-router-dom";
 
 
 const PokedexPage = () => {
@@ -62,6 +62,7 @@ const PokedexPage = () => {
             <h3>No Pokemon in Pokedex</h3>
           )}
         </div>
+        <Link to='/main'><button id='pokedex_button'>Return</button></Link>
       </div>
     </div>
   );
