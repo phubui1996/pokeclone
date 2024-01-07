@@ -87,8 +87,8 @@ const BattlePage = () => {
                 'pokemon_id': currentPokemon.id,
                 'hp': currentPokemonHealth,
                 'base_hp': currentPokemon.base_hp,
-                'xp': currentPokemonExperience,
-                'lvl': currentPokemonLevel,
+                'xp': currentPokemon.xp,
+                'lvl': currentPokemon.lvl,
                 "name": currentPokemon.name,
                 "type": currentPokemon.type,
                 "move_1": currentPokemon.move_1,
@@ -138,10 +138,8 @@ const BattlePage = () => {
     const handleMove1 = async () => {
         console.log('starting attack')
         let attack = (Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl))
-        setExp(Math.floor(Math.random() * (5 - 1 + 1)) + 1);
         //console.log("current exp: ", exp)
         setCurrentOpponentHealth(currentOpponentHealth - attack)
-        setCurrentPokemonExperience(currentPokemonExperience + exp)
         //console.log("current opponent health ", currentOpponentHealth)
         if (currentOpponentHealth > 0) {
             //console.log("attacking")
@@ -173,11 +171,7 @@ const BattlePage = () => {
     const handleMove2 = async () => {
         console.log('starting attack')
         let attack = (Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl))
-        setExp(Math.floor(Math.random() * (5 - 1 + 1)) + 1);
-        //console.log("current exp: ", exp)
         setCurrentOpponentHealth(currentOpponentHealth - attack)
-        setCurrentPokemonExperience(currentPokemonExperience + exp)
-        //console.log("current opponent health ", currentOpponentHealth)
         if (currentOpponentHealth > 0) {
             //console.log("attacking")
             setTimeout(async () => {
@@ -287,10 +281,18 @@ const BattlePage = () => {
             else {
                 console.log("pokemon capture failed")
                 console.log("opponent attack")
-                let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1)))
                 rejection.play()
-                setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
-
+                setTimeout(async () => {
+                    console.log("opponent attack")
+                    let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl))
+                    setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
+                    console.log("current health ", currentPokemonHealth)
+                    if (currentPokemonHealth <= 0) {
+                        console.log("pokemon health below zero, handling death")
+                        handleDeath();
+                    }
+                    await saveHealthXP()
+                }, 500);
             }
         }
         else {
@@ -312,8 +314,17 @@ const BattlePage = () => {
                 console.log("pokemon capture failed")
                 console.log("opponent attack")
                 rejection.play()
-                let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1)))
-                setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
+                setTimeout(async () => {
+                    console.log("opponent attack")
+                    let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl))
+                    setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
+                    console.log("current health ", currentPokemonHealth)
+                    if (currentPokemonHealth <= 0) {
+                        console.log("pokemon health below zero, handling death")
+                        handleDeath();
+                    }
+                    await saveHealthXP()
+                }, 500);
             }
         }
     }
@@ -466,8 +477,7 @@ const BattlePage = () => {
                                 <h3>{currentPokemon.name}</h3>
                                 <h4>Level: {currentPokemonLevel}</h4>
                                 <div className='status_bar_div'>
-                                    <ProgressBar max={currentPokemonHealthTotal} min={0} now={currentPokemonHealth} label={`${currentPokemonHealth}`} className='actual_status_bar' />
-                                    <ProgressBar now={currentPokemonExperience} label={`${currentPokemonExperience}`} className='actual_status_bar' />
+                                    <ProgressBar className='actual_status_bar' max={currentPokemonHealthTotal} min={0} now={currentPokemonHealth} label={`${currentPokemonHealth}`}/>
                                 </div>
                                 <img alt='poke' src={`${currentPokemon.back_img}`} className='pokemon_image' />
                             </div>
