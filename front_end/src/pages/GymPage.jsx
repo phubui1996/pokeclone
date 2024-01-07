@@ -146,11 +146,11 @@ const GymPage = () => {
       ...prevList.slice(currentOpponentIndex + 1),
     ]);
 
-    const anyUserPokemonAlive = pokeTeam.some(
-      (pokemon) => pokemon.user_pokemon.pokemon.hp > 0
+    const allOpponentsDefeated = currentOpponentList.every(
+      (opponent) => opponent.hp <= 0
     );
 
-    if (!anyUserPokemonAlive) {
+    if (allOpponentsDefeated) {
       console.log("You win! All opponent Pokémon are defeated.");
 
       // Check if already navigated to victory
@@ -198,6 +198,7 @@ const GymPage = () => {
         if (allUserPokemonDefeated) {
           console.log("You lose! All your Pokémon are defeated.");
           navigate("/gameover/");
+          return;
         }
 
         setPokeDeath(true);
@@ -305,6 +306,7 @@ const GymPage = () => {
     } else {
       // All Pokémon in the list are defeated
       console.log("All Pokémon defeated");
+      navigate("/victory/");
     }
   };
 
@@ -321,11 +323,6 @@ const GymPage = () => {
           ...prevOpponentList,
           ...generatedOpponentList,
         ]);
-
-        // console.log("Updated Opponent List:", [
-        //   ...currentOpponentList,
-        //   ...generatedOpponentList,
-        // ]);
       } catch (error) {
         console.error("Error initializing battle:", error);
       }

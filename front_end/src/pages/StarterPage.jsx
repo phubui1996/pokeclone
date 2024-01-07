@@ -2,7 +2,8 @@ import { wildApi, teamApi, pokeApi } from '../components/utilities';
 import { useState, useEffect } from 'react';
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import Sound from 'react-audio-player';
-import starterPageMusic from '/src/assets/BackgroundMusic/soft-intro.wav'
+import starterPageMusic from '/src/assets/BackgroundMusic/cowbells-in-the-alps.wav'
+
 
 const StarterPage = () => {
     const [starter1, setStarter1] = useState([])
