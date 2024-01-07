@@ -1,6 +1,7 @@
 import { useOutletContext, useNavigate } from "react-router-dom";
 import Sound from 'react-audio-player';
 import starterPageMusic from '/src/assets/BackgroundMusic/nature-sounds-quiet-environment.mp3'
+import { useEffect } from "react";
 
 const IntroPage = () => {
     const { pokeTeam, user, isLoggedIn } = useOutletContext()
