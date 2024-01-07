@@ -62,7 +62,7 @@ const PokedexPage = () => {
             <h3>No Pokemon in Pokedex</h3>
           )}
         </div>
-        <Link to='/main'><button id='pokedex_button'>Return</button></Link>
+        <div id='pokedex_button_div'><Link to='/main'><button id='pokedex_button'>Return</button></Link></div>
       </div>
     </div>
   );
