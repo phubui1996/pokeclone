@@ -17,8 +17,7 @@ const TeamPokemonCard = ({
 }) => {
   return (
     <div className='team_poke_div'>
-      <h3>{name}</h3>
-      <div>type: {type}</div>
+      <h5>{name}</h5>
       <img src={front_img}></img>
       <div>{move_1}</div>
       <div>{move_2}</div>

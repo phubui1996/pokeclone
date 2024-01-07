@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
-
+import bossmusic from '/src/assets/GymMusic/HaroldParanormalInstigatorTheme_Loopable.wav'
 import { wildApi, pokeApi, teamApi } from "../components/utilities";
 import rejection_sound from "/src/assets/BattleMusic/489366__morjon17__rejected_feedback.wav";
 
@@ -344,17 +344,11 @@ const GymPage = () => {
     // <h1> Gym</h1>
     <div className="full_page_div">
       {currentPokemon ? (
-        <div id="battle_div">
-          {/* <audio
-                autoPlay
-                src={battlemusic1}
-                loop
-                type="audio/wav"
-                volume="0.2"
-            ></audio> */}
+        <div id="gym_battle_div">
+          <audio autoPlay src={bossmusic} loop type="audio/wav" volume='0.2'></audio>
 
-          <div id="battle_options_div">
-            <div id="moves_div">
+          <div id="gym_battle_options_div">
+            <div id="gym_moves_div">
               <button onClick={() => handleMove(1)} className="battle_buttons">
                 {currentPokemon.move_1}
               </button>
@@ -363,8 +357,7 @@ const GymPage = () => {
               </button>
             </div>
 
-            <div id="other_options_div">
-              <button className="battle_buttons">NO Capture Function</button>
+            <div id="gym_other_options_div">
 
               <button onClick={openModal} className="battle_buttons">
                 Change Pokemon
@@ -376,7 +369,7 @@ const GymPage = () => {
             </div>
           </div>
 
-          <div id="poke_div">
+          <div id="gym_poke_div">
             <div>
               {pokeDeath && (
                 <Modal
@@ -405,32 +398,27 @@ const GymPage = () => {
               )}
             </div>
 
-            <div id="your_pokemon_div">
-              <div id="your_pokemon_status_div">
+            <div id="gym_your_pokemon_div">
+              <div id="gym_your_pokemon_status_div">
                 <h3>{currentPokemon.name}</h3>
                 <h4>Level: {currentPokemonLevel}</h4>
-                <div className="status_bar_div">
+                <div className="gym_status_bar_div">
                   <ProgressBar
                     max={currentPokemonHealthTotal}
                     now={currentPokemonHealth}
                     label={`${currentPokemonHealth}`}
-                    className="actual_status_bar"
-                  />
-                  <ProgressBar
-                    now={currentPokemonExperience}
-                    label={`${currentPokemonExperience}`}
-                    className="actual_status_bar"
+                    className="gym_actual_status_bar"
                   />
                 </div>
                 <img
                   alt="poke"
                   src={`${currentPokemon.back_img}`}
-                  className="pokemon_image"
+                  className="gym_pokemon_image"
                 />
               </div>
             </div>
 
-            <div>
+            <div id='gym_opponent_div'>
               {currentOpponentList.length > 0 &&
                 currentOpponentIndex < currentOpponentList.length && (
                   <div
@@ -448,7 +436,7 @@ const GymPage = () => {
 
                     <img
                       src={`${currentOpponentList[currentOpponentIndex].front_img}`}
-                      className="pokemon_image"
+                      className="gym_pokemon_image"
                     />
                   </div>
                 )}

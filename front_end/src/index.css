@@ -195,18 +195,24 @@ input {
 }
 
 #starter_poke1 {
-  height: 40%;
-  width: 40%;
+  min-width: 250px;
+  min-height: 250px;
+  max-height: 300px;
+  max-width: 300px;
 }
 
 #starter_poke2 {
-  height: 40%;
-  width: 40%;
+  min-width: 250px;
+  min-height: 250px;
+  max-height: 300px;
+  max-width: 300px;
 }
 
 #starter_poke3 {
-  height: 40%;
-  width: 40%;
+  min-width: 250px;
+  min-height: 250px;
+  max-height: 300px;
+  max-width: 300px;
 }
 
 .starter_imgs {
@@ -231,6 +237,7 @@ input {
   background-size: cover;
   background-repeat: no-repeat;
   padding: 20px;
+  flex-wrap: wrap;
 }
 
 #intro_block1 {
@@ -255,21 +262,39 @@ input {
   color: rgb(39, 72, 154);
   background-color: rgba(245, 245, 245, 0.564);
   border-radius: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
 }
 
 /* Main Map Page ////////////////////////////////////////////////////////// */
 
 #main_map_div {
-  background-color: #c2d17e;
   height: 100%;
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0px;
+  justify-content: center;
+}
+
+.tile_map_div {
+  height: 12.8%;
+  width: 16.66666667%;
+  background-size: cover;
+  position: relative;
+  z-index: -1;
 }
 
 #overall_map {
   margin-top: 8vh;
   height: 100%;
   flex-direction: column;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
 }
 
 #upper_div {
@@ -278,6 +303,7 @@ input {
   flex-direction: row;
   justify-content: space-evenly;
   padding: 2%;
+  position: relative;
 }
 
 #main_area_div {
@@ -286,57 +312,85 @@ input {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  position: relative;
 }
 
 #map_house_div {
-  width: 20%;
-  background-image: url("./assets/TemporaryPics/pexels-scott-webb-1029599.jpg");
+  width: 111px;
+  height: 170px;
+  background-image: url("./assets/MapTiles/house.png");
   background-size: cover;
   background-repeat: no-repeat;
   padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #poke_center_div {
-  width: 20%;
-  background-image: url("./assets/TemporaryPics/pexels-pixabay-236380.jpg");
+  width: 280px;
+  height: 250px;
+  background-image: url("./assets/MapTiles/pokecenter.png");
   background-size: cover;
   background-repeat: no-repeat;
   padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #gym_div {
-  width: 20%;
-  height: 20%;
-  background-image: url("./assets/TemporaryPics/pexels-william-choquette-1954524.jpg");
+  width: 305px;
+  height: 200px;
+  background-image: url("./assets/MapTiles/gym.png");
   background-size: cover;
   background-repeat: no-repeat;
   padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tall_grass_div {
-  width: 30%;
-  height: 80%;
-  background-image: url("./assets/TemporaryPics/pexels-cottonbro-studio-6055969.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
+  width: 20%;
+  height: 50%;
+  background-image: url('/src/assets/MapTiles/smallGrassTile.png');
+  background-size: 50px;
+  gap: 0px;
+  background-repeat: repeat;
   padding: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 #bottom_div {
   display: flex;
   align-items: end;
   justify-content: end;
-  padding: 3vw
+  padding: 3vw;
+  height: 14%;
 }
 
 #main_pokedex_div {
-  width: 10%;
-  height: 10%;
+  width: 100px;
+  height: 100px;
 }
 
 #main_pokedex_img {
   width: 100%;
   height: 100%;
+}
+
+.hover_text_map {
+  visibility: hidden;
+  color: whitesmoke;
+  text-shadow: 1px 1px gray;
+}
+
+.hover_div_map:hover .hover_text_map,
+.tall_grass_div:hover {
+  visibility: visible;
 }
 
 
@@ -454,7 +508,7 @@ input {
 }
 
 #pokedex_inner_div {
-  margin-top: 8vh;
+  margin-top: 10vh;
   display: flex;
   flex-direction: row;
   background-color: gray;
@@ -485,6 +539,19 @@ input {
   border-radius: 30px;
 }
 
+#pokedex_button {
+  border: none;
+  border-radius: 10px;
+  width: 200px;
+  color: whitesmoke;
+  background-color: rgb(39, 72, 154);
+  margin-top: 20px;
+}
+
+#pokedex_button:hover {
+  background-color: rgb(211, 189, 21);
+}
+
 
 /* PokeCenter //////////////////////////////////////////////////////////////////////// */
 
@@ -498,21 +565,49 @@ input {
   width: 100%;
   height: 100%;
   background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/fs/28e13297263939.5ec14858dcc0a.jpg);
+  border: 2px solid red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pokecenter_buttons_div {
+  display: flex;
+  flex-direction: row;
+  border: none;
+  color: white;
+  justify-content: center;
+  align-items: center;
 }
 
 .pokecenter_buttons {
-  margin: 10rem;
-  display: flex;
-  flex-direction: row;
-  height: 3rem;
+  background-color: rgb(39, 72, 154);
   border: none;
-  color: white;
+  margin: 20px;
+  height: 40px;
+  width: 200px;
 }
 
 .pokecenter_buttons:hover {
   background-color: rgb(211, 189, 21);
 }
 
+.more_buttons {
+  width: 500px;
+  background-color: lightpink;
+  color: whitesmoke;
+  text-shadow: 1px 1px lightcoral;
+  border: none;
+}
+
+.pokecenter_progress {
+  width: 500px;
+  height: 30px;
+  border-radius: 2px;
+  background-color: whitesmoke;
+
+}
 
 /* House Page //////////////////////////////////////////////////////////////////////// */
 
@@ -527,22 +622,23 @@ input {
 }
 
 .team_pokemons_div {
-  margin-top: 9vh;
+  margin-top: 12vh;
   background-color: rgba(245,
       245,
       245,
       0.686);
   display: flex;
-  height: 50%;
+  height: 40%;
   flex-direction: row;
   flex-wrap: wrap;
   border-radius: 20px;
-  padding: 20px;
   flex-wrap: wrap;
   overflow-y: scroll;
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .captured_pokemons_div {
@@ -555,11 +651,13 @@ input {
   flex-direction: row;
   flex-wrap: wrap;
   border-radius: 20px;
-  padding: 20px;
   flex-wrap: wrap;
   overflow-y: scroll;
   justify-content: center;
   align-items: center;
+  margin-bottom: 10px;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .team_poke_div {
@@ -574,6 +672,7 @@ input {
   padding: 20px;
   border-radius: 20px;
   width: 250px;
+  height: 350px;
   border: 2px solid lightgray;
 }
 
@@ -596,7 +695,11 @@ input {
   padding-top: 5em;
   display: flex;
   flex-direction: column;
+  height: 100%;
   align-items: center;
+  background-image: url("./assets/BattleBackgrounds/night1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .gameover h1 {
@@ -614,16 +717,19 @@ input {
   0% {
     color: white;
   }
+
   50% {
-    color: red;  /* Adjust the color as needed */
+    color: red;
+    /* Adjust the color as needed */
   }
+
   100% {
     color: white;
   }
 }
 
 .gameover_buttons {
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   width: 15rem;
@@ -641,3 +747,93 @@ input {
   animation: strobe 1s infinite alternate;
   font-family: 'Lobster', cursive;
 } */
+
+/* Gym Page ///////////////////////////////////////////////////////////////////////// */
+
+#gym_battle_div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-image: url("./assets/BattleBackgrounds/deep_forest.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+#gym_poke_div {
+  display: flex;
+  flex-direction: row;
+  min-width: 1000px;
+  max-width: 1200px;
+  height: 100%;
+  justify-content: space-evenly;
+  align-items: end;
+}
+
+.gym_status_bar_div {
+  width: 100%;
+}
+
+#gym_opponent_div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+  width: 50%;
+  padding: 100px;
+}
+
+#gym_your_pokemon_div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  width: 50%;
+  color: whitesmoke;
+}
+
+#gym_your_pokemon_status_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gym_pokemon_image {
+  height: 300px;
+  width: 300px;
+}
+
+#gym_battle_options_div {
+  margin-top: 10vh;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  border-radius: 5px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#gym_moves_div {
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgba(245, 245, 245, 0.448);
+  margin: 10px;
+  border-radius: 10px;
+}
+
+#gym_other_options_div {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgba(245, 245, 245, 0.448);
+  margin: 10px;
+  border-radius: 10px;
+}

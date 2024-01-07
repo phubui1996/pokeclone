@@ -43,6 +43,7 @@ export default function LogInPage() {
             navigate("/")
         }
     }, [])
+    
     return (
         <div className="full_page_div">
             <audio autoPlay src={starterPageMusic} loop type="audio/wav" volume='0.2'></audio>

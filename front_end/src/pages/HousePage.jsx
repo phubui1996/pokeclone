@@ -12,7 +12,9 @@ const HousePage = () => {
   const [capturedPokemons, setCapturePokemons] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
 
-  const { pokeTeam, setPokeTeam } = useOutletContext();
+  const { pokeTeam, setPokeTeam, isLoggedIn } = useOutletContext();
+
+  const navigate = useNavigate()
 
   const getPokeTeam = async () => {
     try {
@@ -103,6 +105,9 @@ const HousePage = () => {
 
   useEffect(() => {
     fetchData();
+    if (isLoggedIn === false) {
+      navigate('/landing')
+    }
   }, []);
 
   useEffect(() => {
