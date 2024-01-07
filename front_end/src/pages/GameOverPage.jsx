@@ -16,8 +16,8 @@ const GameOverPage = () => {
                 <h1>TRASH</h1><h1>TRASH</h1><h1>TRASH</h1>
             
             <div className="gameover_buttons">
-                <Button onClick={navigate('/pokecenter')}>Try Again?</Button>
-                <Button onClick={navigate('/')}>New Game</Button>
+                <Button onClick={()=>navigate('/pokecenter')}>Try Again?</Button>
+                <Button onClick={()=>navigate('/')}>New Game</Button>
             </div>  
             </div>
         </div>

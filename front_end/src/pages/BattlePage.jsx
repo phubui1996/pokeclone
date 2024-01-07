@@ -212,7 +212,7 @@ const BattlePage = () => {
         //console.log("player wins battle")
         //console.log('poke experience', exp)
         console.log("battle complete")
-        navigate('/main')
+        navigate('/victory')
     }
 
     /////////////////RUN///////////////////////////////////////////////////////////
@@ -263,10 +263,10 @@ const BattlePage = () => {
             if (pokeTeam.length < 6) {
                 addToTeam()
                 getTeam()
-                navigate("/main");
+                navigate("/victory");
             }
             else {
-                navigate("/main");
+                navigate("/victory");
             }
         }
         else if (currentOpponentHealth / currentOpponentHealthTotal < .3) {
@@ -278,10 +278,10 @@ const BattlePage = () => {
                 if (pokeTeam.length < 6) {
                     addToTeam()
                     getTeam()
-                    navigate("/main");
+                    navigate("/victory");
                 }
                 else {
-                    navigate("/main");
+                    navigate("/victory");
                 }
             }
             else {
@@ -302,10 +302,10 @@ const BattlePage = () => {
                 if (pokeTeam.length < 6) {
                     addToTeam()
                     getTeam()
-                    navigate("/main");
+                    navigate("/victory");
                 }
                 else {
-                    navigate("/main");
+                    navigate("/victory");
                 }
             }
             else {
@@ -386,7 +386,7 @@ const BattlePage = () => {
         if (allPokemonDead) {
             console.log("ending game");
             // navigate to '/gameover' only if all Pokémon have 0 or less HP
-            navigate('/main');
+            navigate('/gameover');
         }
     };
 
