@@ -107,12 +107,11 @@ const GymPage = () => {
   /////////////////ATTACK///////////////////////////////////////////////////////////
   const updateHealthAsync = async (pokemon, isUserPokemon) => {
     if (isUserPokemon) {
-      // let damage = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
-      let damage = 10;
-      const updatedHealth = Math.max(0, pokemon.hp - damage);
+      let damage = Math.floor(Math.random() * (10 - 0 + 1) + 1);
+      const updatedHealth = Math.max(0, currentPokemonHealth - damage);
       return updatedHealth;
     } else {
-      const updatedHealth = pokemon.hp - 10; // Decrease opponent health by 10
+      const updatedHealth = Math.max(0, currentPokemonHealth - 10);
       return updatedHealth;
     }
   };
@@ -121,10 +120,10 @@ const GymPage = () => {
     let attack, exp;
 
     if (moveNumber === 1) {
-      attack = Math.floor(Math.random() * (10 - 0 + 1));
+      attack = Math.floor(Math.random() * (10 - 0 + 1) + 1);
       exp = Math.floor(Math.random() * (10 - 3 + 1)) + 5;
     } else if (moveNumber === 2) {
-      attack = Math.floor(Math.random() * (10 - 0 + 1));
+      attack = Math.floor(Math.random() * (10 - 0 + 1) + 1);
       exp = Math.floor(Math.random() * (30 - 5 + 1)) + 5;
     } else {
       console.error("Invalid move number");
@@ -173,6 +172,7 @@ const GymPage = () => {
 
       // Ensure that the updated health is within valid bounds
       const newUserHealth = Math.max(0, updatedUserHealth);
+
       // Update the state with the new health
       setCurrentPokemonHealth(newUserHealth);
 
@@ -230,7 +230,7 @@ const GymPage = () => {
 
   ////////////////SAVE HEALTH and XP///////////////////////////////////////////////////////////
   const saveHealthXP = async () => {
-    // console.log("saving health and xp...");
+    console.log("saving health and xp...");
     const storedToken = localStorage.getItem("token");
     try {
       pokeApi.defaults.headers.common["Authorization"] = `Token ${storedToken}`;
