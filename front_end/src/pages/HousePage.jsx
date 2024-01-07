@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import { teamApi, pokeApi } from "../components/utilities";
 import TeamPokemonCard from "../components/TeamPokemonCard";
 import Sound from "react-audio-player";
-import housePageMusic from "/src/assets/BackgroundMusic/housepage-Music.wav";
+import housePageMusic from "/home/phubui/code_temp/pokeclone/front_end/src/assets/BackgroundMusic/housepage-music.wav";
 
 // path: "house/",
 
