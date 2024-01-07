@@ -26,6 +26,7 @@ const GymPage = () => {
   const [allPokemonDefeated, setAllPokemonDefeated] = useState(false);
   const [victoryNavigated, setVictoryNavigated] = useState(false);
   const [currentUserPokemonIndex, setCurrentUserPokemonIndex] = useState(0);
+  const [showNextOpponent, setShowNextOpponent] = useState(false);
 
   const [trigger, setTrigger] = useState(false);
 
@@ -106,7 +107,8 @@ const GymPage = () => {
   /////////////////ATTACK///////////////////////////////////////////////////////////
   const updateHealthAsync = async (pokemon, isUserPokemon) => {
     if (isUserPokemon) {
-      let damage = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
+      // let damage = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
+      let damage = 10;
       const updatedHealth = Math.max(0, pokemon.hp - damage);
       return updatedHealth;
     } else {
@@ -129,13 +131,15 @@ const GymPage = () => {
       return;
     }
 
-    console.log(currentOpponentList[currentOpponentIndex].hp);
     const newOpponentHealth = Math.max(
       0,
       currentOpponentList[currentOpponentIndex].hp - attack
     );
 
-    // Update opponent's health
+    // Set the new opponent health in the state
+    setCurrentOpponentHealth(newOpponentHealth);
+
+    // Update opponent's health in the list
     setCurrentOpponentList((prevList) => [
       ...prevList.slice(0, currentOpponentIndex),
       { ...prevList[currentOpponentIndex], hp: newOpponentHealth },
@@ -158,9 +162,9 @@ const GymPage = () => {
       return;
     }
 
-    // User Pokemon
     if (currentOpponentHealth <= 0) {
       saveHealthXP();
+      setShowNextOpponent(true);
     } else {
       const updatedUserHealth = await updateHealthAsync(
         pokeTeam[currentUserPokemonIndex].user_pokemon.pokemon,
@@ -172,12 +176,9 @@ const GymPage = () => {
       // Update the state with the new health
       setCurrentPokemonHealth(newUserHealth);
 
-      console.log("Pokemon Health", currentPokemonHealth);
-
       // Save XP or any other relevant action
       saveHealthXP();
 
-      // Check if the user Pokemon has fainted
       // Check if the user Pokemon has fainted
       if (newUserHealth <= 0) {
         await Promise.all(
@@ -213,12 +214,6 @@ const GymPage = () => {
       }
     }
   };
-
-  // useEffect(() => {
-  //   if (!pokeDeath) {
-  //     openModal();
-  //   }
-  // }, [pokeDeath]);
 
   /////////////////RUN///////////////////////////////////////////////////////////
   const handleRun = () => {
@@ -306,6 +301,7 @@ const GymPage = () => {
     if (currentOpponentIndex < currentOpponentList.length - 1) {
       setCurrentOpponentIndex(currentOpponentIndex + 1);
       setPokeDeath(false); // Reset pokeDeath for the new Pokémon
+      setShowNextOpponent(false);
     } else {
       // All Pokémon in the list are defeated
       console.log("All Pokémon defeated");
@@ -457,7 +453,7 @@ const GymPage = () => {
                     />
                   </div>
                 )}
-              {pokeDeath && (
+              {showNextOpponent && (
                 <div>
                   <p>
                     {currentOpponentList[currentOpponentIndex].name} fainted!
