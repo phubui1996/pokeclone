@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react"
 import { useOutletContext, useNavigate } from "react-router"
 import { userApi } from "../components/utilities"
-
+import starterPageMusic from '/src/assets/BackgroundMusic/waves-on-beach.wav'
+import seagulls from '/src/assets/BackgroundMusic/seagulls.wav'
 
 export default function SignUpPage() {
     const [email, setEmail] = useState()
@@ -43,6 +44,8 @@ export default function SignUpPage() {
 
     return (
         <div className="full_page_div">
+            <audio autoPlay src={starterPageMusic} loop type="audio/wav" volume='0.2'></audio>
+            <audio autoPlay src={seagulls} loop type="audio/wav" volume='0.2'></audio>
             <div id='signup_div'>
                 <div className="form_div">
                     <h1>Sign Up</h1>

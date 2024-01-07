@@ -86,7 +86,7 @@ export default function MainMapPage() {
                     <div id='bottom_div'>
                         <div id='main_pokedex_div' className='hover_div_map'>
                             <img id='main_pokedex_img' onClick={handlePokedex} src={pokedex} />
-                            <span class="hover_text_map">Pokedex</span>
+                            <span className="hover_text_map">Pokedex</span>
                         </div>
                     </div>
                 </div>

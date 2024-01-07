@@ -64,6 +64,7 @@ const VictoryPage = () => {
                         while (pokemon.user_pokemon.pokemon.xp >= 100) {
                             pokemon.user_pokemon.pokemon.xp -= 100; // Subtract 100 from XP
                             pokemon.user_pokemon.pokemon.lvl += 1; // Level up
+                            pokemon.user_pokemon.pokemon.base_hp += randomNum; //Base Hp increase
                         }
                     }
 
@@ -117,43 +118,32 @@ const VictoryPage = () => {
 
         useEffect(() => {
             getRandomNum()
-            levelUpPokemon()
+            setTimeout(levelUpPokemon(), 1000);
+            
             getTeam()
-        }, [])
-   
-        // getPokeStats = async () => {
-    
-        //     pokeApi.defaults.headers.common[
-        //         "Authorization"
-        //     ] = `Token ${user.Token}`;
-    
-        //     let response = await pokeApi.get(`${currentPokemon.id}/`); //updates pokemon stats
-        // }
+        }, [])     
 
-        
-
-console.log(pokeTeam)
+    console.log(pokeTeam)
 
     return(
         <div className='full_page_div' onClick={handleClick}>
             <div className="victory">
                 <div>
-                    <h1>VictoryVictory</h1><h1>Victory</h1><h1>VictoryVictory</h1>
+                    <h1>Victory</h1>
                     <img src="https://media4.giphy.com/media/IQebREsGFRXmo/200w.gif?cid=6c09b952jb3gk3kmsx3c47an338tqhgysg53uam89h4z3h6m&ep=v1_gifs_search&rid=200w.gif&ct=s"/>
-                    <h1>Victory</h1><h1>VictoryVictory</h1><h1>Victory</h1>
                 </div>
-            </div>
             <div>
                 <ListGroup className='victory_team'>
-                    victory Team
                     {pokeTeam.map((pokemon) => (
-                            <>
-                                <ListGroup.Item variant='danger' className='more_buttons'>{pokemon.user_pokemon.pokemon.name} Lvl {pokemon.user_pokemon.pokemon.lvl}</ListGroup.Item>
-                                <ProgressBar className='pokecenter_progress' max={pokemon.user_pokemon.pokemon.base_hp}
-                                                                             now={pokemon.user_pokemon.pokemon.hp}
-                                                                             label={`hp: ${pokemon.user_pokemon.pokemon.hp}`} />
-                                <ProgressBar max={100} now={pokemon.user_pokemon.pokemon.xp}label={`xp: ${pokemon.user_pokemon.pokemon.xp}`}/>
-                            </> 
+                        <div id='victory_div'>
+                                <ListGroup.Item variant='secondary' className='victory_list'><img src={pokemon.user_pokemon.pokemon.front_img}/>{pokemon.user_pokemon.pokemon.name} Lvl {pokemon.user_pokemon.pokemon.lvl}</ListGroup.Item>
+                                <div>    
+                                    <ProgressBar className='victory_progress' max={pokemon.user_pokemon.pokemon.base_hp}
+                                                                                now={pokemon.user_pokemon.pokemon.hp}
+                                                                                label={`hp: ${pokemon.user_pokemon.pokemon.hp}`} />
+                                    <ProgressBar className='victory_progress' max={100} now={pokemon.user_pokemon.pokemon.xp}label={`xp: ${pokemon.user_pokemon.pokemon.xp}`}/>
+                                </div>                                                
+                            </div> 
                         ))}
                 </ListGroup>
             </div>
@@ -163,8 +153,8 @@ console.log(pokeTeam)
                 <Button onClick={handleClick}>continue</Button>
             </div>  
         </div>
+        </div>
     )
 }
 
 export default VictoryPage
-
