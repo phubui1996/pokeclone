@@ -557,7 +557,7 @@ input {
 
 .pokecenter_team {
   margin-top: 0px;
-  padding: 10rem;
+  padding: 5rem;
   border-radius: 2rem;
 }
 
@@ -579,6 +579,7 @@ input {
   color: white;
   justify-content: center;
   align-items: center;
+  margin-top: 2em;
 }
 
 .pokecenter_buttons {
@@ -735,18 +736,46 @@ input {
   width: 15rem;
 
 }
+/* Victory Page ///////////////////////////////////////////////////////////////////// */
 
 .victory {
-  padding-top: 5em;
+  padding-top: 5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  background-image: url("./assets/6.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
 }
 
-/* .victory h1 {
-  animation: strobe 1s infinite alternate;
-  font-family: 'Lobster', cursive;
-} */
+.victory_team {
+  margin: 3rem;
+  align-items: center;
+  height: 70%;
+  width: 100%;
+}
+
+#victory_div {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  width: 100%;
+}
+
+.victory_progress {
+  height: 30px;
+  border-radius: 2px;
+  background-color: whitesmoke;
+
+}
+
+.victory_list{
+  
+  border-radius: 10px;
+}
 
 /* Gym Page ///////////////////////////////////////////////////////////////////////// */
 
