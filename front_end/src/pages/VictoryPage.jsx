@@ -120,16 +120,6 @@ const VictoryPage = () => {
             levelUpPokemon()
             getTeam()
         }, [])
-   
-        // getPokeStats = async () => {
-    
-        //     pokeApi.defaults.headers.common[
-        //         "Authorization"
-        //     ] = `Token ${user.Token}`;
-    
-        //     let response = await pokeApi.get(`${currentPokemon.id}/`); //updates pokemon stats
-        // }
-
         
 
 console.log(pokeTeam)
