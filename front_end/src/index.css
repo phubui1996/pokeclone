@@ -695,7 +695,11 @@ input {
   padding-top: 5em;
   display: flex;
   flex-direction: column;
+  height: 100%;
   align-items: center;
+  background-image: url("./assets/BattleBackgrounds/night1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .gameover h1 {
@@ -743,3 +747,93 @@ input {
   animation: strobe 1s infinite alternate;
   font-family: 'Lobster', cursive;
 } */
+
+/* Gym Page ///////////////////////////////////////////////////////////////////////// */
+
+#gym_battle_div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-image: url("./assets/BattleBackgrounds/deep_forest.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+#gym_poke_div {
+  display: flex;
+  flex-direction: row;
+  min-width: 1000px;
+  max-width: 1200px;
+  height: 100%;
+  justify-content: space-evenly;
+  align-items: end;
+}
+
+.gym_status_bar_div {
+  width: 100%;
+}
+
+#gym_opponent_div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+  width: 50%;
+  padding: 100px;
+}
+
+#gym_your_pokemon_div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  width: 50%;
+  color: whitesmoke;
+}
+
+#gym_your_pokemon_status_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gym_pokemon_image {
+  height: 300px;
+  width: 300px;
+}
+
+#gym_battle_options_div {
+  margin-top: 10vh;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  border-radius: 5px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#gym_moves_div {
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgba(245, 245, 245, 0.448);
+  margin: 10px;
+  border-radius: 10px;
+}
+
+#gym_other_options_div {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgba(245, 245, 245, 0.448);
+  margin: 10px;
+  border-radius: 10px;
+}
