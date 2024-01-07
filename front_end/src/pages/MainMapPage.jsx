@@ -10,9 +10,9 @@ import pokedex from '/src/assets/MapTiles/Pokedex-PNG-Photos.png';
 
 
 export default function MainMapPage() {
-    const tileMap = [flowertile2, grasstile, grasstile, flowertile1, grasstile, grasstile,
-                    grasstile, grasstile, grasstile, flowertile2, grasstile, grasstile,
-                    grasstile, flowertile1, flowertile1, grasstile, grasstile, flowertile2,
+    const tileMap = [grasstile, grasstile, grasstile, grasstile, grasstile, grasstile,
+                    grasstile, grasstile, grasstile, grasstile, grasstile, grasstile,
+                    grasstile, grasstile, grasstile, grasstile, grasstile, grasstile,
                     grasstile, grasstile, grasstile, grasstile, grasstile, grasstile,
                     grasstile, grasstile, grasstile, grasstile, grasstile, grasstile,
                     grasstile, grasstile, grasstile, grasstile, grasstile, grasstile,
@@ -68,7 +68,7 @@ export default function MainMapPage() {
                         <div id='map_house_div' className='hover_div_map' onClick={handleHouse}>
                             <span class="hover_text_map">Change Pokemon</span>
                         </div>
-                        <div id='poke_center_div' onClick={handlePokeCenter}>
+                        <div id='poke_center_div' className='hover_div_map' onClick={handlePokeCenter}>
                             <span class="hover_text_map">Heal Pokemon</span>
                         </div>
                     </div>
@@ -79,13 +79,13 @@ export default function MainMapPage() {
                         <div id='gym_div' className='hover_div_map' onClick={handleGym}>
                             <span class="hover_text_map">Battle Gym Leader</span>
                         </div>
-                        <div className='tall_grass_div' onClick={handleTallGrass}>
+                        <div className='tall_grass_div'  onClick={handleTallGrass}>
                             <span class="hover_text_map">Battle Pokemon</span>
                         </div>
                     </div>
                     <div id='bottom_div'>
-                        <div id='main_pokedex_div'>
-                            <img id='main_pokedex_img' className='hover_div_map' onClick={handlePokedex} src={pokedex} />
+                        <div id='main_pokedex_div' className='hover_div_map'>
+                            <img id='main_pokedex_img' onClick={handlePokedex} src={pokedex} />
                             <span class="hover_text_map">Pokedex</span>
                         </div>
                     </div>

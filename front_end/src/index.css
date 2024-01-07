@@ -373,8 +373,8 @@ input {
 }
 
 #main_pokedex_div {
-  width: 10%;
-  height: 100%;
+  width: 100px;
+  height: 100px;
 }
 
 #main_pokedex_img {
