@@ -205,7 +205,7 @@ const BattlePage = () => {
         //console.log("player wins battle")
         //console.log('poke experience', exp)
         console.log("battle complete")
-        navigate('/main')
+        navigate('/victory')
     }
 
     /////////////////RUN///////////////////////////////////////////////////////////
