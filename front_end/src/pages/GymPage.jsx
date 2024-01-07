@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import bossmusic from '/src/assets/GymMusic/HaroldParanormalInstigatorTheme_Loopable.wav'
+import bossmusic from "/src/assets/GymMusic/HaroldParanormalInstigatorTheme_Loopable.wav";
 import { wildApi, pokeApi, teamApi } from "../components/utilities";
 import rejection_sound from "/src/assets/BattleMusic/489366__morjon17__rejected_feedback.wav";
 
@@ -178,35 +178,47 @@ const GymPage = () => {
       saveHealthXP();
 
       // Check if the user Pokemon has fainted
+      // Check if the user Pokemon has fainted
       if (newUserHealth <= 0) {
-        // Check if all user Pokémon are defeated
-        const allUserPokemonDefeated = await Promise.all(
+        await Promise.all(
           pokeTeam.map(async (pokemon) => {
             const updatedHealth = await updateHealthAsync(
               pokemon.user_pokemon.pokemon,
               true
             );
-            return updatedHealth <= 0;
+            return updatedHealth;
           })
         );
 
-        const isDefeated = allUserPokemonDefeated.every((defeated) => defeated);
+        const allUserPokemonDefeated = pokeTeam.every(
+          (pokemon) => pokemon.user_pokemon.pokemon.hp <= 0
+        );
 
-        if (!isDefeated) {
+        if (allUserPokemonDefeated) {
           console.log("You lose! All your Pokémon are defeated.");
-          // Replace the next line with your actual navigation logic
           navigate("/gameover/");
         }
 
-        // Handle the user Pokemon fainting (e.g., setPokeDeath(true), openModal(), etc.)
         setPokeDeath(true);
+
+        // Open modal after setting state and updating health
+        openModal();
       } else {
+        // Pokemon is still alive
         saveHealthXP();
         setPokeDeath(false); // Set to false if the Pokemon is still alive
-        openModal(); // Open modal only if the Pokemon is still alive
+
+        // Open modal after setting state
+        openModal();
       }
     }
   };
+
+  // useEffect(() => {
+  //   if (!pokeDeath) {
+  //     openModal();
+  //   }
+  // }, [pokeDeath]);
 
   /////////////////RUN///////////////////////////////////////////////////////////
   const handleRun = () => {
@@ -345,7 +357,13 @@ const GymPage = () => {
     <div className="full_page_div">
       {currentPokemon ? (
         <div id="gym_battle_div">
-          <audio autoPlay src={bossmusic} loop type="audio/wav" volume='0.2'></audio>
+          <audio
+            autoPlay
+            src={bossmusic}
+            loop
+            type="audio/wav"
+            volume="0.2"
+          ></audio>
 
           <div id="gym_battle_options_div">
             <div id="gym_moves_div">
@@ -358,7 +376,6 @@ const GymPage = () => {
             </div>
 
             <div id="gym_other_options_div">
-
               <button onClick={openModal} className="battle_buttons">
                 Change Pokemon
               </button>
@@ -384,7 +401,7 @@ const GymPage = () => {
                       onClick={() =>
                         handleOptionClick(poke.user_pokemon.pokemon)
                       }
-                      disabled={pokeDeath}
+                      disabled={poke.user_pokemon.pokemon.hp <= 0}
                     >
                       {poke.user_pokemon.pokemon.name}
                       <img
@@ -418,7 +435,7 @@ const GymPage = () => {
               </div>
             </div>
 
-            <div id='gym_opponent_div'>
+            <div id="gym_opponent_div">
               {currentOpponentList.length > 0 &&
                 currentOpponentIndex < currentOpponentList.length && (
                   <div
