@@ -521,7 +521,7 @@ input {
   height: 100%;
   width: 90%;
   border: 5px solid rgb(94, 93, 93);
-  box-shadow: 10px 10px rgba(0, 0, 0, 0.367);
+  box-shadow: 10px 10px rgba(0, 0, 0, 0.367); 
 }
 
 .pokedex_card {
