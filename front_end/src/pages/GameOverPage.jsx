@@ -1,7 +1,7 @@
 import { useNavigate, useOutletContext } from 'react-router-dom'
 import Button from "react-bootstrap/esm/Button"
 import Sound from 'react-audio-player';
-import gameOverPageMusic from '/src/assets/BackgroundMusic/victorypage-music.wav'
+import gameOverPageMusic from '/src/assets/BackgroundMusic/game-over.wav'
 
 const GameOverPage = () => {
     

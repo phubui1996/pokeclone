@@ -576,7 +576,8 @@ input {
 .pokecenter {
   width: 100%;
   height: 100%;
-  background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/fs/28e13297263939.5ec14858dcc0a.jpg);
+  background-image: url();
+  background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
