@@ -58,10 +58,10 @@ const GymPage = () => {
         front_img: pokemon.front_img,
         back_img: pokemon.back_img,
         pokemon_id: pokemon.pokemon_id,
-        base_hp: pokemon.base_hp,
-        hp: pokemon.hp,
+        base_hp: pokemon.base_hp * 10,
+        hp: pokemon.hp * 10,
         xp: pokemon.xp,
-        lvl: pokemon.lvl,
+        lvl: pokemon.lvl * 100,
       });
     }
 
@@ -107,7 +107,7 @@ const GymPage = () => {
   /////////////////ATTACK///////////////////////////////////////////////////////////
   const updateHealthAsync = async (pokemon, isUserPokemon) => {
     if (isUserPokemon) {
-      let damage = Math.floor(Math.random() * (10 - 0 + 1) + 1);
+      let damage = Math.floor(Math.random() * (70 - 0 + 1) + 1);
       const updatedHealth = Math.max(0, currentPokemonHealth - damage);
       return updatedHealth;
     } else {
@@ -369,9 +369,9 @@ const GymPage = () => {
             </div>
 
             <div id="gym_other_options_div">
-              <button onClick={openModal} className="battle_buttons">
+              {/* <button onClick={openModal} className="battle_buttons">
                 Change Pokemon
-              </button>
+              </button> */}
 
               <button onClick={handleRun} className="battle_buttons">
                 Run
@@ -411,7 +411,7 @@ const GymPage = () => {
             <div id="gym_your_pokemon_div">
               <div id="gym_your_pokemon_status_div">
                 <h3>{currentPokemon.name}</h3>
-                <h4>Level: {currentPokemonLevel}</h4>
+                <h4>level: {currentPokemonLevel}</h4>
                 <div className="gym_status_bar_div">
                   <ProgressBar
                     max={currentPokemonHealthTotal}
@@ -437,6 +437,7 @@ const GymPage = () => {
                       }`}
                   >
                     <h3>{currentOpponentList[currentOpponentIndex].name}</h3>
+                    <h5>level: {currentOpponentList[currentOpponentIndex].lvl}</h5>
                     <ProgressBar
                       max={currentOpponentList[currentOpponentIndex].base_hp}
                       now={currentOpponentList[currentOpponentIndex].hp}
