@@ -2,11 +2,11 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import main_map_music from '/src/assets/BackgroundMusic/PitcherPerfectTheme_Loopable.wav';
 import grasstile from '/src/assets/MapTiles/GrassTile.png';
-import flowertile1 from '/src/assets/MapTiles/FlowerTile1.png';
-import flowertile2 from '/src/assets/MapTiles/FlowerTile2.png';
 import clifftile from '/src/assets/MapTiles/CliffTile.png';
 import watertile from '/src/assets/MapTiles/WaterTile.png';
 import pokedex from '/src/assets/MapTiles/Pokedex-PNG-Photos.png';
+import { Howl } from 'howler';
+import grassRustle from '/src/assets/BackgroundMusic/178870__nicholasolsen__rustling-bushes_cut.mp3'
 
 
 export default function MainMapPage() {
@@ -18,6 +18,10 @@ export default function MainMapPage() {
                     grasstile, grasstile, grasstile, grasstile, grasstile, grasstile,
                     clifftile, clifftile, clifftile, clifftile, clifftile, clifftile,
                     watertile, watertile, watertile, watertile, watertile, watertile]
+
+    const noPokemonHere = new Howl({
+        src: [grassRustle],
+    });
 
     const { isLoggedIn } = useOutletContext()
 
@@ -42,6 +46,7 @@ export default function MainMapPage() {
             navigate("/battle")
         }
         else {
+            noPokemonHere.play()
             console.log("No pokemon here!")
         }
     }

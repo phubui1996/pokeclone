@@ -6,6 +6,7 @@ import battlemusic1 from '/src/assets/BattleMusic/MeltdownTheme_Loopable.wav'
 import { Howl } from 'howler';
 import Modal from 'react-modal';
 import rejection_sound from '/src/assets/BattleMusic/489366__morjon17__rejected_feedback.wav'
+import hit_sound from '/src/assets/BattleMusic/377157__pfranzen__smashing-head-on-wall.mp3'
 
 const BattlePage = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -13,8 +14,6 @@ const BattlePage = () => {
     
     const [currentPokemon, setCurrentPokemon] = useState()
     const [currentPokemonHealth, setCurrentPokemonHealth] = useState()
-    const [currentPokemonHealthTotal, setCurrentPokemonHealthTotal] = useState()
-    const [currentPokemonLevel, setCurrentPokemonLevel] = useState()
 
     const [currentOpponent, setCurrentOpponent] = useState("")
     const [currentOpponentHealth, setCurrentOpponentHealth] = useState()
@@ -26,6 +25,10 @@ const BattlePage = () => {
 
     const rejection = new Howl({
         src: [rejection_sound],
+    });
+
+    const hit = new Howl({
+        src: [hit_sound],
     });
 
     function getRandomNum() {
@@ -139,25 +142,25 @@ const BattlePage = () => {
         console.log('starting attack')
         let attack = (Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl))
         //console.log("current exp: ", exp)
+        hit.play()
         setCurrentOpponentHealth(currentOpponentHealth - attack)
         //console.log("current opponent health ", currentOpponentHealth)
         if (currentOpponentHealth > 0) {
             //console.log("attacking")
             setTimeout(async () => {
                 console.log("opponent attack")
-                let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl))
+                let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1) + 1))
+                hit.play()
                 setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
                 console.log("current health ", currentPokemonHealth)
                 if (currentPokemonHealth <= 0) {
                     console.log("pokemon health below zero, handling death")
-                    // setTimeout( async() => {
                     handleDeath();
-                    // }, 0);
                 }
                 //console.log("health set")
                 //console.log("attacked")
                 await saveHealthXP()
-            }, 500);
+            }, 1000);
         }
         else if (currentOpponentHealth <= 0) {
             console.log('player win 2')
@@ -171,24 +174,24 @@ const BattlePage = () => {
     const handleMove2 = async () => {
         console.log('starting attack')
         let attack = (Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl))
+        hit.play()
         setCurrentOpponentHealth(currentOpponentHealth - attack)
         if (currentOpponentHealth > 0) {
             //console.log("attacking")
             setTimeout(async () => {
                 console.log("opponent attack")
                 let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl))
+                hit.play()
                 setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
                 console.log("current health ", currentPokemonHealth)
                 if (currentPokemonHealth <= 0) {
                     console.log("pokemon health below zero, handling death")
-                    // setTimeout( async() => {
                         handleDeath();
-                    // }, 0);
                 }
                 //console.log("health set")
                 //console.log("attacked")
                 await saveHealthXP()
-            }, 500);
+            }, 1000);
         }
         else if (currentOpponentHealth <= 0) {
             console.log('player win 2')
@@ -285,8 +288,11 @@ const BattlePage = () => {
                 setTimeout(async () => {
                     console.log("opponent attack")
                     let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl))
+                    hit.play()
+                    setSeeOpponentHit('')
                     setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
                     console.log("current health ", currentPokemonHealth)
+                    setSeeOpponentHit('none')
                     if (currentPokemonHealth <= 0) {
                         console.log("pokemon health below zero, handling death")
                         handleDeath();
@@ -317,6 +323,7 @@ const BattlePage = () => {
                 setTimeout(async () => {
                     console.log("opponent attack")
                     let counterAttack = (Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl))
+                    hit.play()
                     setCurrentPokemonHealth(currentPokemonHealth - counterAttack)
                     console.log("current health ", currentPokemonHealth)
                     if (currentPokemonHealth <= 0) {
@@ -475,11 +482,11 @@ const BattlePage = () => {
                         <div id='your_pokemon_div'>
                             <div id='your_pokemon_status_div'>
                                 <h3>{currentPokemon.name}</h3>
-                                <h4>Level: {currentPokemonLevel}</h4>
+                                <h4>Level: {currentPokemon.lvl}</h4>
                                 <div className='status_bar_div'>
-                                    <ProgressBar className='actual_status_bar' max={currentPokemonHealthTotal} min={0} now={currentPokemonHealth} label={`${currentPokemonHealth}`}/>
+                                    <ProgressBar max={currentPokemon.base_hp} min={0} now={currentPokemonHealth} label={`${currentPokemonHealth}`} className='actual_status_bar' />
                                 </div>
-                                <img alt='poke' src={`${currentPokemon.back_img}`} className='pokemon_image' />
+                                <img alt='poke' src={`${currentPokemon.back_img}`} className='pokemon_image'/>
                             </div>
                         </div>
                         <div id='opponent_div'>

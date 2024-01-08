@@ -117,8 +117,8 @@ console.log(selectedIds)
                     <div className='pokecenter_team'>
                         {pokeTeam.map((pokemon) => (
                             <>
-                                <ListGroup.Item variant='secondary'>{pokemon.user_pokemon.pokemon.name} Lvl: {pokemon.user_pokemon.pokemon.lvl}</ListGroup.Item>
-                                <ProgressBar className='pokecenter_progress' max={pokemon.user_pokemon.pokemon.base_hp} now={pokemon.user_pokemon.pokemon.hp} label={`hp: ${pokemon.user_pokemon.pokemon.hp}`} />
+                                <ListGroup.Item id='pokecenter_list_item'>{pokemon.user_pokemon.pokemon.name} Lvl: {pokemon.user_pokemon.pokemon.lvl}</ListGroup.Item>
+                                <ProgressBar className='pokecenter_progress' variant="success" max={pokemon.user_pokemon.pokemon.base_hp} min={0} now={pokemon.user_pokemon.pokemon.hp} label={`hp: ${pokemon.user_pokemon.pokemon.hp}`} />
                             </> 
                         ))}
                     </div>
