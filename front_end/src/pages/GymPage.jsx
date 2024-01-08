@@ -120,10 +120,10 @@ const GymPage = () => {
     let attack, exp;
 
     if (moveNumber === 1) {
-      attack = Math.floor(Math.random() * (10 - 0 + 1) + 1);
+      attack = Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl);
       exp = Math.floor(Math.random() * (10 - 3 + 1)) + 5;
     } else if (moveNumber === 2) {
-      attack = Math.floor(Math.random() * (10 - 0 + 1) + 1);
+      attack = Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl);
       exp = Math.floor(Math.random() * (30 - 5 + 1)) + 5;
     } else {
       console.error("Invalid move number");
@@ -155,7 +155,7 @@ const GymPage = () => {
       // Check if already navigated to victory
       if (!victoryNavigated) {
         setVictoryNavigated(true); // Update state to indicate navigation
-        navigate("/victory/");
+        navigate("/victory");
       }
 
       return;
@@ -197,7 +197,7 @@ const GymPage = () => {
 
         if (allUserPokemonDefeated) {
           console.log("You lose! All your Pokémon are defeated.");
-          navigate("/gameover/");
+          navigate("/gameover");
           return;
         }
 
@@ -218,7 +218,7 @@ const GymPage = () => {
 
   /////////////////RUN///////////////////////////////////////////////////////////
   const handleRun = () => {
-    let runChance = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
+    let runChance = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
     if (runChance < 4) {
       saveHealthXP(); //add post request to save experience and health
       navigate("/main");
@@ -433,10 +433,10 @@ const GymPage = () => {
                 currentOpponentIndex < currentOpponentList.length && (
                   <div
                     key={currentOpponentList[currentOpponentIndex].id}
-                    className={`opponent_status_bar_div ${
-                      currentOpponentHealth <= 0 ? "opponent-fainted" : ""
-                    }`}
+                    className={`opponent_status_bar_div ${currentOpponentHealth <= 0 ? "opponent-fainted" : ""
+                      }`}
                   >
+                    <h3>{currentOpponentList[currentOpponentIndex].name}</h3>
                     <ProgressBar
                       max={currentOpponentList[currentOpponentIndex].base_hp}
                       now={currentOpponentList[currentOpponentIndex].hp}

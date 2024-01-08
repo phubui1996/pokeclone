@@ -15,9 +15,9 @@ const GameOverPage = () => {
                 <img src="https://media.giphy.com/media/WLXO8OZmq0JK8/giphy.gif"/>
                 <h1>TRASH</h1><h1>TRASH</h1><h1>TRASH</h1>
             
-            <div className="gameover_buttons">
-                <Button onClick={()=>navigate('/pokecenter')}>Try Again?</Button>
-                <Button onClick={()=>navigate('/')}>New Game</Button>
+            <div className="gameover_buttons_div">
+                <Button className='gameover_buttons' onClick={()=>navigate('/pokecenter')}>Try Again?</Button>
+                    <Button className='gameover_buttons' onClick={()=>navigate('/')}>New Game</Button>
             </div>  
             </div>
         </div>

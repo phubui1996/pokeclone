@@ -19,9 +19,6 @@ const PokemonCard = ({
       <img src={front_img}></img>
       <div>{move_1}</div>
       <div>{move_2}</div>
-      <div>hp: {hp}</div>
-      <div>xp: {xp}</div>
-      <div>level: {lvl}</div>
     </div>
   );
 };
