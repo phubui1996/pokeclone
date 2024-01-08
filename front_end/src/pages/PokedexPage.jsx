@@ -53,9 +53,6 @@ const PokedexPage = () => {
                 front_img={pokemon.front_img}
                 move_1={pokemon.move_1}
                 move_2={pokemon.move_2}
-                hp={pokemon.hp}
-                xp={pokemon.xp}
-                lvl={pokemon.lvl}
               />
             ))
           ) : (

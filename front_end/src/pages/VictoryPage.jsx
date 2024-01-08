@@ -9,7 +9,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 
 const VictoryPage = () => {
     const [randomNum, setRandomNum] = useState(5)
-    
+
     const { pokeTeam, setPokeTeam, user, isLoggedIn } = useOutletContext()
 
     const navigate = useNavigate()
@@ -26,23 +26,23 @@ const VictoryPage = () => {
     const getTeam = async () => {
         console.log("getting team")
 
-            teamApi.defaults.headers.common[
-                "Authorization"
-            ] = `Token ${user.Token}`;
+        teamApi.defaults.headers.common[
+            "Authorization"
+        ] = `Token ${user.Token}`;
 
-            let response = await teamApi.get('manager/');
+        let response = await teamApi.get('manager/');
 
-            if (response.status === 200) {
-                setPokeTeam(response.data[0].pokemons)
-                console.log('the team down here', pokeTeam)
-                for (let i = 0; i < response.data[0].pokemons.length; i++) {
-                    let pokemon = response.data[0].pokemons[i].user_pokemon.pokemon;
-                    console.log("pokemon", pokemon)
-                
+        if (response.status === 200) {
+            setPokeTeam(response.data[0].pokemons)
+            console.log('the team down here', pokeTeam)
+            for (let i = 0; i < response.data[0].pokemons.length; i++) {
+                let pokemon = response.data[0].pokemons[i].user_pokemon.pokemon;
+                console.log("pokemon", pokemon)
+
             }
         }
     }
-    
+
     const levelUpPokemon = () => {
 
         console.log("leveling-up team pokemon")
@@ -108,51 +108,47 @@ const VictoryPage = () => {
 
 
     const addXP = () => {
-        pokeTeam.map((pokemon) =>{
+        pokeTeam.map((pokemon) => {
             console.log(pokemon.user_pokemon.pokemon.xp)
 
         })
     }
 
-        addXP()
+    addXP()
 
-        useEffect(() => {
-            getRandomNum()
-            setTimeout(levelUpPokemon(), 1000);
-            
-            getTeam()
-        }, [])     
+    useEffect(() => {
+        getRandomNum()
+        setTimeout(levelUpPokemon(), 1000);
+
+        getTeam()
+    }, [])
+
 
     console.log(pokeTeam)
 
-    return(
+    return (
         <div className='full_page_div' onClick={handleClick}>
             <div className="victory">
+                <h1 id='victory_title'>Victory!</h1>
+                <img src="https://media4.giphy.com/media/IQebREsGFRXmo/200w.gif?cid=6c09b952jb3gk3kmsx3c47an338tqhgysg53uam89h4z3h6m&ep=v1_gifs_search&rid=200w.gif&ct=s" />
                 <div>
-                    <h1>Victory</h1>
-                    <img src="https://media4.giphy.com/media/IQebREsGFRXmo/200w.gif?cid=6c09b952jb3gk3kmsx3c47an338tqhgysg53uam89h4z3h6m&ep=v1_gifs_search&rid=200w.gif&ct=s"/>
-                </div>
-            <div>
-                <ListGroup className='victory_team'>
-                    {pokeTeam.map((pokemon) => (
-                        <div id='victory_div'>
-                                <ListGroup.Item variant='secondary' className='victory_list'><img src={pokemon.user_pokemon.pokemon.front_img}/>{pokemon.user_pokemon.pokemon.name} Lvl {pokemon.user_pokemon.pokemon.lvl}</ListGroup.Item>
-                                <div>    
+                    <ListGroup className='victory_team'>
+                        {pokeTeam.map((pokemon) => (
+                            <div id='victory_div'>
+                                <ListGroup.Item variant='secondary' className='victory_list'><img src={pokemon.user_pokemon.pokemon.front_img} />{pokemon.user_pokemon.pokemon.name} Lvl {pokemon.user_pokemon.pokemon.lvl}</ListGroup.Item>
+                                <div>
                                     <ProgressBar className='victory_progress' max={pokemon.user_pokemon.pokemon.base_hp}
-                                                                                now={pokemon.user_pokemon.pokemon.hp}
-                                                                                label={`hp: ${pokemon.user_pokemon.pokemon.hp}`} />
-                                    <ProgressBar className='victory_progress' max={100} now={pokemon.user_pokemon.pokemon.xp}label={`xp: ${pokemon.user_pokemon.pokemon.xp}`}/>
-                                </div>                                                
-                            </div> 
+                                        now={pokemon.user_pokemon.pokemon.hp}
+                                        label={`hp: ${pokemon.user_pokemon.pokemon.hp}`} />
+                                    <ProgressBar className='victory_progress' id='victory_xp' max={100} now={pokemon.user_pokemon.pokemon.xp} label={`xp: ${pokemon.user_pokemon.pokemon.xp}`} />
+                                </div>
+                            </div>
                         ))}
-                </ListGroup>
-            </div>
+                    </ListGroup>
+                </div>
                 <audio autoPlay src={victoryPageMusic} loop type="audio/wav" volume='0.2'>
-                            </audio>
-            <div className="victory_buttons">
-                <Button onClick={handleClick}>continue</Button>
-            </div>  
-        </div>
+                </audio>
+            </div>
         </div>
     )
 }

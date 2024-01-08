@@ -375,6 +375,12 @@ input {
 #main_pokedex_div {
   width: 100px;
   height: 100px;
+  margin-bottom: 30px;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #main_pokedex_img {
@@ -443,10 +449,15 @@ input {
   position: relative;
   width: 300%;
   height: 300%;
+  animation: moveAnimation 0.6s ease-in-out;
 }
 
 .status_bar_div {
-  width: 300%;
+  width: 200%;
+}
+
+.actual_status_bar{
+  width: 100%
 }
 
 #battle_options_div {
@@ -508,7 +519,6 @@ input {
 }
 
 #pokedex_inner_div {
-  margin-top: 630rem;
   display: flex;
   flex-direction: row;
   background-color: gray;
@@ -521,13 +531,15 @@ input {
   /* height: 100%; */
   width: 90%;
   border: 5px solid rgb(94, 93, 93);
-  box-shadow: 10px 10px rgba(0, 0, 0, 0.367);  
+  box-shadow: 10px 10px rgba(0, 0, 0, 0.367);
+  /* position: relative; */
 }
 
 .pokedex_card {
+  margin-top: 8vh;
   border: 5px inset darkgray;
-  width: 300px;
-  height: 400px;
+  width: 200px;
+  height: 300px;
   background-color: rgba(245, 245, 245, 0.721);
   box-shadow: 2px 2px darkgray;
   margin: 1%;
@@ -565,7 +577,6 @@ input {
   width: 100%;
   height: 100%;
   background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/fs/28e13297263939.5ec14858dcc0a.jpg);
-  border: 2px solid red;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -605,9 +616,22 @@ input {
 .pokecenter_progress {
   width: 500px;
   height: 30px;
-  border-radius: 2px;
-  background-color: whitesmoke;
+  border-radius: 5px;
+  background-color: whitesmoke !important;
+  color: rgba(211, 189, 21, 0.535) !important;
+  display: flex;
+}
 
+.progress-bar{
+  background-color: rgb(39, 72, 154) !important;
+}
+
+#pokecenter_list_item{
+  color: whitesmoke;
+  background-color: rgba(211, 189, 21, 0.694);
+  border: none;
+  border-radius: 5px;
+  margin-top: 5px;
 }
 
 /* House Page //////////////////////////////////////////////////////////////////////// */
@@ -692,6 +716,7 @@ input {
 }
 
 /* GAME OVER ///////////////////////////////////////////////////////////////////////// */
+
 .gameover {
   padding-top: 5em;
   display: flex;
@@ -704,14 +729,16 @@ input {
 }
 
 .gameover h1 {
+  margin-top: 10px;
   animation: strobe 1s infinite alternate;
   font-family: 'Lobster', cursive;
 }
 
 .gameover img {
-  width: 55rem;
+  width: 40rem;
   height: 25rem;
   border-radius: 1rem;
+  border: 2px solid whitesmoke;
 }
 
 @keyframes strobe {
@@ -729,13 +756,24 @@ input {
   }
 }
 
-.gameover_buttons {
+.gameover_buttons_div {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  width: 15rem;
-
 }
+
+.gameover_buttons {
+  margin: 10px;
+  width: 150px;
+  height: 40px;
+  background-color: rgb(39, 72, 154);
+  border: none;
+}
+
+.gameover_buttons:hover {
+  background-color: rgb(211, 189, 21);
+}
+
 /* Victory Page ///////////////////////////////////////////////////////////////////// */
 
 .victory {
@@ -748,33 +786,45 @@ input {
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%;
+  color: whitesmoke;
 }
 
 .victory_team {
   margin: 3rem;
   align-items: center;
-  height: 70%;
+  justify-content: center;
   width: 100%;
+  border-radius: 10px;
+  overflow-y: scroll;
+}
+
+#victory_title {
+  text-shadow: 1px 1px gray;
 }
 
 #victory_div {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  /* align-items: center; */
   width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 5px;
 }
 
 .victory_progress {
   height: 30px;
-  border-radius: 2px;
+  border-radius: 5px;
   background-color: whitesmoke;
+  margin-top: 5px;
+}
 
+#victory_xp {
+  margin-top: 5px;
 }
 
 .victory_list{
-  
-  border-radius: 10px;
+  background-color: rgba(245, 245, 245, 0.608);
+  border-radius: 10px !important;
 }
 
 /* Gym Page ///////////////////////////////////////////////////////////////////////// */
@@ -812,6 +862,7 @@ input {
   align-items: end;
   width: 50%;
   padding: 100px;
+  color: whitesmoke;
 }
 
 #gym_your_pokemon_div {
@@ -826,7 +877,7 @@ input {
 #gym_your_pokemon_status_div {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: center;
 }
 
@@ -865,4 +916,13 @@ input {
   background-color: rgba(245, 245, 245, 0.448);
   margin: 10px;
   border-radius: 10px;
+}
+
+.hit_pic_user {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  margin-left: 100px;
+  margin-top: 100px;
+  z-index: 3;
 }
