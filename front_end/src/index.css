@@ -513,12 +513,13 @@ input {
   flex-direction: column;
   background-color: rgb(173, 7, 7);
   padding: 20px;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   overflow: scroll;
 }
 
 #pokedex_inner_div {
+  margin-top: 8vh;
   display: flex;
   flex-direction: row;
   background-color: gray;
