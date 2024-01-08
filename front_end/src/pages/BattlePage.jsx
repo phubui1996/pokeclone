@@ -11,9 +11,10 @@ import hit_sound from '/src/assets/BattleMusic/377157__pfranzen__smashing-head-o
 const BattlePage = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [randomNum, setRandomNum] = useState()
-    
+
     const [currentPokemon, setCurrentPokemon] = useState()
     const [currentPokemonHealth, setCurrentPokemonHealth] = useState()
+    const [currentPokemonHealthTotal, setCurrentPokemonHealthTotal] = useState()
 
     const [currentOpponent, setCurrentOpponent] = useState("")
     const [currentOpponentHealth, setCurrentOpponentHealth] = useState()
@@ -48,36 +49,34 @@ const BattlePage = () => {
         console.log("getting team")
         // try {
 
-            teamApi.defaults.headers.common[
-                "Authorization"
-            ] = `Token ${user.Token}`;
+        teamApi.defaults.headers.common[
+            "Authorization"
+        ] = `Token ${user.Token}`;
 
-            let response = await teamApi.get('manager/');
-            //console.log("get team", response.data[0].pokemons);
+        let response = await teamApi.get('manager/');
+        //console.log("get team", response.data[0].pokemons);
 
-            if (response.status === 200) {
-                setPokeTeam(response.data[0].pokemons)
-                console.log('the team down here', pokeTeam)
-                for (let i = 0; i < response.data[0].pokemons.length; i++) {
-                    let pokemon = response.data[0].pokemons[i].user_pokemon.pokemon;
-                    console.log('checking for poke with health')
-                    if (pokemon.hp > 0) {
-                        console.log('found a poke!')
-                        setCurrentPokemon(pokemon);
-                        setCurrentPokemonHealth(pokemon.hp);
-                        setCurrentPokemonExperience(pokemon.xp);
-                        setCurrentPokemonHealthTotal(pokemon.base_hp);
-                        setCurrentPokemonLevel(pokemon.lvl);
-                        console.log('new poke set!')
-                        await saveHealthXP();
-            } //else {
-            //     console.log("Error retrieving team");
-            // }
-        } //catch (error) {
-        //     console.error("Error retrieving team:", error);
+        if (response.status === 200) {
+            setPokeTeam(response.data[0].pokemons)
+            console.log('the team down here', pokeTeam)
+            for (let i = 0; i < response.data[0].pokemons.length; i++) {
+                let pokemon = response.data[0].pokemons[i].user_pokemon.pokemon;
+                console.log('checking for poke with health')
+                if (pokemon.hp > 0) {
+                    console.log('found a poke!')
+                    setCurrentPokemon(pokemon);
+                    setCurrentPokemonHealth(pokemon.hp);
+                    setCurrentPokemonHealthTotal(pokemon.base_hp);
+                    console.log('new poke set!')
+                    await saveHealthXP();
+                } //else {
+                //     console.log("Error retrieving team");
+                // }
+            } //catch (error) {
+            //     console.error("Error retrieving team:", error);
         }
     };
-// }
+    // }
 
     const saveHealthXP = async () => {
         console.log("saving health and xp...")
@@ -186,7 +185,7 @@ const BattlePage = () => {
                 console.log("current health ", currentPokemonHealth)
                 if (currentPokemonHealth <= 0) {
                     console.log("pokemon health below zero, handling death")
-                        handleDeath();
+                    handleDeath();
                 }
                 //console.log("health set")
                 //console.log("attacked")
@@ -421,22 +420,22 @@ const BattlePage = () => {
     }, [randomNum])
 
     useEffect(() => {
-        if (currentOpponentHealth < 1){
+        if (currentOpponentHealth < 1) {
             handleWin()
         }
     }, [currentOpponentHealth])
 
 
     useEffect(() => {
-        if (currentPokemonHealth < 1){
+        if (currentPokemonHealth < 1) {
             console.log("here instead")
-                handleDeath()  
+            handleDeath()
         }
-    },[currentPokemonHealth])
+    }, [currentPokemonHealth])
 
     useEffect(() => {
         console.log("team change")
-    },[pokeTeam])
+    }, [pokeTeam])
 
     useEffect(() => {
         if (isLoggedIn === false) {
@@ -464,11 +463,12 @@ const BattlePage = () => {
                         </div>
                     </div>
                     <div id='poke_div'>
-                        <div>
+                        <div className='modal_div'>
                             <Modal
                                 isOpen={modalIsOpen}
                                 onRequestClose={closeModal}
                                 contentLabel="Your Team"
+                                className='change_poke_modal'
                             >
                                 <h2>Select a Pokemon:</h2>
                                 {pokeTeam.map((poke) => (
@@ -476,7 +476,7 @@ const BattlePage = () => {
                                         {poke.user_pokemon.pokemon.name} hp: {poke.user_pokemon.pokemon.hp} <img src={poke.user_pokemon.pokemon.front_img} />
                                     </button>
                                 ))}
-                                <button onClick={closeModal}>Close</button>
+                                <button onClick={closeModal} className='battle_modal_buttons'>Close</button>
                             </Modal>
                         </div>
                         <div id='your_pokemon_div'>
@@ -486,7 +486,7 @@ const BattlePage = () => {
                                 <div className='status_bar_div'>
                                     <ProgressBar max={currentPokemon.base_hp} min={0} now={currentPokemonHealth} label={`${currentPokemonHealth}`} className='actual_status_bar' />
                                 </div>
-                                <img alt='poke' src={`${currentPokemon.back_img}`} className='pokemon_image'/>
+                                <img alt='poke' src={`${currentPokemon.back_img}`} className='pokemon_image' />
                             </div>
                         </div>
                         <div id='opponent_div'>
