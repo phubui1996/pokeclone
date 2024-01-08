@@ -432,6 +432,7 @@ input {
   padding: 10px;
   width: 50%;
   margin-bottom: 2%;
+  color: white;
 }
 
 #your_pokemon_div {
@@ -441,6 +442,7 @@ input {
   align-items: start;
   padding: 10px;
   width: 50%;
+  color: white;
 }
 
 .poke_profile_div {
@@ -507,6 +509,36 @@ input {
   background-color: rgb(211, 189, 21);
 }
 
+/* .modal_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+} */
+
+.battle_modal_buttons {
+  border: 2px solid white;
+  border-radius: 10px;
+  margin: 10px;
+  color: white;
+  background-color: rgb(39, 72, 154);
+  padding: 5px;
+}
+
+.battle_modal_buttons:hover {
+  background-color: rgb(211, 189, 21);
+}
+
+.change_poke_modal {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8vh;
+}
 /* Pokedex Page ///////////////////////////////////////////////////////////////////// */
 
 #pokedex_div {

@@ -14,6 +14,7 @@ const BattlePage = () => {
 
     const [currentPokemon, setCurrentPokemon] = useState()
     const [currentPokemonHealth, setCurrentPokemonHealth] = useState()
+    const [currentPokemonHealthTotal, setCurrentPokemonHealthTotal] = useState()
 
     const [currentOpponent, setCurrentOpponent] = useState("")
     const [currentOpponentHealth, setCurrentOpponentHealth] = useState()
@@ -65,12 +66,17 @@ const BattlePage = () => {
                     console.log('found a poke!')
                     setCurrentPokemon(pokemon);
                     setCurrentPokemonHealth(pokemon.hp);
+                    setCurrentPokemonHealthTotal(pokemon.base_hp);
                     console.log('new poke set!')
                     await saveHealthXP();
-                }
-            }
+                } //else {
+                //     console.log("Error retrieving team");
+                // }
+            } //catch (error) {
+            //     console.error("Error retrieving team:", error);
         }
     };
+    // }
 
     const saveHealthXP = async () => {
         console.log("saving health and xp...")
@@ -122,7 +128,10 @@ const BattlePage = () => {
         await getTeam()
         setCurrentPokemon(poke)
         setCurrentPokemonHealth(poke.hp)
+        //console.log('still saving?')
         setCurrentPokemonExperience(poke.xp)
+        setCurrentPokemonHealthTotal(poke.base_hp)
+        setCurrentPokemonLevel(poke.lvl)
         closeModal();
     };
 
@@ -381,6 +390,8 @@ const BattlePage = () => {
                 setCurrentPokemon(pokemon);
                 setCurrentPokemonHealth(pokemon.hp);
                 setCurrentPokemonExperience(pokemon.xp);
+                setCurrentPokemonHealthTotal(pokemon.base_hp);
+                setCurrentPokemonLevel(pokemon.lvl);
                 console.log('new poke set!')
                 break; // Stop the loop once a Pokémon with health greater than 0 is found
             }
@@ -423,6 +434,10 @@ const BattlePage = () => {
     }, [currentPokemonHealth])
 
     useEffect(() => {
+        console.log("team change")
+    }, [pokeTeam])
+
+    useEffect(() => {
         if (isLoggedIn === false) {
             navigate('/landing')
         }
@@ -448,11 +463,12 @@ const BattlePage = () => {
                         </div>
                     </div>
                     <div id='poke_div'>
-                        <div>
+                        <div className='modal_div'>
                             <Modal
                                 isOpen={modalIsOpen}
                                 onRequestClose={closeModal}
                                 contentLabel="Your Team"
+                                className='change_poke_modal'
                             >
                                 <h2>Select a Pokemon:</h2>
                                 {pokeTeam.map((poke) => (
@@ -460,13 +476,13 @@ const BattlePage = () => {
                                         {poke.user_pokemon.pokemon.name} hp: {poke.user_pokemon.pokemon.hp} <img src={poke.user_pokemon.pokemon.front_img} />
                                     </button>
                                 ))}
-                                <button onClick={closeModal}>Close</button>
+                                <button onClick={closeModal} className='battle_modal_buttons'>Close</button>
                             </Modal>
                         </div>
                         <div id='your_pokemon_div'>
                             <div id='your_pokemon_status_div'>
                                 <h3>{currentPokemon.name}</h3>
-                                <h5>level: {currentPokemon.lvl}</h5>
+                                <h4>Level: {currentPokemon.lvl}</h4>
                                 <div className='status_bar_div'>
                                     <ProgressBar max={currentPokemon.base_hp} min={0} now={currentPokemonHealth} label={`${currentPokemonHealth}`} className='actual_status_bar' />
                                 </div>
