@@ -10,19 +10,24 @@ PokeClone is an educational project that combines the power of a React front-end
 
 
 ## Features
-
-Features
 User Authentication: Secure signup and login functionality to personalize the gaming experience.
+##
 Pokemon Integration: Utilizes images from pokeapi.co to provide an immersive Pokemon atmosphere.
+##
 PokeTeam CRUD Capability: Users can manage their PokeTeam effectively, capturing and training Pokemon.
 
 ## User Journey
-Registration: Users can sign up and create an account to commence their PokeClone adventure.
-Pokemon Selection: Choose a starter Pokemon to kickstart your journey and add it to your PokeTeam.
-Training Grounds: Capture more Pokemon and train them to build a formidable team.
-PokeCenter: Visit the PokeCenter to heal your Pokemon back to full health after battles.
-Home Base: Customize your team by selecting up to six Pokemon from your captured collection.
-Pokedex Exploration: Open the Pokedex to view detailed statistics of all encountered Pokemon.
+1. Registration: Users can sign up and create an account to commence their PokeClone adventure.
+
+2. Pokemon Selection: Choose a starter Pokemon to kickstart your journey and add it to your PokeTeam.
+
+3. Training Grounds: Capture more Pokemon and train them to build a formidable team.
+
+4. PokeCenter: Visit the PokeCenter to heal your Pokemon back to full health after battles.
+
+5. Home Base: Customize your team by selecting up to six Pokemon from your captured collection.
+
+6. Pokedex Exploration: Open the Pokedex to view detailed statistics of all encountered Pokemon.
 
 ## Technologies
 
