@@ -5,13 +5,11 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import bossmusic from "/src/assets/GymMusic/HaroldParanormalInstigatorTheme_Loopable.wav";
 import { wildApi, pokeApi, teamApi } from "../components/utilities";
 import rejection_sound from "/src/assets/BattleMusic/489366__morjon17__rejected_feedback.wav";
-import { Howl } from 'howler';
-import hit_sound from '/src/assets/BattleMusic/377157__pfranzen__smashing-head-on-wall.mp3'
 
 // "gym/"
 const GymPage = () => {
   const [randomNum, setRandomNum] = useState();
-  const [currentOpponent, setCurrentOpponent] = useState(); //just here for fun
+  const [currentOpponent, setCurrentOpponent] = useState();
   const [currentPokemon, setCurrentPokemon] = useState();
   const [currentPokemonHealth, setCurrentPokemonHealth] = useState();
   const [currentPokemonHealthTotal, setCurrentPokemonHealthTotal] = useState();
@@ -39,10 +37,6 @@ const GymPage = () => {
     src: [rejection_sound],
   });
 
-  const hit = new Howl({
-    src: [hit_sound],
-  });
-
   /////////////////GET WILD TEAM///////////////////////////////////////////////////////////
   const getRandomNum = () => {
     return Math.floor(Math.random() * (100 - 1 + 1)) + 1;
@@ -64,10 +58,10 @@ const GymPage = () => {
         front_img: pokemon.front_img,
         back_img: pokemon.back_img,
         pokemon_id: pokemon.pokemon_id,
-        base_hp: pokemon.base_hp * 10,
-        hp: pokemon.hp * 10,
+        base_hp: pokemon.base_hp,
+        hp: pokemon.hp,
         xp: pokemon.xp,
-        lvl: pokemon.lvl * 100,
+        lvl: pokemon.lvl,
       });
     }
 
@@ -110,11 +104,10 @@ const GymPage = () => {
     }
   };
 
-
   /////////////////ATTACK///////////////////////////////////////////////////////////
   const updateHealthAsync = async (pokemon, isUserPokemon) => {
     if (isUserPokemon) {
-      let damage = Math.floor(Math.random() * (70 - 0 + 1) + 1); //increase damage
+      let damage = Math.floor(Math.random() * (10 - 0 + 1) + 1);
       const updatedHealth = Math.max(0, currentPokemonHealth - damage);
       return updatedHealth;
     } else {
@@ -124,14 +117,14 @@ const GymPage = () => {
   };
 
   const handleMove = async (moveNumber) => {
-    let attack;
+    let attack, exp;
 
     if (moveNumber === 1) {
-      hit.play()
       attack = Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl);
+      exp = Math.floor(Math.random() * (10 - 3 + 1)) + 5;
     } else if (moveNumber === 2) {
-      hit.play()
       attack = Math.floor(Math.random() * (10 - 0 + 1) + 1 * currentPokemon.lvl);
+      exp = Math.floor(Math.random() * (30 - 5 + 1)) + 5;
     } else {
       console.error("Invalid move number");
       return;
@@ -168,7 +161,7 @@ const GymPage = () => {
       return;
     }
 
-    if (currentOpponentHealth <= 0) { //opponent attack
+    if (currentOpponentHealth <= 0) {
       saveHealthXP();
       setShowNextOpponent(true);
     } else {
@@ -282,7 +275,6 @@ const GymPage = () => {
   const handlePokemonFaint = () => {
     setPokeDeath(true);
     openModal();
-    console.log("poke dead")
   };
 
   const handlePokemonSelection = (selectedPokemon) => {
@@ -311,69 +303,47 @@ const GymPage = () => {
       setCurrentOpponentIndex(currentOpponentIndex + 1);
       setPokeDeath(false); // Reset pokeDeath for the new Pokémon
       setShowNextOpponent(false);
-      setCurrentOpponentHealth(currentOpponentList[currentOpponentIndex].hp)
     } else {
       // All Pokémon in the list are defeated
       console.log("All Pokémon defeated");
       navigate("/victory/");
     }
   };
-  // const handleDefeat = () => {
-  //   if (currentOpponentHealth < 1 && currentOpponentIndex < currentOpponentList.length - 1) {
-  //     setCurrentOpponentIndex(currentOpponentIndex + 1)
-  //     setCurrentOpponent(currentOpponentList[currentOpponentIndex])
-  //     console.log('new opponent set!')
-  //   }
-  //   else {
-  //     // navigate('/victory')
-  //     console.log('all poke defeated')
-  //   }
-  // for (let i = 0; i < currentOpponentList.length; i++) {
-  //   let pokemon = response.data[0].pokemons[i].user_pokemon.pokemon;
-  //   console.log('checking for poke with health')
-  //   if (pokemon.hp > 0) {
-  //     console.log('found a poke!')
-  //     setCurrentPokemon(pokemon);
-  //     setCurrentPokemonHealth(pokemon.hp);
-  //      
-  //}
 
   ////////////USE EFFECT///////////////////////////////////////////////////////////
-  const initializeBattle = async () => {
-    try {
-      // Generate opponent list
-      const generatedOpponentList = await wildPoke();
-      // console.log("Generated Opponent List:", generatedOpponentList);
+  useEffect(() => {
+    const initializeBattle = async () => {
+      try {
+        // Generate opponent list
+        const generatedOpponentList = await wildPoke();
+        // console.log("Generated Opponent List:", generatedOpponentList);
 
-      // Update state with the generated opponent list
-      setCurrentOpponentList((prevOpponentList) => [
-        ...prevOpponentList,
-        ...generatedOpponentList,
-      ]);
-    } catch (error) {
-      console.error("Error initializing battle:", error);
-    }
-  }
-  // useEffect(() => {
-  //   if (currentOpponentHealth < 1) {
-  //     handleWin()
-  //   }
-  // }, [currentOpponentHealth])
+        // Update state with the generated opponent list
+        setCurrentOpponentList((prevOpponentList) => [
+          ...prevOpponentList,
+          ...generatedOpponentList,
+        ]);
+      } catch (error) {
+        console.error("Error initializing battle:", error);
+      }
+    };
+
+    // Call the initialization function
+    initializeBattle();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
-      initializeBattle();
       // Fetch user's team after generating opponents
       await getTeam();
     };
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (isLoggedIn === false) {
-      navigate('/landing')
-    }
-  }, []);
+  //   useEffect(() => {
+  //     console.log("Team updated", pokeTeam);
+  //     console.log("Current Pokemon", currentPokemon);
+  //   }, [pokeTeam]);
 
   return (
     // <h1> Gym</h1>
@@ -441,7 +411,7 @@ const GymPage = () => {
             <div id="gym_your_pokemon_div">
               <div id="gym_your_pokemon_status_div">
                 <h3>{currentPokemon.name}</h3>
-                <h5>level: {currentPokemon.lvl}</h5>
+                <h4>Level: {currentPokemonLevel}</h4>
                 <div className="gym_status_bar_div">
                   <ProgressBar
                     max={currentPokemonHealthTotal}
@@ -467,7 +437,6 @@ const GymPage = () => {
                       }`}
                   >
                     <h3>{currentOpponentList[currentOpponentIndex].name}</h3>
-                    <h5>level: {currentOpponentList[currentOpponentIndex].lvl}</h5>
                     <ProgressBar
                       max={currentOpponentList[currentOpponentIndex].base_hp}
                       now={currentOpponentList[currentOpponentIndex].hp}
