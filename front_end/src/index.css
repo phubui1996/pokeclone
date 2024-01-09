@@ -697,7 +697,7 @@ input {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-image: url(https://cdn.class101.net/images/eee625e4-5548-4446-94ed-a7b487212523);
+  background-image: url(/src/assets/house_background.png);
   background-repeat: no-repeat;
   background-size: cover;
 }
