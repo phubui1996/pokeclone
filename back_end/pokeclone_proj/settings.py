@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'user_app',
     'pokemon_app',
     'team_app',
-    'map_app',
 ]
 
 MIDDLEWARE = [

@@ -5,7 +5,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Sound from 'react-audio-player';
-import pokeCenterPageMusic from '/src/assets/BackgroundMusic/low-bass-loop.wav'
+import pokeCenterPageMusic from '/src/assets/BackgroundMusic/chiptune-music.mp3'
 
 
 const PokeCenterPage = () => {
