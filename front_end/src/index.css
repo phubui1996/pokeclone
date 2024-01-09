@@ -684,7 +684,7 @@ input {
 }
 
 .team_pokemons_div {
-  margin-top: 12vh;
+  /* margin-top: 12vh; */
   background-color: rgba(245,
       245,
       245,
@@ -750,6 +750,30 @@ input {
 
 .house_buttons:hover {
   background-color: rgb(211, 189, 21);
+}
+
+.house_header {
+  margin-left: 36rem;
+  display:flex;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.763);
+  border:2px solid black;
+  border-radius: 5px;
+  width: 15rem;
+  height: 1.5rem;
+  align-items: center;
+}
+.house_headers {
+  margin-top: 9vh;
+  margin-left: 36rem;
+  display:flex;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.763);
+  border:2px solid black;
+  border-radius: 5px;
+  width: 15rem;
+  height: 1.5rem;
+  align-items: center;
 }
 
 /* GAME OVER ///////////////////////////////////////////////////////////////////////// */
