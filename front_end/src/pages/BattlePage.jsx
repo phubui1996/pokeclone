@@ -471,12 +471,14 @@ const BattlePage = () => {
                                 className='change_poke_modal'
                             >
                                 <h2>Select a Pokemon:</h2>
+                                <div className='modal_buttons_div'>
                                 {pokeTeam.map((poke) => (
                                     <button key={poke.user_pokemon.pokemon.id} className='battle_modal_buttons' onClick={() => handleOptionClick(poke.user_pokemon.pokemon)} disabled={poke.user_pokemon.pokemon.hp <= 0}>
-                                        {poke.user_pokemon.pokemon.name} hp: {poke.user_pokemon.pokemon.hp} <img src={poke.user_pokemon.pokemon.front_img} />
+                                        {poke.user_pokemon.pokemon.name}<br></br><img src={poke.user_pokemon.pokemon.front_img}/><br></br>hp: {poke.user_pokemon.pokemon.hp}<br></br>lvl: {poke.user_pokemon.pokemon.lvl}
                                     </button>
                                 ))}
-                                <button onClick={closeModal} className='battle_modal_buttons'>Close</button>
+                                </div>
+                                <button onClick={closeModal} className='victory_button'>Close</button>
                             </Modal>
                         </div>
                         <div id='your_pokemon_div'>

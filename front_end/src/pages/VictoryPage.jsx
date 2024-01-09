@@ -19,7 +19,7 @@ const VictoryPage = () => {
     }
 
     function getRandomNum() {
-        setRandomNum(Math.floor(Math.random() * (30 - 1 + 1)) + 1) //random number between 1 and 30
+        setRandomNum(Math.floor(Math.random() * (60 - 10 + 1)) + 10) //random number between 1 and 30
         console.log(randomNum)
     }
 
@@ -146,6 +146,7 @@ const VictoryPage = () => {
                         ))}
                     </ListGroup>
                 </div>
+                <button onClick={handleClick} className='victory_button'>Continue</button>
                 <audio autoPlay src={victoryPageMusic} loop type="audio/wav" volume='0.2'>
                 </audio>
             </div>
