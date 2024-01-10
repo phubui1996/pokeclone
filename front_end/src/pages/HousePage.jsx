@@ -129,7 +129,7 @@ const HousePage = () => {
         volume="0.2"
       ></audio>
       <div id="house_div">
-        <h6 className="house_headers">TEAM POKEMON</h6>
+        <h6 className="house_headers">TEAM POKEMON : {pokeTeam.length}</h6>
         <div className="team_pokemons_div">
           {/* <h2>Team Pokemon</h2> */}
           {pokeTeam &&
@@ -152,7 +152,7 @@ const HousePage = () => {
               />
             ))}
         </div>
-        <h6 className="house_header">CAPTURED POKEMON</h6>
+        <h6 className="house_header">CAPTURED POKEMON : {capturedPokemons.length}</h6>
         <div className="captured_pokemons_div">
           {/* <h2>Captured Pokemon</h2> */}
           {capturedPokemons &&
