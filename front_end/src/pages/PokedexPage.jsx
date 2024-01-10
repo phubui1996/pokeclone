@@ -40,7 +40,6 @@ const PokedexPage = () => {
     <div className='full_page_div'>
       <audio autoPlay src={pokedexMusic} loop type="audio/wav" volume='0.2'></audio>
       <div id='pokedex_div'>
-        {/* <h2>Pokedex</h2> */}
         <div id='pokedex_inner_div'>
           {pokemons && pokemons.length > 0 ? (
             pokemons.map((pokemon) => (
