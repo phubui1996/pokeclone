@@ -386,8 +386,10 @@ const GymPage = () => {
                   isOpen={modalIsOpen}
                   onRequestClose={closeModal}
                   contentLabel="Your Team"
+                  className='change_poke_modal'
                 >
                   <h2>Select a Pokemon:</h2>
+                  <div className="modal_buttons_div">
                   {pokeTeam.map((poke) => (
                     <button
                       key={poke.user_pokemon.pokemon.id}
@@ -395,15 +397,22 @@ const GymPage = () => {
                         handleOptionClick(poke.user_pokemon.pokemon)
                       }
                       disabled={poke.user_pokemon.pokemon.hp <= 0}
+                      className="battle_modal_buttons"
                     >
                       {poke.user_pokemon.pokemon.name}
+                      <br></br>
                       <img
                         src={poke.user_pokemon.pokemon.front_img}
                         alt={poke.user_pokemon.pokemon.name}
                       />
+                      <br></br>
+                      {poke.user_pokemon.pokemon.hp}
+                      <br></br>
+                      {poke.user_pokemon.pokemon.lvl}
                     </button>
                   ))}
-                  <button onClick={closeModal}>Close</button>
+                  </div>
+                  <button className='victory_button' onClick={closeModal}>Close</button>
                 </Modal>
               )}
             </div>

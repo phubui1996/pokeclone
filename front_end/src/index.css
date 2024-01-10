@@ -253,6 +253,7 @@ input {
   background-color: rgba(245, 245, 245, 0.564);
   border-radius: 20px;
   margin-bottom: 1%;
+  padding: 20px;
 }
 
 #intro_block2 {
@@ -401,6 +402,11 @@ input {
   visibility: visible;
 }
 
+.tall_grass_div:hover {
+  background-color: rgb(105, 179, 105);
+  border-radius: 10px;
+}
+
 
 /* Battle Page ////////////////////////////////////////////////////////// */
 
@@ -412,12 +418,13 @@ input {
   background-size: cover;
   background-repeat: no-repeat;
   padding: 20px;
+  align-items: center;
 }
 
 #poke_div {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 80%;
   height: 100%;
   justify-content: space-evenly;
   align-items: end;
@@ -429,10 +436,11 @@ input {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 15px;
   width: 50%;
   margin-bottom: 2%;
   color: white;
+  text-shadow: 1px 1px lightgray;
 }
 
 #your_pokemon_div {
@@ -440,13 +448,9 @@ input {
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  padding: 10px;
   width: 50%;
   color: white;
-}
-
-.poke_profile_div {
-  border: 2px solid blue;
+  text-shadow: 1px 1px lightgray;
 }
 
 .pokemon_image {
@@ -460,8 +464,9 @@ input {
   width: 200%;
 }
 
-.actual_status_bar{
-  width: 100%
+.actual_status_bar {
+  width: 100%;
+  text-shadow: none;
 }
 
 #battle_options_div {
@@ -523,6 +528,8 @@ input {
   color: white;
   background-color: rgb(39, 72, 154);
   padding: 5px;
+  width: 150px;
+  padding: 10px;
 }
 
 .battle_modal_buttons:hover {
@@ -534,11 +541,23 @@ input {
   width: 100%;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: row;
   align-items: center;
   justify-content: center;
   margin-top: 8vh;
+  color: rgb(39, 72, 154);
 }
+
+.modal_buttons_div {
+  display: flex;
+  width: 60%;
+  margin: 20px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Pokedex Page ///////////////////////////////////////////////////////////////////// */
 
 #pokedex_div {
@@ -659,11 +678,11 @@ input {
   display: flex;
 }
 
-.progress-bar{
+.progress-bar {
   background-color: rgb(39, 72, 154) !important;
 }
 
-#pokecenter_list_item{
+#pokecenter_list_item {
   color: whitesmoke;
   background-color: rgba(211, 189, 21, 0.694);
   border: none;
@@ -678,7 +697,7 @@ input {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-image: url(https://cdn.class101.net/images/eee625e4-5548-4446-94ed-a7b487212523);
+  background-image: url(/src/assets/house_background.png);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -854,9 +873,13 @@ input {
   margin: 3rem;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 90%;
   border-radius: 10px;
-  overflow-y: scroll;
+  height: 500px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow-x: auto;
 }
 
 #victory_title {
@@ -866,7 +889,7 @@ input {
 #victory_div {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 300px;
   border-radius: 4px;
   overflow: hidden;
   margin: 5px;
@@ -883,9 +906,22 @@ input {
   margin-top: 5px;
 }
 
-.victory_list{
+.victory_list {
   background-color: rgba(245, 245, 245, 0.608);
   border-radius: 10px !important;
+}
+
+.victory_button {
+  border: none;
+  border-radius: 7px;
+  background-color: rgb(39, 72, 154);
+  color: white;
+  width: 100px;
+  height: 35px;
+}
+
+.victory_button:hover {
+  background-color: rgb(211, 189, 21);
 }
 
 /* Gym Page ///////////////////////////////////////////////////////////////////////// */
