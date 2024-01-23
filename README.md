@@ -62,3 +62,5 @@ Languages: JavaScript, Python
 ![App Screenshot](/PC_Screenshots/PC_PokeCenter.png)
 ![App Screenshot](/PC_Screenshots/PC_Gym.png)
 ![App Screenshot](/PC_Screenshots/PC_Gameover.png)
+
+Here is a video presentation showcasing development and functionality: https://youtu.be/WSusU5mbaPI?t=3361
